@@ -4,6 +4,7 @@
 }
 
 .registrationFormContainer form{
+    position: relative;
     width: 40%;
     min-height: 75vh;
     display: flex;
@@ -11,7 +12,18 @@
     justify-content: space-evenly;
     padding: 20px 10px;
     background-color: skyblue;
-    margin: 20px auto;
+    margin: 100px auto;
+    border-radius: 20px;
+}
+
+.registrationFormHeader{
+    position: absolute;
+    top: -20px;
+    right: 160px;
+    background-color: aquamarine;
+    font-size: x-large;
+    border-radius: 10px;
+    padding: 10px;
 }
 
 .danger{

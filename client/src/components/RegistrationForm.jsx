@@ -29,7 +29,9 @@ const RegistrationForm = () => {
     }
     return (
         <div className="registrationFormContainer">
+
             <form onSubmit={handleSubmit}>
+                <span className='registrationFormHeader'>Registration Form</span>
                 <label>Name</label>
                 <input name="name" placeholder="Name..." value={input.name} onChange={handleChange}/>
                 {!!error.name && <div className={'danger'}>{error.name}</div>}

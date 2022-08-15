@@ -1,14 +1,15 @@
-// import { useState } from 'react';
 import './App.css';
+import { Route, Switch } from 'react-router-dom';
 import Home from './pages/Home';
 
 function App() {
-	// const [count, setCount] = useState(0);
 
 	return (
 		<div className='App'>
-			<Home/>
-			<h1>Hola mundo 😋!!</h1>
+			<Switch>
+				<Route exact path='/' component={Home} />
+				{/* <Route exact path='/bases/:id' component={Detail} /> */}
+			</Switch>
 		</div>
 	);
 }

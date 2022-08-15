@@ -1,5 +1,4 @@
-import { SET_LOADING } from "./types";
-import { GET_DATA } from "./types";
+import { SET_LOADING, GET_DATA } from "./types";
 import axios from 'axios';
 
 export const setLoading = payload => ({ type: SET_LOADING, payload });

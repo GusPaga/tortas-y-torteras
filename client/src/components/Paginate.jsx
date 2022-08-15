@@ -1,38 +1,39 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setPage } from '../redux/actions';
 import './Paginate.css';
 
+// eslint-disable-next-line react/prop-types
 export default function Paginado({ cardsPerPage, totalCards, indexFirstCard }) {
+	const { redPage } = useSelector(state => state);
 	const dispatch = useDispatch();
 	const pages = Math.ceil(totalCards / cardsPerPage);
 	const pageNumbers = [];
 
-	for (let i = 1; i <= pages; i++) {
+	const start = Number(redPage) - 1 < 1 ? 1 : Number(redPage) - 1;
+	const end = Number(redPage) + 1 > pages ? pages : Number(redPage) + 1;
+
+	for (let i = start; i <= end; i++) {
 		pageNumbers.push(i);
 	}
 
 	const onClickPage = e => dispatch(setPage(e.target.innerHTML));
 
 	const onClickPrev = () => {
-		let page = document.querySelector('.active-pag');
+		const page = document.querySelector('.active-pag');
 		page.classList.remove('active-pag');
 
 		page.previousSibling.innerHTML === 'Prev'
-			? (page = document.querySelector(`#page-${pages}`))
-			: (page = page.previousSibling);
-
-		dispatch(setPage(page.innerHTML));
+			? dispatch(setPage(pages))
+			: dispatch(setPage(page.previousSibling.innerHTML));
 	};
 
 	const onClickNext = () => {
-		let page = document.querySelector('.active-pag');
+		const page = document.querySelector('.active-pag');
 		page.classList.remove('active-pag');
 
 		page.nextSibling.innerHTML === 'Next'
-			? (page = document.querySelector('#page-1'))
-			: (page = page.nextSibling);
-
-		dispatch(setPage(page.innerHTML));
+			? dispatch(setPage(1))
+			: dispatch(setPage(page.nextSibling.innerHTML));
 	};
 
 	return (

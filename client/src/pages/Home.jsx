@@ -1,4 +1,4 @@
-import './Home.css'
+import './Home.css';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Navbar from '../components/Navbar';
@@ -36,7 +36,7 @@ export default function Home() {
 			<div className='wrapper'>
 				{cardsPage.map(prod => (
 					<div key={prod.id}>
-						<Card id={prod.id} img_home={prod.img_home} />
+						<Card id={prod.id} imgHome={prod.img_home} />
 					</div>
 				))}
 			</div>

@@ -1,6 +1,6 @@
 import '../components/RegistrationForm.css'
 import {useState} from 'react'
-import { validate } from '../validations/RegistrationValidation'
+import { validateRegistration } from '../validations/RegistrationValidation'
 
 
 const RegistrationForm = () => {
@@ -13,7 +13,7 @@ const RegistrationForm = () => {
             [e.target.name]: e.target.value
         })
         
-        setError(validate({
+        setError(validateRegistration({
             ...input,
             [e.target.name]: e.target.value
 
@@ -44,6 +44,12 @@ const RegistrationForm = () => {
                 <label>User</label>
                 <input name="user" placeholder="User..." value={input.user}onChange={handleChange}/>
                 {!!error.user && <div className={'danger'}>{error.user}</div>}
+                <label>Country</label>
+                <input name="user" placeholder="Country..." value={input.user}onChange={handleChange}/>
+                {!!error.country && <div className={'danger'}>{error.country}</div>}
+                <label>City</label>
+                <input name="city" placeholder="User..." value={input.city}onChange={handleChange}/>
+                {!!error.city && <div className={'danger'}>{error.city}</div>}
                 <label>Address</label>
                 <input name="address" placeholder="Address..." value={input.address}onChange={handleChange}/>
                 {!!error.address && <div className={'danger'}>{error.address}</div>}

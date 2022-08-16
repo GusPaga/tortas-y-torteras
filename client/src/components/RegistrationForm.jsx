@@ -24,6 +24,8 @@ const RegistrationForm = () => {
         e.preventDefault()
         if(!input.email || !!Object.keys(error).length) alert('Some fields are missing')
         else {
+            console.log(input)
+            setInput({})
             alert('User Created')
         }
     }
@@ -45,7 +47,7 @@ const RegistrationForm = () => {
                 <input name="user" placeholder="User..." value={input.user}onChange={handleChange}/>
                 {!!error.user && <div className={'danger'}>{error.user}</div>}
                 <label>Country</label>
-                <input name="user" placeholder="Country..." value={input.user}onChange={handleChange}/>
+                <input name="country" placeholder="Country..." value={input.country}onChange={handleChange}/>
                 {!!error.country && <div className={'danger'}>{error.country}</div>}
                 <label>City</label>
                 <input name="city" placeholder="User..." value={input.city}onChange={handleChange}/>

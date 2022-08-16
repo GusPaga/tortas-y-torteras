@@ -4,7 +4,7 @@ import Home from './pages/Home';
 import RegistrationForm from './components/RegistrationForm';
 
 function App() {
-
+	
 	return (
 		<>
 			<Switch>

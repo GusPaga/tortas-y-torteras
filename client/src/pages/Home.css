@@ -1,9 +1,9 @@
 .wrapper {
-  margin: 50px;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  column-gap: 40px;
-  row-gap: 40px;
-  justify-items: center;
-  align-items: center;
+	margin: 0px;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	column-gap: 40px;
+	row-gap: 40px;
+	justify-items: center;
+	align-items: center;
 }

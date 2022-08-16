@@ -1,4 +1,6 @@
 .footer {
+	position: relative;
+	bottom: 0px;
 	display: flex;
 	align-items: center;
 	height: 100px;
@@ -7,6 +9,15 @@
 }
 
 .footer-text {
+	font-size: 25px;
 	position: absolute;
-	left: 100px;
+	left: 50px;
+}
+
+.footer-icons {
+	font-size: 40px;
+	display: flex;
+	gap: 50px;
+	position: absolute;
+	right: 50px;
 }

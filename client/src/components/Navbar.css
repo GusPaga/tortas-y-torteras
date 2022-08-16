@@ -1,12 +1,7 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins:400');
-
 .bar-header {
 	display: flex;
-	flex-direction: row;
 	align-items: center;
 	height: 100px;
-	width: 100%;
-	min-width: 1440px;
 	height: 100px;
 	background-color: #000;
 	color: #ffffff;

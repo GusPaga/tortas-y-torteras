@@ -25,6 +25,8 @@
 	font-size: 50px;
 	position: absolute;
 	left: 50px;
+	color: #a238ff;
+	text-shadow: 1px 0px 20px #7d2bc4;
 }
 
 .bar-heading {

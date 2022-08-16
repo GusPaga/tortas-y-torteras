@@ -8,8 +8,8 @@ function App() {
 		<>
 			<Switch>
 				<Route exact path='/' component={Home} />
+				<Route exact path='/registration' component={RegistrationForm} />
 				<Route exact path='/:id' component={Detail} />
-				<Route exact path={'/Registration'} component={RegistrationForm} />
 			</Switch>
 		</>
 	);

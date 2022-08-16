@@ -5,6 +5,7 @@ import Navbar from '../components/Navbar';
 import Card from '../components/Card';
 import Paginate from '../components/Paginate';
 import { getData } from '../redux/actions';
+import Footer from '../components/Footer';
 
 export default function Home() {
 	const dispatch = useDispatch();
@@ -40,6 +41,7 @@ export default function Home() {
 					</div>
 				))}
 			</div>
+			<Footer />
 		</>
 	);
 }

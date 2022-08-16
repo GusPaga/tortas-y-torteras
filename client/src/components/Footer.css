@@ -5,3 +5,8 @@
 	background-color: #000;
 	color: #fff;
 }
+
+.footer-text {
+	position: absolute;
+	left: 100px;
+}

@@ -1,0 +1,23 @@
+.footer {
+	position: relative;
+	bottom: 0px;
+	display: flex;
+	align-items: center;
+	height: 100px;
+	background-color: #000;
+	color: #fff;
+}
+
+.footer-text {
+	font-size: 25px;
+	position: absolute;
+	left: 50px;
+}
+
+.footer-icons {
+	font-size: 40px;
+	display: flex;
+	gap: 50px;
+	position: absolute;
+	right: 50px;
+}

@@ -4,8 +4,7 @@ const initialState = [];
 
 const redData = (state = initialState, { type, payload }) => {
 	switch (type) {
-    case GET_DATA:
-      console.log('reducer',payload);
+		case GET_DATA:
 			return payload;
 		default:
 			return state;

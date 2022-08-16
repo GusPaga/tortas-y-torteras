@@ -33,7 +33,6 @@ function Detail() {
 
 	return (
 		<div>
-			<h1>Detail 👋🏻</h1>
 			<h1>{myproduct.id}</h1>
 			<h1>{myproduct.name}</h1>
 			<h1>{myproduct.description}</h1>

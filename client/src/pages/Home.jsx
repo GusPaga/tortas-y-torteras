@@ -37,7 +37,7 @@ export default function Home() {
 			<div className='wrapper'>
 				{cardsPage.map(prod => (
 					<div key={prod.id}>
-						<Card id={prod.id} imgHome={prod.img_home} />
+						<Card imgHome={prod.img_home} name={prod.name} price={prod.price} />
 					</div>
 				))}
 			</div>

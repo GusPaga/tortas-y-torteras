@@ -52,8 +52,10 @@ const RegistrationForm = () => {
           <input type='email' name="email" placeholder="Email..." value={input.email} onChange={handleChange}/>
           {error.email && <div className={'danger'}>{error.email}</div>}
 
-          <label>Password</label>
-          <input type="password" name="password" placeholder="Password..." value={input.password} onChange={handleChange}/>
+          <label >Password</label>
+          <div className='dialog'>
+          <input  type="password" name="password" placeholder="Password..." value={input.password} onChange={handleChange}/>
+          </div>
           {error.password && <div className={'danger'}>{error.password}</div>}
 
           <label>Confirm password</label>

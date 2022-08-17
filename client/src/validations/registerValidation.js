@@ -15,17 +15,17 @@ export const validateRegister = input => {
 	const error = {};
 
 	if (
-		!noEmpty.test(input.firstName) ||
-		!letters.test(input.firstName) ||
-		input.firstName.length < 2
+		!noEmpty.test(input.name) ||
+		!letters.test(input.name) ||
+		input.name.length < 2
 	)
-		error.firstName = 'First Name is required';
+		error.name = 'First Name is required';
 	if (
-		!noEmpty.test(input.lastName) ||
-		!letters.test(input.lastName) ||
-		input.lastName.length < 2
+		!noEmpty.test(input.lastname) ||
+		!letters.test(input.lastname) ||
+		input.lastname.length < 2
 	)
-		error.lastName = 'Last Name is required';
+		error.lastname = 'Last Name is required';
 	if (!validateMail.test(input.email)) error.email = 'It has to be an email';
 	if (!noEmpty.test(input.password) || !validatePassword.test(input.password))
 		error.password = 'Requires 8 characters or more';

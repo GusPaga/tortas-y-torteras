@@ -18,7 +18,7 @@ function Detail() {
 		async function fetchData() {
 			try {
 				dispatch(setLoading(true));
-				const response = await axios.get('http://localhost:3000/Products');
+				const response = await axios.get('http://localhost:3001/products');
 				setProduct(response.data); // ➡ Guardar datos
 				dispatch(setLoading(false));
 			} catch (error) {

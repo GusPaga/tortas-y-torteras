@@ -3,15 +3,16 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
+import Rating from '../components/Rating';
 import { setLoading } from '../redux/actions';
 import './Detail.css';
 
 function Detail() {
 	const { id } = useParams();
 	const [product, setProduct] = useState([]);
-	// const history = useHistory();
+	const history = useHistory();
 	const dispatch = useDispatch();
-	// const { redLoading } = useSelector(state => state);
+	const { redLoading } = useSelector(state => state);
 
 	useEffect(() => {
 		async function fetchData() {
@@ -31,10 +32,8 @@ function Detail() {
 	if (product.length) myproduct = product?.find(e => e.id === Number(id));
 	else return <h1>Cargando...</h1>;
 
-	console.log(myproduct.img_home);
 	return (
 		<div className='detail-wrapper'>
-			<span>Close X</span>
 			<div className='detail-content'>
 				{/* LEFT COLUMN */}
 				<div className='detail-content-left'>
@@ -94,21 +93,64 @@ function Detail() {
 						<div className='dt1-price'>Price: {myproduct.price}</div>
 					</div>
 					<div className='detail-2'>
-						<span>{myproduct.score}/5</span>
-						<span>*****</span>
+						{/* <span>{myproduct.score}/5</span> */}
+						<Rating />
 						<span className='dt2-3'>See all xx reviews</span>
 					</div>
 					<div className='detail-3'>
 						<span>Colours</span>
-						<div></div>
-						<div></div>
-						<div></div>
+						<div className='dt3'>
+							<div
+								className='dt3-1'
+								style={{
+									backgroundColor: `${myproduct.colors[0]}`,
+									border: `2px solid ${myproduct.colors[0]}`,
+								}}
+							></div>
+							<div
+								className='dt3-2'
+								style={{
+									backgroundColor: `${myproduct.colors[1]}`,
+									border: `2px solid ${myproduct.colors[1]}`,
+								}}
+							></div>
+							<div
+								className='dt3-3'
+								style={{
+									backgroundColor: `${myproduct.colors[2]}`,
+									border: `2px solid ${myproduct.colors[2]}`,
+								}}
+							></div>
+						</div>
 					</div>
-					<div className='detail-4'>Size</div>
-					<div className='detail-5'>Avaibility</div>
-					<div className='detail-5'>Add</div>
+					<div className='detail-4'>
+						<span>Size</span>
+						<div className='dt4'>
+							<div className='dt4-1'>
+								<p className='dt4-1-p1'>Medium</p>
+								<p className='dt4-1-p2'>32 cm</p>
+							</div>
+							<div className='dt4-2'>
+								<p className='dt4-2-p1'>Large</p>
+								<p className='dt4-1-p2'>35 cm</p>
+							</div>
+						</div>
+					</div>
+					<div className='detail-5'>Avaibility: In stock</div>
+					<div className='detail-6'>
+						<span>Add</span>
+						<div className='dt6-1'>Add to bag</div>
+						<div className='dt6-2'>Add to wishlist</div>
+					</div>
 				</div>
 			</div>
+			<button
+				onClick={() => history.push('/')}
+				className='detail-back'
+				type='button'
+			>
+				back
+			</button>
 		</div>
 	);
 }

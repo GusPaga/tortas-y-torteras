@@ -10,7 +10,7 @@ export const getData = () => {
 	return async dispatch => {
 		dispatch(setLoading(true));
 		try {
-			const response = await axios.get('http://localhost:3000/Products');
+			const response = await axios.get('http://localhost:3001/products');
 			if (response.status === 200)
 				dispatch({ type: GET_DATA, payload: response.data });
 		} catch {

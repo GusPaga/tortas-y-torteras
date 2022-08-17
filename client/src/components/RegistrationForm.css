@@ -29,3 +29,24 @@
 .danger{
     color: red;
 }
+
+.dialog{
+    position: relative;
+}
+.dialog input{
+    width: 100%;
+}
+
+.dialog:hover::after{
+    content: "Al menos un número 0-9 \A Al menos una mayúscula \A Al menos una minúscula \A Al menos un carácter especial (.,*!?¿¡/#$%&) \A Longitud mínima de 8 caracteres, 64 máxima \A No acepta espacios";
+    white-space: pre-wrap;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 5px;
+    padding: 5px;
+    padding-left: 20px;
+    background-color: red;
+    color: white;
+}

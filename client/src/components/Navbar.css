@@ -37,4 +37,10 @@
 	position: absolute;
 	right: 25px;
 	font-size: 16px;
+	text-decoration: none;
+	color: #fff;
+}
+
+.bar-login-text:hover {
+	color: rgb(0, 248, 0);
 }

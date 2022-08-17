@@ -1,67 +1,70 @@
 import '../components/RegistrationForm.css'
 import {useState} from 'react'
-import { validateRegistration } from '../validations/RegistrationValidation'
+import { validateRegister } from '../validations/registerValidation'
 
 
 const RegistrationForm = () => {
-    const [input, setInput] = useState({})
-    const [error, setError] = useState({})
+    const [input, setInput] = useState({
+      firstName: '',
+      lastName: '',
+      email: '',
+      password: '',
+      cpassword: ''
+    });
+    const [error, setError] = useState({});
 
     const handleChange = (e) => {
         setInput({
             ...input,
-            [e.target.name]: e.target.value
-        })
-        
-        setError(validateRegistration({
+            [e.target.name]: e.target.value,
+        });
+        setError(validateRegister({
             ...input,
-            [e.target.name]: e.target.value
-
-        }))
-    }
+            [e.target.name]: e.target.value,
+        })
+      );
+    };
 
     const handleSubmit = (e) => {
-        e.preventDefault()
-        if(!input.email || !!Object.keys(error).length) alert('Some fields are missing')
-        else {
-            alert('User Created')
-        }
+      e.preventDefault()
+      if(!input.email || !!Object.keys(error).length) alert('Some fields are missing')
+      else if(input.password !== input.cpassword) {
+        alert('Incorrect password. They must be the same!')
+      }
+      else {
+        alert('User Created')
+      }
     }
     return (
-        <div className="registrationFormContainer">
+      <div className="registrationFormContainer">
+        <form onSubmit={handleSubmit}>
+          <span className='registrationFormHeader'>Registration Form</span>
 
-            <form onSubmit={handleSubmit}>
-                <span className='registrationFormHeader'>Registration Form</span>
-                <label>Name</label>
-                <input name="name" placeholder="Name..." value={input.name} onChange={handleChange}/>
-                {!!error.name && <div className={'danger'}>{error.name}</div>}
-                <label>LastName</label>
-                <input name="lastname" placeholder="LastName..." value={input.lastname} onChange={handleChange}/>
-                {!!error.lastname && <div className={'danger'}>{error.lastname}</div>}
-                <label>Email</label>
-                <input name="email" placeholder="Email..." value={input.email} onChange={handleChange}/>
-                {!!error.email && <div className={'danger'}>{error.email}</div>}
-                <label>User</label>
-                <input name="user" placeholder="User..." value={input.user}onChange={handleChange}/>
-                {!!error.user && <div className={'danger'}>{error.user}</div>}
-                <label>Country</label>
-                <input name="user" placeholder="Country..." value={input.user}onChange={handleChange}/>
-                {!!error.country && <div className={'danger'}>{error.country}</div>}
-                <label>City</label>
-                <input name="city" placeholder="User..." value={input.city}onChange={handleChange}/>
-                {!!error.city && <div className={'danger'}>{error.city}</div>}
-                <label>Address</label>
-                <input name="address" placeholder="Address..." value={input.address}onChange={handleChange}/>
-                {!!error.address && <div className={'danger'}>{error.address}</div>}
-                <label>Birth</label>
-                <input type='date' name="birth" value={input.birth}onChange={handleChange}/>
-                {!!error.date && <div className={'danger'}>{error.date}</div>}
+          <label>First Name</label>
+          <input type='text' name="firstName" placeholder="Name..." value={input.firstName} onChange={handleChange}/>
+          {error.firstName && <div className={'danger'}>{error.firstName}</div>}
 
-                <input type={'submit'} value='Register' />
-            </form>
+          <label>Last Name</label>
+          <input type='text' name="lastName" placeholder="LastName..." value={input.lastName} onChange={handleChange}/>
+          {error.lastName && <div className={'danger'}>{error.lastName}</div>}
 
-        </div>
+          <label>Email</label>
+          <input type='email' name="email" placeholder="Email..." value={input.email} onChange={handleChange}/>
+          {error.email && <div className={'danger'}>{error.email}</div>}
 
+          <label >Password</label>
+          <div className='dialog'>
+          <input  type="password" name="password" placeholder="Password..." value={input.password} onChange={handleChange}/>
+          </div>
+          {error.password && <div className={'danger'}>{error.password}</div>}
+
+          <label>Confirm password</label>
+          <input type="password" name="cpassword" placeholder="Confirm password..." value={input.cpassword} onChange={handleChange}/>
+          {error.cpassword && <div className={'danger'}>{error.cpassword}</div>}
+
+          <input type={'submit'} value='Register' />
+        </form>
+      </div>
     )
 }
 

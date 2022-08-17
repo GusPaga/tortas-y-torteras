@@ -29,7 +29,7 @@ function Detail() {
 	}, [dispatch, id]);
 
 	let myproduct = {};
-	if (product.length) myproduct = product?.find(e => e.id === Number(id));
+	if (product.length) myproduct = product?.find(e => e.id === id);
 	else return <h1>Cargando...</h1>;
 
 	return (
@@ -103,22 +103,22 @@ function Detail() {
 							<div
 								className='dt3-1'
 								style={{
-									backgroundColor: `${myproduct.colors[0]}`,
-									border: `2px solid ${myproduct.colors[0]}`,
+									backgroundColor: `${myproduct.Colors[0].hex}`,
+									border: `2px solid ${myproduct.Colors[0].hex}`,
 								}}
 							></div>
 							<div
 								className='dt3-2'
 								style={{
-									backgroundColor: `${myproduct.colors[1]}`,
-									border: `2px solid ${myproduct.colors[1]}`,
+									backgroundColor: `${myproduct.Colors[1].hex}`,
+									border: `2px solid ${myproduct.Colors[1].hex}`,
 								}}
 							></div>
 							<div
 								className='dt3-3'
 								style={{
-									backgroundColor: `${myproduct.colors[2]}`,
-									border: `2px solid ${myproduct.colors[2]}`,
+									backgroundColor: `${myproduct.Colors[2].hex}`,
+									border: `2px solid ${myproduct.Colors[2].hex}`,
 								}}
 							></div>
 						</div>

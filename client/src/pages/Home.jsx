@@ -28,7 +28,6 @@ export default function Home() {
 
 	return (
 		<>
-			<Navbar />
 			<Paginate
 				cardsPerPage={cardsPerPage}
 				totalCards={totalCards}
@@ -37,11 +36,15 @@ export default function Home() {
 			<div className='wrapper'>
 				{cardsPage.map(prod => (
 					<div key={prod.id}>
-						<Card imgHome={prod.img_home} name={prod.name} price={prod.price} />
+						<Card
+							imgHome={prod.img_home}
+							id={prod.id}
+							name={prod.name}
+							price={prod.price}
+						/>
 					</div>
 				))}
 			</div>
-			<Footer />
 		</>
 	);
 }

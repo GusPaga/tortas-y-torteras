@@ -1,37 +1,36 @@
 .card-wrapper {
-	width: 500px;
-	height: 600px;
-	/* box-shadow: 0 70px 63px -60px #000000; */
+	width: 300px;
+	height: 370px;
 	color: #000;
 }
 
 .card {
-	width: 500px;
-	height: 500px;
+	width: 300px;
+	height: 300px;
 	transition: background-size 3s;
 	border-radius: 10px;
-	background-size: 500px;
+	background-size: 300px;
 	background-position: center;
 }
 
 .card:hover {
-	background-size: 800px;
+	background-size: 500px;
 }
 
 .card-text {
 	display: flex;
 	flex-direction: column;
 	justify-content: space-between;
-	height: 80px;
+	height: 60px;
 	margin-top: 10px;
 }
 
 .card-name {
 	font-weight: 600;
-	font-size: 30px;
+	font-size: 20px;
 }
 
 .card-price {
 	font-weight: 400;
-	font-size: 20px;
+	font-size: 16px;
 }

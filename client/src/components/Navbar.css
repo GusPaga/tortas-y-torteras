@@ -1,14 +1,5 @@
-.bar-header {
-	display: flex;
-	align-items: center;
-	height: 50px;
-	background-color: #000;
-	color: #ffffff;
-}
-
-.bar-brush-icon {
+.bar-brush-icon i {
 	font-size: 25px;
-	position: absolute;
 	left: 25px;
 	color: #a238ff;
 	text-shadow: 1px 0px 20px #7d2bc4;

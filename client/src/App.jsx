@@ -5,6 +5,7 @@ import RegistrationForm from './components/RegistrationForm';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Landing from './pages/Landing';
+import Filter from './components/Filter';
 
 function App() {
 	return (
@@ -15,6 +16,7 @@ function App() {
 				<Route exact path='/landing' component={Landing} />
 				<Route exact path='/registration' component={RegistrationForm} />
 				<Route exact path='/:id' component={Detail} />
+				<Route exact path='/bases/filter' component={Filter} />
 			</Switch>
 			<Footer />
 		</>

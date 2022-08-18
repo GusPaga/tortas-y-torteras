@@ -14,7 +14,6 @@ const Landing = () => {
 	const arrayImg = [];
 	for (const product of redData) arrayImg.push(product.img_home);
 	const randomImg = Math.floor(Math.random() * 20);
-	console.log(randomImg);
 
 	return (
 		<div className='landing-wrapper'>
@@ -32,7 +31,9 @@ const Landing = () => {
 							This is Functional Art in your Table. Original pieces created with
 							love and good taste, wood, painting, colors, creativity, and
 							technique are collected togheter to get this beautiful pieces.
-							Each piece dedicated to people who like functional art in home.
+						</p>
+						<p>
+							Each piece dedicated to people who likes functional art at home.
 						</p>
 					</div>
 				</div>

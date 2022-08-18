@@ -7,6 +7,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Landing from './pages/Landing';
 import Filter from './components/Filter';
+import ShoppingCart from './components/ShoppingCart';
 
 function App() {
 	return (
@@ -18,9 +19,10 @@ function App() {
 				<Route exact path='/registration' component={RegistrationForm} />
 				<Route exact path='/addproduct' component={ProductForm} />
 				<Route exact path='/:id' component={Detail} />
+				<Route exact path='/shop/shoppingCart' component={ShoppingCart} />
 				<Route exact path='/bases/filter' component={Filter} />
 			</Switch>
-			<Footer />
+			{/* <Footer /> */}
 		</>
 	);
 }

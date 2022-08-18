@@ -11,10 +11,17 @@
 	font-size: 18px;
 }
 
+.bar-heading span {
+	color: #c684ff;
+}
+
 .bar-bag-icon {
 	position: absolute;
 	font-size: 25px;
 	right: 150px;
+}
+.bar-bag-icon i {
+	color: #fff;
 }
 
 .bar-user-icon {

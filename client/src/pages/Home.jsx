@@ -30,7 +30,7 @@ export default function Home() {
 	return (
 		<>
 			<div className='pag-wrapper'>
-				<Pagination count={pages} onChange={handleChange} />
+				<Pagination size='large' count={pages} onChange={handleChange} />
 			</div>
 
 			<div className='wrapper'>

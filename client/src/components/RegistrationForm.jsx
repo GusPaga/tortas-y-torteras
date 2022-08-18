@@ -4,6 +4,9 @@ import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { validateRegister } from '../validations/registerValidation';
 import '../components/RegistrationForm.css';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
 const RegistrationForm = () => {
 	const users = useSelector(state => state);

@@ -1,7 +1,7 @@
 import './Navbar.css';
 import { Link } from 'react-router-dom';
 // import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import { CssBaseline, AppBar, Toolbar } from '@mui/material';
+import { AppBar, Toolbar } from '@mui/material';
 
 export default function Navbar() {
 	return (
@@ -14,9 +14,13 @@ export default function Navbar() {
 							<i className='fa-solid fa-palette'></i>
 						</Link>
 					</span>
-					<div className='bar-heading'>Cakes&Bases</div>
+					<div className='bar-heading'>
+						Cakes<span>&</span>Bases
+					</div>
 					<span className='bar-bag-icon'>
-						<i className='fa-solid fa-bag-shopping'></i>
+						<Link to='/shop/shoppingcart'>
+							<i className='fa-solid fa-bag-shopping'></i>
+						</Link>
 					</span>
 					<span className='bar-user-icon'>
 						<i className='fa-solid fa-circle-user'></i>

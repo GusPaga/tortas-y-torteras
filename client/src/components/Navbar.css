@@ -20,6 +20,9 @@
 	font-size: 25px;
 	right: 150px;
 }
+.bar-bag-icon i {
+	color: #fff;
+}
 
 .bar-user-icon {
 	position: absolute;

@@ -1,25 +1,27 @@
-// import Dog from "../components/Dogs";
+import './Detail.css';
 import axios from 'axios';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import Rating from '../components/Rating';
 import { setLoading } from '../redux/actions';
-import './Detail.css';
+import { ShoppingCartContext } from '../context/ShoppingCartContext';
 
 function Detail() {
 	const { id } = useParams();
-	const [product, setProduct] = useState([]);
+	const [product, setProduct] = useState({});
 	const history = useHistory();
 	const dispatch = useDispatch();
 	const { redLoading } = useSelector(state => state);
+	const [cart, setCart] = useContext(ShoppingCartContext);
+	const [amount, setAmount] = useState(1);
 
 	useEffect(() => {
 		async function fetchData() {
 			try {
 				dispatch(setLoading(true));
 				const response = await axios.get('http://localhost:3001/products');
-				setProduct(response.data); // ➡ Guardar datos
+				setProduct(response.data.find(e => e.id === id));
 				dispatch(setLoading(false));
 			} catch (error) {
 				alert(error);
@@ -28,9 +30,11 @@ function Detail() {
 		fetchData();
 	}, [dispatch, id]);
 
-	let myproduct = {};
-	if (product.length) myproduct = product?.find(e => e.id === id);
-	else return <h1>Cargando...</h1>;
+	const addToCart = () => {
+		if (!cart.some(e => e.id === id)) setCart([...cart, product]);
+	};
+
+	if (!product.id) return <h1>Cargando...</h1>;
 
 	return (
 		<div className='detail-wrapper'>
@@ -43,7 +47,7 @@ function Detail() {
 						data-bs-ride='carousel'
 					>
 						<div className='carousel-inner'>
-							{myproduct.img_detail.map((im, i) => (
+							{product.img_detail.map((im, i) => (
 								<div
 									key={i}
 									className={i === 0 ? 'carousel-item active' : 'carousel-item'}
@@ -88,12 +92,12 @@ function Detail() {
 				{/* RIGHT COLUMN */}
 				<div className='detail-content-right'>
 					<div className='detail-1'>
-						<div className='dt1-ref'>Ref-{myproduct.id}</div>
-						<div className='dt1-name'>{myproduct.name}</div>
-						<div className='dt1-price'>Price: {myproduct.price}</div>
+						<div className='dt1-ref'>Ref-{product.id}</div>
+						<div className='dt1-name'>{product.name}</div>
+						<div className='dt1-price'>Price: {product.price}</div>
 					</div>
 					<div className='detail-2'>
-						{/* <span>{myproduct.score}/5</span> */}
+						{/* <span>{product.score}/5</span> */}
 						<Rating />
 						<span className='dt2-3'>See all xx reviews</span>
 					</div>
@@ -103,22 +107,22 @@ function Detail() {
 							<div
 								className='dt3-1'
 								style={{
-									backgroundColor: `${myproduct.Colors[0].hex}`,
-									border: `2px solid ${myproduct.Colors[0].hex}`,
+									backgroundColor: `${product.Colors[0].hex}`,
+									border: `2px solid ${product.Colors[0].hex}`,
 								}}
 							></div>
 							<div
 								className='dt3-2'
 								style={{
-									backgroundColor: `${myproduct.Colors[1].hex}`,
-									border: `2px solid ${myproduct.Colors[1].hex}`,
+									backgroundColor: `${product.Colors[1].hex}`,
+									border: `2px solid ${product.Colors[1].hex}`,
 								}}
 							></div>
 							<div
 								className='dt3-3'
 								style={{
-									backgroundColor: `${myproduct.Colors[2].hex}`,
-									border: `2px solid ${myproduct.Colors[2].hex}`,
+									backgroundColor: `${product.Colors[2].hex}`,
+									border: `2px solid ${product.Colors[2].hex}`,
 								}}
 							></div>
 						</div>
@@ -139,7 +143,9 @@ function Detail() {
 					<div className='detail-5'>Avaibility: In stock</div>
 					<div className='detail-6'>
 						<span>Add</span>
-						<div className='dt6-1'>Add to bag</div>
+						<div onClick={addToCart} className='dt6-1'>
+							Add to bag
+						</div>
 						<div className='dt6-2'>Add to wishlist</div>
 					</div>
 				</div>

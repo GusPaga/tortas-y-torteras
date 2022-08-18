@@ -7,6 +7,7 @@ const ShoppingCart = () => {
 	const [cart, setCart] = useContext(ShoppingCartContext);
 	const history = useHistory();
 	const totalPrice = cart.reduce((acc, curr) => acc + curr.price, 0);
+
 	return (
 		<div className='shopping-wrapper'>
 			<div className='shopping-bag'>
@@ -25,7 +26,7 @@ const ShoppingCart = () => {
 										<div
 											className='shp-img'
 											style={{
-												backgroundImage: `url('${e.imgHome}')`,
+												backgroundImage: `url('${e.img_home}')`,
 											}}
 										></div>
 										<div className='shp-details'>
@@ -62,13 +63,13 @@ const ShoppingCart = () => {
 								<h3>Total</h3>
 							</div>
 							<div className='shp-pay-info-right'>
-								<p>$ {totalPrice}</p>
-								<p>$ {cart.length * 30}</p>
-								<p>$ {(totalPrice + cart.length * 30) * 0.2}</p>
-								<h3>$ {(totalPrice + cart.length * 30) * 1.2}</h3>
+								<p>U$ {totalPrice}</p>
+								<p>U$ {cart.length * 30}</p>
+								<p>U$ {(totalPrice + cart.length * 30) * 0.2}</p>
+								<h3>U$ {(totalPrice + cart.length * 30) * 1.2}</h3>
 							</div>
 						</div>
-						<button className='shp-chkout'>Checkout</button>
+						<button className='shp-chkout'>checkout</button>
 					</div>
 				</div>
 			</div>

@@ -1,13 +1,9 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router';
 import { validateRegister } from '../validations/registerValidation';
 import '../components/RegistrationForm.css';
 
 const RegistrationForm = () => {
-	const users = useSelector(state => state);
-	const history = useHistory();
 	const [input, setInput] = useState({
 		name: '',
 		lastname: '',
@@ -35,13 +31,11 @@ const RegistrationForm = () => {
 
 	const handleSubmit = async e => {
 		e.preventDefault();
-		// const existUser = users?.filter(u => u.email === input.email);
 		if (!input.email || !!Object.keys(error).length)
 			alert('Some fields are missing');
 		else if (input.password !== cpassword)
 			alert('Incorrect password. They must be the same!');
 		else {
-			// console.log(input);
 			try {
 				await axios.post('http://localhost:3001/users/signup', input);
 				setInput({
@@ -56,7 +50,6 @@ const RegistrationForm = () => {
 				alert('User email already exists');
 				console.log(error);
 			}
-			// history.push('/');
 		}
 	};
 

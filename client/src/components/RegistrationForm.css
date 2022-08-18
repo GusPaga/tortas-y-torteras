@@ -1,6 +1,7 @@
 .registrationFormContainer{
     min-height: 100vh;
     width: 100%;
+    display: inline-flex;
 }
 
 .registrationFormContainer form{
@@ -40,6 +41,7 @@
 .dialog:hover::after{
     content: "Al menos un número 0-9 \A Al menos una mayúscula \A Al menos una minúscula \A Al menos un carácter especial (.,*!?¿¡/#$%&) \A Longitud mínima de 8 caracteres, 64 máxima \A No acepta espacios";
     white-space: pre-wrap;
+    display: flex;
     position: absolute;
     top: 100%;
     left: 0;

@@ -1,6 +1,12 @@
+.pag-wrapper {
+	padding: 20px;
+	display: flex;
+	justify-content: center;
+}
+
 .wrapper {
 	width: 100%;
-	max-width: 1440px;
+	max-width: 1000px;
 	margin: auto;
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);

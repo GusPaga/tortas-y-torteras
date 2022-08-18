@@ -4,6 +4,7 @@ import './Card.css';
 export default function Card(props) {
 	// eslint-disable-next-line react/prop-types
 	const { id, imgHome, name, price } = props;
+	const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
 
 	return (
 		<div className='card-wrapper'>

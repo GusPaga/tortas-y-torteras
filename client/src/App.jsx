@@ -6,8 +6,8 @@ import ProductForm from './components/ProductForm';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Landing from './pages/Landing';
-import Filter from './components/Filter';
 import ShoppingCart from './components/ShoppingCart';
+import Try from './components/Try';
 
 function App() {
 	return (
@@ -20,9 +20,9 @@ function App() {
 				<Route exact path='/addproduct' component={ProductForm} />
 				<Route exact path='/:id' component={Detail} />
 				<Route exact path='/shop/shoppingCart' component={ShoppingCart} />
-				<Route exact path='/bases/filter' component={Filter} />
+				<Route exact path='/bases/try' component={Try} />
 			</Switch>
-			{/* <Footer /> */}
+			<Footer />
 		</>
 	);
 }

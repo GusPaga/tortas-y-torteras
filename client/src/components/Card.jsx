@@ -21,7 +21,6 @@ export default function Card(props) {
 				<span className='card-name'>{name}</span>
 				<span className='card-price'>$ {price}</span>
 			</div>
-			{/* <button onClick={addToCart}>Add to Cart</button> */}
 		</div>
 	);
 }

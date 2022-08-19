@@ -1,9 +1,17 @@
 import './Navbar.css';
 import { Link } from 'react-router-dom';
-// import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { useContext, useEffect } from 'react';
 import { AppBar, Toolbar } from '@mui/material';
+import { ShoppingCartContext } from '../context/ShoppingCartContext';
 
 export default function Navbar() {
+	const [cart, setCart] = useContext(ShoppingCartContext);
+	console.log(cart.length);
+
+	useEffect(() => {
+		document.getElementById('navbar-shp-num').innerHTML = cart.length;
+	}, [cart]);
+
 	return (
 		<>
 			{/* <CssBaseline /> */}
@@ -19,7 +27,9 @@ export default function Navbar() {
 					</div>
 					<span className='bar-bag-icon'>
 						<Link to='/shop/shoppingcart'>
-							<i className='fa-solid fa-bag-shopping'></i>
+							<i className='fa-solid fa-bag-shopping'>
+								<span id='navbar-shp-num'></span>
+							</i>
 						</Link>
 					</span>
 					<span className='bar-user-icon'>

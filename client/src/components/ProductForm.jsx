@@ -1,23 +1,66 @@
 // import axios from 'axios';
 import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getColors } from '../redux/actions';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
 import { validateProduct } from '../validations/productValidation';
 import '../components/ProductForm.css';
 
 const ProductForm = () => {
+  const { redColors } = useSelector(state => state);
+	const [queryColors, setQueryColors] = useState([]);
+	const dispatch = useDispatch();
   const [input, setInput] = useState({
 		name: '',
 		description: '',
-		img_home: '',
-		img_detail: [],
+		imageMain: '',
+		imagesDetail: [],
     collection: '',
     type: '',
-    size: '',
-    diameter: '',
     stock: '',
-    price: '',
     artist: '',
     colors: [],
 	});
+
+  const countSelected = () => {
+		const checked = document.querySelectorAll('.checked');
+		const btnText = document.querySelector('.btn-text');
+		checked.length
+			? (btnText.innerText = `${checked.length} Selected`)
+			: (btnText.innerText = 'Select Color');
+	};
+
+  const handleOnClickDiv = () => {
+		dispatch(getColors());
+		document.querySelector('.select-btn').classList.toggle('open');
+	};
+
+  const handleOnClickRender = () => {
+		// 	document.querySelector('.select-btn').classList.toggle('open');
+		// 	dispatch(clearDogs());
+		// 	dispatch(setPage(1));
+		// 	dispatch(getTempDogs({ temp: queryColors }));
+		// 	handleOnClickDiv();
+	};
+
+  const OnClickItem = e => {
+		const li = // si el click es en algun span, el elemento es li
+			e.target.classList[0] === 'item' ? e.target : e.target.parentElement;
+		li.classList.toggle('checked');
+		try {
+			li.classList[1]
+				? setQueryColors([...queryColors, li.childNodes[1].innerText])
+				: setQueryColors(
+						queryColors.filter(e => e !== li.childNodes[1].innerText)
+				  );
+		} catch (error) {
+			console.log(error);
+		}
+		countSelected();
+	};
 
 	const [error, setError] = useState({});
 
@@ -43,48 +86,85 @@ const ProductForm = () => {
 
   useEffect(() => {}, []);
 
+  // console.log(error.stock)
   return (
     <div className='productFormContainer'>
       <form onSubmit={handleSubmit}>
-        <span className='productFormHeader'>Product Form</span>
+        <span className="uppercase tracking-wide text-black text-center text-lg font-bold mb-2">Product Form</span>
 
-        <label>Name</label>
-        <input type='text' name='name' placeholder='Name...' value={input.name} onChange={handleChange} />
+        <label className="uppercase tracking-wide text-black text-xs font-bold mb-2">Name</label>
+        <input type='text' className="w-full bg-gray-100 text-black border border-gray-200 rounded-md py-1 px-4 mb-3" name='name' placeholder='Name...' value={input.name} onChange={handleChange} />
 
-        <label>description</label>
-        <input type='text' name='description' placeholder='Description...' value={input.description} onChange={handleChange} />
+        <label className="uppercase tracking-wide text-black text-xs font-bold mb-2">Description</label>
+        <input type='text' className="w-full bg-gray-100 text-black border border-gray-200 rounded-md py-1 px-4 mb-3" name='description' placeholder='Description...' value={input.description} onChange={handleChange} />
 
-        <label>Image Home</label>
-        <input type='text' name='img_home' placeholder='Image...' value={input.img_home} onChange={handleChange} />
+        <label className="uppercase tracking-wide text-black text-xs font-bold mb-2">Image Main</label>
+        <input type='file' className="w-full bg-gray-100 text-black border border-gray-200 rounded-md py-1 px-4 mb-3" name='imageMain' placeholder='Image main...' accept="image/" value={input.imageMain} required />
 
-        <label>Image Detail</label>
-        <input type='text' name='img_detail' placeholder='Image...' value={input.img_detail} onChange={handleChange} />
+        <label className="uppercase tracking-wide text-black text-xs font-bold mb-2">Images Details</label>
+        <input type='file' className="w-full bg-gray-100 text-black border border-gray-200 rounded-md py-1 px-4 mb-3" name='imagesDetail' placeholder='Images...' accept="image/" value={input.imagesDetail} multiple required />
 
-        <label>Collection</label>
-        <input type='text' name='collection' placeholder='Collection...' value={input.collection} onChange={handleChange} />
+        <label className="uppercase tracking-wide text-black text-xs font-bold mb-2">Collection</label>
+        <FormControl>
+          <RadioGroup
+            row
+            aria-labelledby="demo-row-radio-buttons-group-label"
+            defaultValue="abstract"
+            name="row-radio-buttons-group"
+          >
+            <FormControlLabel value="abstract" control={<Radio />} label="Abstract" />
+            <FormControlLabel value="flowers" control={<Radio />} label="Flowers" />
+            <FormControlLabel value="butterflies" control={<Radio />} label="Butterflies" />
+            <FormControlLabel value="other" control={<Radio />} label="Other" />
+          </RadioGroup>
+        </FormControl>
 
-        <label>Type</label>
-        <input type='text' name='type' placeholder='Type...' value={input.type} onChange={handleChange} />
+        <label className="uppercase tracking-wide text-black text-xs font-bold mb-2">Type</label>
+        <FormControl>
+          <RadioGroup
+            row
+            aria-labelledby="demo-row-radio-buttons-group-label"
+            defaultValue="cake tray"
+            name="row-radio-buttons-group"
+          >
+            <FormControlLabel value="cake tray" control={<Radio />} label="Cake Tray" />
+            <FormControlLabel value="turntable" control={<Radio />} label="Turntable" />
+          </RadioGroup>
+        </FormControl>
 
-        <label>Size</label>
-        <input type='text' name='size' placeholder='Size...' value={input.size} onChange={handleChange} />
+        <label className="uppercase tracking-wide text-black text-xs font-bold mb-2">Turntable</label>
+        <input type='text' className="w-full bg-gray-100 text-black border border-gray-200 rounded-md py-1 px-4 mb-3" name='turntable' placeholder='1 or 2...' value={input.stock} onChange={handleChange} />
 
-        <label>Diameter</label>
-        <input type='text' name='diameter' placeholder='Diameter...' value={input.diameter} onChange={handleChange} />
+        <label className="uppercase tracking-wide text-black text-xs font-bold mb-2">Artist</label>
+        <input type='text' className="w-full bg-gray-100 text-black border border-gray-200 rounded-md py-1 px-4 mb-3" name='artist' placeholder='Artist...' value={input.artist} onChange={handleChange} />
 
-        <label>Stock</label>
-        <input type='text' name='stock' placeholder='Stock...' value={input.stock} onChange={handleChange} />
+        <label className="uppercase tracking-wide text-black text-xs font-bold mb-2">Colors</label>
+        <div onClick={handleOnClickDiv} className='select-btn'>
+          <span className='btn-text'>Select Color </span>
+          <span onClick={handleOnClickRender} className='filter'>
+            <i className='fa-solid fa-paintbrush'></i>
+          </span>
+			  </div>
+        <ul className='list-items'>
+				{redColors.map(c => (
+					<li key={c.id} className='item' onClick={OnClickItem}>
+						<span
+							className='checkbox'
+							style={{
+								backgroundColor: `${c.hex}`,
+								borderColor: `${c.hex}`,
+							}}
+						>
+							<i className='fa-solid fa-check check-icon'></i>
+						</span>
+						<span id={`item${c.id}`} className='item-text'>
+							{c.name}
+						</span>
+					</li>
+				))}
+			</ul>
 
-        <label>Price</label>
-        <input type='text' name='price' placeholder='Price...' value={input.price} onChange={handleChange} />
-
-        <label>Artist</label>
-        <input type='text' name='artist' placeholder='Artist...' value={input.artist} onChange={handleChange} />
-
-        <label>Colors</label>
-        <input type='text' name='colors' placeholder='Colors...' value={input.colors} onChange={handleChange} />
-
-        <input type={'submit'} value='Add product' />
+        <input type={'submit'} value='Add product' className="uppercase tracking-wide text-black text-sm font-bold mb-2 border-solid border-1 border-indigo-600/60 rounded-md" />
       </form>
     </div>
   )

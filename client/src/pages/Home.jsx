@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Card from '../components/Card';
 import { getData, setPage } from '../redux/actions';
 import Pagination from '@mui/material/Pagination';
+import TemporaryDrawer from '../components/Drawer';
 
 export default function Home() {
 	const dispatch = useDispatch();
@@ -29,8 +30,12 @@ export default function Home() {
 
 	return (
 		<>
-			<div className='pag-wrapper'>
-				<Pagination size='large' count={pages} onChange={handleChange} />
+			<div className='tools-container'>
+				<div></div>
+				<div className='pag-wrapper'>
+					<Pagination size='large' count={pages} onChange={handleChange} />
+				</div>
+				<TemporaryDrawer />
 			</div>
 
 			<div className='wrapper'>

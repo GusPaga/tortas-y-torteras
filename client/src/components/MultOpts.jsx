@@ -37,15 +37,9 @@ export const MultOpts = () => {
 		countSelected();
 	};
 
-	const handleOnClickRender = () => {
-		// 	document.querySelector('.select-btn').classList.toggle('open');
-		// 	dispatch(clearDogs());
-		// 	dispatch(setPage(1));
-		// 	dispatch(getTempDogs({ temp: queryColors }));
-		// 	handleOnClickDiv();
-	};
+	const handleOnClickRender = () => {};
 	return (
-		<div className='container'>
+		<div className='opts-container'>
 			<div onClick={handleOnClickDiv} className='select-btn'>
 				<span className='btn-text'>Select Color </span>
 				<span onClick={handleOnClickRender} className='filter'>

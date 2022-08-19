@@ -1,11 +1,9 @@
 import './Home.css';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Navbar from '../components/Navbar';
 import Card from '../components/Card';
-import Paginate from '../components/Paginate';
-import { getData } from '../redux/actions';
-import Footer from '../components/Footer';
+import { getData, setPage } from '../redux/actions';
+import Pagination from '@mui/material/Pagination';
 
 export default function Home() {
 	const dispatch = useDispatch();
@@ -21,27 +19,32 @@ export default function Home() {
 		totalCards = redData.length;
 		cardsPage = redData.slice(indexFirstCard, indexLastCard);
 	}
+	const pages = Math.ceil(totalCards / cardsPerPage);
 
 	useEffect(() => {
 		dispatch(getData());
 	}, [dispatch]); //
 
+	const handleChange = (e, value) => dispatch(setPage(value));
+
 	return (
 		<>
-			<Navbar />
-			<Paginate
-				cardsPerPage={cardsPerPage}
-				totalCards={totalCards}
-				indexFirstCard={indexFirstCard}
-			/>
+			<div className='pag-wrapper'>
+				<Pagination size='large' count={pages} onChange={handleChange} />
+			</div>
+
 			<div className='wrapper'>
 				{cardsPage.map(prod => (
 					<div key={prod.id}>
-						<Card imgHome={prod.img_home} name={prod.name} price={prod.price} />
+						<Card
+							imgHome={prod.img_home}
+							id={prod.id}
+							name={prod.name}
+							price={prod.price}
+						/>
 					</div>
 				))}
 			</div>
-			<Footer />
 		</>
 	);
 }

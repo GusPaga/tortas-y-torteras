@@ -1,68 +1,124 @@
-import '../components/RegistrationForm.css'
-import {useState} from 'react'
-import { validateRegistration } from '../validations/RegistrationValidation'
-
+import axios from 'axios';
+import { useState, useEffect } from 'react';
+import { validateRegister } from '../validations/registerValidation';
+import '../components/RegistrationForm.css';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
 
 const RegistrationForm = () => {
-    const [input, setInput] = useState({})
-    const [error, setError] = useState({})
+	const [input, setInput] = useState({
+		name: '',
+		lastname: '',
+		email: '',
+		password: '',
+	});
+	const [error, setError] = useState({});
+	const [cpassword, setCpassword] = useState('');
 
-    const handleChange = (e) => {
-        setInput({
-            ...input,
-            [e.target.name]: e.target.value
-        })
-        
-        setError(validateRegistration({
-            ...input,
-            [e.target.name]: e.target.value
+	const handleChange = e => {
+		if (e.target.name === 'cpassword') setCpassword(e.target.value);
+		else {
+			setInput({
+				...input,
+				[e.target.name]: e.target.value,
+			});
+			setError(
+				validateRegister({
+					...input,
+					[e.target.name]: e.target.value,
+				})
+			);
+		}
+	};
 
-        }))
-    }
+	const handleSubmit = async e => {
+		e.preventDefault();
+		if (!input.email || !!Object.keys(error).length)
+			alert('Some fields are missing');
+		else if (input.password !== cpassword)
+			alert('Incorrect password. They must be the same!');
+		else {
+			try {
+				await axios.post('http://localhost:3001/users/signup', input);
+				setInput({
+					name: '',
+					lastname: '',
+					email: '',
+					password: '',
+				});
 
-    const handleSubmit = (e) => {
-        e.preventDefault()
-        if(!input.email || !!Object.keys(error).length) alert('Some fields are missing')
-        else {
-            alert('User Created')
-        }
-    }
-    return (
-        <div className="registrationFormContainer">
+				alert('User Created');
+			} catch (error) {
+				alert('User email already exists');
+				console.log(error);
+			}
+		}
+	};
 
-            <form onSubmit={handleSubmit}>
-                <span className='registrationFormHeader'>Registration Form</span>
-                <label>Name</label>
-                <input name="name" placeholder="Name..." value={input.name} onChange={handleChange}/>
-                {!!error.name && <div className={'danger'}>{error.name}</div>}
-                <label>LastName</label>
-                <input name="lastname" placeholder="LastName..." value={input.lastname} onChange={handleChange}/>
-                {!!error.lastname && <div className={'danger'}>{error.lastname}</div>}
-                <label>Email</label>
-                <input name="email" placeholder="Email..." value={input.email} onChange={handleChange}/>
-                {!!error.email && <div className={'danger'}>{error.email}</div>}
-                <label>User</label>
-                <input name="user" placeholder="User..." value={input.user}onChange={handleChange}/>
-                {!!error.user && <div className={'danger'}>{error.user}</div>}
-                <label>Country</label>
-                <input name="user" placeholder="Country..." value={input.user}onChange={handleChange}/>
-                {!!error.country && <div className={'danger'}>{error.country}</div>}
-                <label>City</label>
-                <input name="city" placeholder="User..." value={input.city}onChange={handleChange}/>
-                {!!error.city && <div className={'danger'}>{error.city}</div>}
-                <label>Address</label>
-                <input name="address" placeholder="Address..." value={input.address}onChange={handleChange}/>
-                {!!error.address && <div className={'danger'}>{error.address}</div>}
-                <label>Birth</label>
-                <input type='date' name="birth" value={input.birth}onChange={handleChange}/>
-                {!!error.date && <div className={'danger'}>{error.date}</div>}
+	useEffect(() => {}, []);
 
-                <input type={'submit'} value='Register' />
-            </form>
+	return (
+		<div className='registrationFormContainer'>
+			<form onSubmit={handleSubmit}>
+				<span className='registrationFormHeader'>Registration Form</span>
 
-        </div>
+				<label>First Name</label>
+				<input
+					type='text'
+					name='name'
+					placeholder='Name...'
+					value={input.name}
+					onChange={handleChange}
+				/>
+				{error.name && <div className={'danger'}>{error.name}</div>}
 
-    )
-}
+				<label>Last Name</label>
+				<input
+					type='text'
+					name='lastname'
+					placeholder='LastName...'
+					value={input.lastname}
+					onChange={handleChange}
+				/>
+				{error.lastname && <div className={'danger'}>{error.lastname}</div>}
 
-export default RegistrationForm
+				<label>Email</label>
+				<input
+					type='email'
+					name='email'
+					placeholder='Email...'
+					value={input.email}
+					onChange={handleChange}
+				/>
+				{error.email && <div className={'danger'}>{error.email}</div>}
+
+				<label>Password</label>
+				<div className='dialog'>
+					<input
+						type='password'
+						name='password'
+						placeholder='Password...'
+						value={input.password}
+						onChange={handleChange}
+					/>
+				</div>
+				{error.password && <div className={'danger'}>{error.password}</div>}
+
+				<label>Confirm password</label>
+				<input
+					type='password'
+					name='cpassword'
+					placeholder='Confirm password...'
+					value={cpassword}
+					onChange={handleChange}
+				/>
+				{error.cpassword && <div className={'danger'}>{error.cpassword}</div>}
+
+				<input type={'submit'} value='Register' />
+			</form>
+		</div>
+	);
+};
+
+export default RegistrationForm;

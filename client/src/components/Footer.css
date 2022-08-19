@@ -1,23 +1,26 @@
 .footer {
+	top: 1vh;
 	position: relative;
-	bottom: 0px;
+	bottom: 0;
+	width: 100%;
+	height: 60px;
 	display: flex;
 	align-items: center;
-	height: 100px;
-	background-color: #000;
+	height: 50px;
+	background-color: #1f2937;
 	color: #fff;
 }
 
 .footer-text {
-	font-size: 25px;
+	font-size: 12px;
 	position: absolute;
 	left: 50px;
 }
 
 .footer-icons {
-	font-size: 40px;
+	font-size: 20px;
 	display: flex;
-	gap: 50px;
+	gap: 20px;
 	position: absolute;
-	right: 50px;
+	right: 25px;
 }

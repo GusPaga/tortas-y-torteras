@@ -1,21 +1,32 @@
-import { SET_LOADING, SET_PAGE, GET_DATA } from './types';
 import axios from 'axios';
+import { SET_LOADING, SET_PAGE, GET_DATA, GET_COLORS } from './types';
 
 export const setLoading = payload => ({ type: SET_LOADING, payload });
 
 export const setPage = page => dispatch =>
 	dispatch({ type: SET_PAGE, payload: page });
 
+// Get Products from backend
 export const getData = () => {
 	return async dispatch => {
 		dispatch(setLoading(true));
 		try {
-			const response = await axios.get('http://localhost:3000/Products');
+			const response = await axios.get('http://localhost:3001/products');
 			if (response.status === 200)
 				dispatch({ type: GET_DATA, payload: response.data });
 		} catch {
 			dispatch({ type: GET_DATA, payload: null });
 		}
+		dispatch(setLoading(false));
+	};
+};
+
+// Get Colors from backend
+export const getColors = () => {
+	return async dispatch => {
+		dispatch(setLoading(true));
+		const response = await axios.get('http://localhost:3001/colors');
+		dispatch({ type: GET_COLORS, payload: response.data });
 		dispatch(setLoading(false));
 	};
 };

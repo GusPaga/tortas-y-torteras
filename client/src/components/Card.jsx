@@ -4,7 +4,8 @@ import './Card.css';
 export default function Card(props) {
 	// eslint-disable-next-line react/prop-types
 	const { id, imgHome, name, price } = props;
-	const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
+	// console.log('cart=', cart);
 
 	return (
 		<div className='card-wrapper'>
@@ -18,8 +19,9 @@ export default function Card(props) {
 			</Link>
 			<div className='card-text'>
 				<span className='card-name'>{name}</span>
-				<span className='card-price'>{price}</span>
+				<span className='card-price'>$ {price}</span>
 			</div>
+			{/* <button onClick={addToCart}>Add to Cart</button> */}
 		</div>
 	);
 }

@@ -1,5 +1,5 @@
 .pag-wrapper {
-	padding: 40px;
+	padding: 40px 0 40px;
 	display: flex;
 	justify-content: center;
 }
@@ -13,4 +13,22 @@
 	row-gap: 30px;
 	justify-items: center;
 	align-items: center;
+}
+
+.tools-container {
+	display: grid;
+	grid-template-columns: 0.2fr 1fr 0.2fr;
+	align-items: center;
+}
+
+.filter-text {
+	width: 150px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 700;
+	border: 1px black solid;
+	border-radius: 10px;
+	padding: 5px 10px 5px 10px;
+	margin: 10px;
 }

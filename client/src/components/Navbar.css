@@ -23,6 +23,13 @@
 .bar-bag-icon i {
 	color: #fff;
 }
+#navbar-shp-num {
+	font-size: 12px;
+	color: #7d2bc4;
+	position: absolute;
+	top: 19px;
+	left: 8px;
+}
 
 .bar-user-icon {
 	position: absolute;

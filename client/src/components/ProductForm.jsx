@@ -1,5 +1,9 @@
 // import axios from 'axios';
 import { useState, useEffect } from 'react';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
 import { validateProduct } from '../validations/productValidation';
 import '../components/ProductForm.css';
 
@@ -11,8 +15,6 @@ const ProductForm = () => {
 		img_detail: [],
     collection: '',
     type: '',
-    size: '',
-    diameter: '',
     stock: '',
     price: '',
     artist: '',
@@ -46,43 +48,59 @@ const ProductForm = () => {
   return (
     <div className='productFormContainer'>
       <form onSubmit={handleSubmit}>
-        <span className='productFormHeader'>Product Form</span>
+        <span className="uppercase tracking-wide text-black text-center text-xs font-bold mb-2">Product Form</span>
 
-        <label>Name</label>
-        <input type='text' name='name' placeholder='Name...' value={input.name} onChange={handleChange} />
+        <label className="uppercase tracking-wide text-black text-xs font-bold mb-2">Name</label>
+        <input type='text' className="w-full bg-gray-300 text-black border border-gray-200 rounded py-1 px-4 mb-3" name='name' placeholder='Name...' value={input.name} onChange={handleChange} />
 
-        <label>description</label>
-        <input type='text' name='description' placeholder='Description...' value={input.description} onChange={handleChange} />
+        <label className="uppercase tracking-wide text-black text-xs font-bold mb-2">Description</label>
+        <input type='text' className="w-full bg-gray-300 text-black border border-gray-200 rounded py-1 px-4 mb-3" name='description' placeholder='Description...' value={input.description} onChange={handleChange} />
 
-        <label>Image Home</label>
-        <input type='text' name='img_home' placeholder='Image...' value={input.img_home} onChange={handleChange} />
+        <label className="uppercase tracking-wide text-black text-xs font-bold mb-2">Image Home</label>
+        <input type='file' className="w-full bg-gray-300 text-black border border-gray-200 rounded py-1 px-4 mb-3" name='images' placeholder='Images...' value={input.images} onChange={handleChange} />
 
-        <label>Image Detail</label>
-        <input type='text' name='img_detail' placeholder='Image...' value={input.img_detail} onChange={handleChange} />
+        <label className="uppercase tracking-wide text-black text-xs font-bold mb-2">Images Details</label>
+        <input type='file' className="w-full bg-gray-300 text-black border border-gray-200 rounded py-1 px-4 mb-3" name='images' placeholder='Images...' value={input.images} onChange={handleChange} />
 
-        <label>Collection</label>
-        <input type='text' name='collection' placeholder='Collection...' value={input.collection} onChange={handleChange} />
+        <label className="uppercase tracking-wide text-black text-xs font-bold mb-2">Collection</label>
+        <FormControl>
+          <RadioGroup
+            row
+            aria-labelledby="demo-row-radio-buttons-group-label"
+            defaultValue="abstract"
+            name="row-radio-buttons-group"
+          >
+            <FormControlLabel value="abstract" control={<Radio />} label="Abstract" />
+            <FormControlLabel value="flowers" control={<Radio />} label="Flowers" />
+            <FormControlLabel value="butterflies" control={<Radio />} label="Butterflies" />
+            <FormControlLabel value="other" control={<Radio />} label="Other" />
+          </RadioGroup>
+        </FormControl>
 
-        <label>Type</label>
-        <input type='text' name='type' placeholder='Type...' value={input.type} onChange={handleChange} />
+        <label className="uppercase tracking-wide text-black text-xs font-bold mb-2">Type</label>
+        <FormControl>
+          <RadioGroup
+            row
+            aria-labelledby="demo-row-radio-buttons-group-label"
+            defaultValue="cake tray"
+            name="row-radio-buttons-group"
+          >
+            <FormControlLabel value="cake tray" control={<Radio />} label="Cake Tray" />
+            <FormControlLabel value="turntable" control={<Radio />} label="Turntable" />
+          </RadioGroup>
+        </FormControl>
 
-        <label>Size</label>
-        <input type='text' name='size' placeholder='Size...' value={input.size} onChange={handleChange} />
+        <label className="uppercase tracking-wide text-black text-xs font-bold mb-2">Stock</label>
+        <input type='text' className="w-full bg-gray-300 text-black border border-gray-200 rounded py-1 px-4 mb-3" name='stock' placeholder='Stock...' value={input.stock} onChange={handleChange} />
 
-        <label>Diameter</label>
-        <input type='text' name='diameter' placeholder='Diameter...' value={input.diameter} onChange={handleChange} />
+        <label className="uppercase tracking-wide text-black text-xs font-bold mb-2">Price</label>
+        <input type='text' className="w-full bg-gray-300 text-black border border-gray-200 rounded py-1 px-4 mb-3" name='price' placeholder='Price...' value={input.price} onChange={handleChange} />
 
-        <label>Stock</label>
-        <input type='text' name='stock' placeholder='Stock...' value={input.stock} onChange={handleChange} />
+        <label className="uppercase tracking-wide text-black text-xs font-bold mb-2">Artist</label>
+        <input type='text' className="w-full bg-gray-300 text-black border border-gray-200 rounded py-1 px-4 mb-3" name='artist' placeholder='Artist...' value={input.artist} onChange={handleChange} />
 
-        <label>Price</label>
-        <input type='text' name='price' placeholder='Price...' value={input.price} onChange={handleChange} />
-
-        <label>Artist</label>
-        <input type='text' name='artist' placeholder='Artist...' value={input.artist} onChange={handleChange} />
-
-        <label>Colors</label>
-        <input type='text' name='colors' placeholder='Colors...' value={input.colors} onChange={handleChange} />
+        <label className="uppercase tracking-wide text-black text-xs font-bold mb-2">Colors</label>
+        <input type='text' className="w-full bg-gray-300 text-black border border-gray-200 rounded py-1 px-4 mb-3" name='colors' placeholder='Colors...' value={input.colors} onChange={handleChange} />
 
         <input type={'submit'} value='Add product' />
       </form>

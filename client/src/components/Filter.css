@@ -1,0 +1,36 @@
+.filter {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.filter-wrapper {
+	margin-top: 60px;
+	width: 720px;
+	display: flex;
+	flex-direction: column;
+	padding: 32px;
+	border: 1px solid #999;
+	border-radius: 20px;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+}
+
+.filter-header h2 {
+	color: blue;
+}
+.filter-1,
+.filter-2,
+.filter-3 {
+	height: 70px;
+}
+.filter-1 h5,
+.filter-2 h5,
+.filter-3 h5 {
+	color: #999;
+}
+
+.form-check {
+	margin-top: 16px;
+}

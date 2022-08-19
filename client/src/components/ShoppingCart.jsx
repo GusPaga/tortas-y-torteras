@@ -32,7 +32,7 @@ const ShoppingCart = () => {
 										<div className='shp-details'>
 											<p className='shp-ref'>RF {e.id}</p>
 											<h3>{e.name}</h3>
-											<p>Size</p>
+											<p>Type</p>
 											<p>Avaibility</p>
 											<div id='shp-bottom-shp-details'>
 												<span className='shp-add-fv'>Add to favorites</span>

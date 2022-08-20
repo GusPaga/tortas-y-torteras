@@ -8,13 +8,14 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import { validateProduct } from '../validations/productValidation';
 import '../components/ProductForm.css';
+import axios from 'axios';
 
 const ProductForm = () => {
 	const { redColors } = useSelector(state => state);
 	const [queryColors, setQueryColors] = useState([]);
-	const [types, setTypes] = useState({
-		'Cake Tray': '',
-		Turntable: '',
+	const [stock, setStock] = useState({
+		cakeTrail: '',
+		turntable: '',
 	});
 	const dispatch = useDispatch();
 	const [input, setInput] = useState({
@@ -25,23 +26,9 @@ const ProductForm = () => {
 		collection: '',
 		colors: [],
 		artist: '',
-		ProductTypes: [
-			{
-				name: 'Cake Tray',
-				price: 50,
-				diameter: 32,
-				Stocks: {
-					quantity: 3,
-				},
-			},
-			{
-				name: 'Turntable',
-				price: 70,
-				diameter: 35,
-				Stocks: {
-					quantity: 8,
-				},
-			},
+		stock: [
+			{ quantity: 0, productTypeName: 'Cake Tray' },
+			{ quantity: 0, productTypeName: 'Turntable' },
 		],
 	});
 
@@ -88,27 +75,39 @@ const ProductForm = () => {
 			})
 		);
 	};
-
-	const handleChangeType = e => {
-		if (e.target.value > 10) return;
-		setTypes({ ...types, [e.target.name]: Number(e.target.value) });
+	const handleChangeImages = e => {
+		if (input.imagesDetail.includes(e.target.value)) {
+			alert('Image exists already');
+		} else {
+			setInput({
+				...input,
+				imagesDetail: [...input.imagesDetail, e.target.value],
+			});
+		}
+	};
+	const handleChangeStock = e => {
+		if (e.target.value < 0) return alert('negative quantity not allowed');
+		setStock({ ...stock, [e.target.name]: Number(e.target.value) });
 	};
 
-	const juancho = { ...input };
-	console.log(juancho);
-	juancho.ProductTypes[0].Stocks.quantity = types['Cake Tray'];
-	juancho.ProductTypes[1].Stocks.quantity = types.Turntable;
-
+	const newProduct = { ...input };
+	newProduct.stock[0].quantity = stock.cakeTrail;
+	newProduct.stock[1].quantity = stock.turntable;
+	console.log(newProduct);
 	const handleSubmit = async e => {
 		e.preventDefault();
-		if (!input.name || !!Object.keys(error).length)
+		const newProduct = { ...input };
+		newProduct.stock[0].quantity = stock.cakeTrail;
+		newProduct.stock[1].quantity = stock.turntable;
+		if (!newProduct.name || !!Object.keys(error).length)
 			alert('Some fields are missing');
-		else alert('Product created!');
+		try {
+			await axios.post('http://localhost:3001/product/', newProduct);
+		} catch (error) {}
 	};
 
 	useEffect(() => {}, []);
 
-	// console.log(error.stock)
 	return (
 		<div className='productFormContainer'>
 			<form onSubmit={handleSubmit}>
@@ -150,6 +149,7 @@ const ProductForm = () => {
 					placeholder='Image main...'
 					accept='image/'
 					value={input.imageMain}
+					onChange={handleChange}
 					required
 				/>
 
@@ -161,10 +161,9 @@ const ProductForm = () => {
 					className='w-full bg-gray-100 text-black border border-gray-200 rounded-md py-1 px-4 mb-3'
 					name='imagesDetail'
 					placeholder='Images...'
-					accept='image/'
-					value={input.imagesDetail}
+					// value={input.imagesDetail}
+					onChange={handleChangeImages}
 					multiple
-					required
 				/>
 
 				<label className='uppercase tracking-wide text-black text-xs font-bold mb-2'>
@@ -204,10 +203,10 @@ const ProductForm = () => {
 					min='0'
 					max='10'
 					className='w-full bg-gray-100 text-black border border-gray-200 rounded-md py-1 px-4 mb-3'
-					name='Cake Tray'
+					name='cakeTrail'
 					placeholder='1 or 2...'
-					value={types['Cake Tray']}
-					onChange={handleChangeType}
+					value={stock.cakeTrail}
+					onChange={handleChangeStock}
 				/>
 
 				<label className='uppercase tracking-wide text-black text-xs font-bold mb-2'>
@@ -218,10 +217,10 @@ const ProductForm = () => {
 					min='0'
 					max='10'
 					className='w-full bg-gray-100 text-black border border-gray-200 rounded-md py-1 px-4 mb-3'
-					name='Turntable'
+					name='turntable'
 					placeholder='1 or 2...'
-					value={types.Turntable}
-					onChange={handleChangeType}
+					value={stock.turntable}
+					onChange={handleChangeStock}
 				/>
 
 				<label className='uppercase tracking-wide text-black text-xs font-bold mb-2'>

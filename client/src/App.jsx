@@ -8,6 +8,7 @@ import Footer from './components/Footer';
 import Landing from './pages/Landing';
 import ShoppingCart from './components/ShoppingCart';
 import Try from './components/Try';
+import SignInSide from './components/SignIn';
 
 function App() {
 	return (
@@ -18,9 +19,11 @@ function App() {
 				<Route exact path='/landing' component={Landing} />
 				<Route exact path='/registration' component={RegistrationForm} />
 				<Route exact path='/addproduct' component={ProductForm} />
-				<Route exact path='/:id' component={Detail} />
 				<Route exact path='/shop/shoppingCart' component={ShoppingCart} />
 				<Route exact path='/bases/try' component={Try} />
+				<Route exact path='/bases/signin' component={SignInSide} />
+
+				<Route exact path='/:id' component={Detail} />
 			</Switch>
 			{/* <Footer /> */}
 		</>

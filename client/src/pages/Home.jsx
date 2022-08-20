@@ -5,6 +5,7 @@ import Card from '../components/Card';
 import { getData, setPage } from '../redux/actions';
 import Pagination from '@mui/material/Pagination';
 import TemporaryDrawer from '../components/Drawer';
+import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 
 export default function Home() {
 	const dispatch = useDispatch();
@@ -29,12 +30,21 @@ export default function Home() {
 	const handleChange = (e, value) => dispatch(setPage(value));
 
 	return (
-		<>
+		<div className='home-wrapper'>
 			<div className='tools-container'>
-				<div></div>
+				<div>
+					<button
+						style={{ position: 'right' }}
+						className='filter-text'
+						onClick={() => dispatch(getData())}
+					>
+						Clear Filter <FilterAltOffIcon fontSize='large' />
+					</button>
+				</div>
 				<div className='pag-wrapper'>
 					<Pagination size='large' count={pages} onChange={handleChange} />
 				</div>
+
 				<TemporaryDrawer />
 			</div>
 
@@ -50,6 +60,6 @@ export default function Home() {
 					</div>
 				))}
 			</div>
-		</>
+		</div>
 	);
 }

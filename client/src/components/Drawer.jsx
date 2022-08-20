@@ -105,12 +105,13 @@ export default function TemporaryDrawer() {
 		>
 			<button
 				onClick={makeQuery}
-				style={{ padding: '30px', fontFamily: 'roboto' }}
+				className='filter-text'
+				style={{ marginBottom: '40px', padding: '10px', fontFamily: 'roboto' }}
 			>
-				Filtering <FilterAltIcon />
+				Apply Filter <FilterAltIcon />
 			</button>
 			<div className='filter-1'>
-				<h6 style={{ fontFamily: 'roboto' }}>Avaibility</h6>
+				<h6 style={{ fontFamily: 'roboto', margin: '20px' }}>Avaibility</h6>
 				<FormControlLabel
 					control={<Switch onChange={handleChangeSwitch} />}
 					label='On Stock'
@@ -118,7 +119,7 @@ export default function TemporaryDrawer() {
 			</div>
 			<hr />
 			<div className='filter-2'>
-				<h6 style={{ fontFamily: 'roboto' }}>Collection</h6>
+				<h6 style={{ fontFamily: 'roboto', margin: '20px' }}>Collection</h6>
 				<FormGroup>
 					<FormControlLabel
 						control={<Checkbox id='chk1' onChange={handleChangeChk} />}
@@ -140,7 +141,7 @@ export default function TemporaryDrawer() {
 			</div>
 			<hr />
 			<div className='filter-3'></div>
-			<h6 style={{ fontFamily: 'roboto' }}>Colors</h6>
+			<h6 style={{ fontFamily: 'roboto', margin: '20px' }}>Colors</h6>
 			<MultOpts OnClickItem={OnClickItem} queryColors={queryColors} />
 			<Divider />
 		</Box>

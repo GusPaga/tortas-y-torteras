@@ -6,10 +6,15 @@ import { useParams, useHistory } from 'react-router-dom';
 import Rating from '../components/Rating';
 import { setLoading } from '../redux/actions';
 import { ShoppingCartContext } from '../context/ShoppingCartContext';
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
 
 function Detail() {
 	const { id } = useParams();
 	const [product, setProduct] = useState({});
+	const [open, setOpen] = useState(false);
 	const history = useHistory();
 	const dispatch = useDispatch();
 	const { redLoading } = useSelector(state => state);
@@ -20,8 +25,10 @@ function Detail() {
 		async function fetchData() {
 			try {
 				dispatch(setLoading(true));
-				const response = await axios.get('http://localhost:3001/products');
-				setProduct(response.data.find(e => e.id === id));
+				const response = await axios.get(
+					`http://localhost:3001/products/${id}`
+				);
+				setProduct(response.data);
 				dispatch(setLoading(false));
 			} catch (error) {
 				alert(error);
@@ -32,7 +39,31 @@ function Detail() {
 
 	const addToCart = () => {
 		if (!cart.some(e => e.id === id)) setCart([...cart, product]);
+		setOpen(true);
 	};
+
+	const handleClose = (event, reason) => {
+		if (reason === 'clickaway') {
+			return;
+		}
+		setOpen(false);
+	};
+
+	const action = (
+		<>
+			<Button color='secondary' size='small' onClick={handleClose}>
+				{/* UNDO */}
+			</Button>
+			<IconButton
+				size='small'
+				aria-label='close'
+				color='inherit'
+				onClick={handleClose}
+			>
+				<CloseIcon fontSize='small' />
+			</IconButton>
+		</>
+	);
 
 	if (!product.id) return <h1>Cargando...</h1>;
 
@@ -54,7 +85,7 @@ function Detail() {
 								>
 									<div
 										style={{
-											backgroundImage: `url(${im})`,
+											backgroundImage: `url(${im.secure_url})`,
 										}}
 										className='det-img d-block w-100'
 										alt='...'
@@ -94,7 +125,9 @@ function Detail() {
 					<div className='detail-1'>
 						<div className='dt1-ref'>Ref-{product.id}</div>
 						<div className='dt1-name'>{product.name}</div>
-						<div className='dt1-price'>Price: {product.price}</div>
+						<div className='dt1-price'>
+							Price: {product.ProductTypes[0].price}
+						</div>
 					</div>
 					<div className='detail-2'>
 						{/* <span>{product.score}/5</span> */}
@@ -157,6 +190,13 @@ function Detail() {
 			>
 				back
 			</button>
+			<Snackbar
+				open={open}
+				autoHideDuration={6000}
+				onClose={handleClose}
+				message='Product added to Bag'
+				action={action}
+			/>
 		</div>
 	);
 }

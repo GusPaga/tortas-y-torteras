@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import Card from '../components/Card';
 import { getData, setPage } from '../redux/actions';
 import Pagination from '@mui/material/Pagination';
+import TemporaryDrawer from '../components/Drawer';
+import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 
 export default function Home() {
 	const dispatch = useDispatch();
@@ -28,23 +30,36 @@ export default function Home() {
 	const handleChange = (e, value) => dispatch(setPage(value));
 
 	return (
-		<>
-			<div className='pag-wrapper'>
-				<Pagination size='large' count={pages} onChange={handleChange} />
+		<div className='home-wrapper'>
+			<div className='tools-container'>
+				<div>
+					<button
+						style={{ position: 'right' }}
+						className='filter-text'
+						onClick={() => dispatch(getData())}
+					>
+						Clear Filter <FilterAltOffIcon fontSize='large' />
+					</button>
+				</div>
+				<div className='pag-wrapper'>
+					<Pagination size='large' count={pages} onChange={handleChange} />
+				</div>
+
+				<TemporaryDrawer />
 			</div>
 
 			<div className='wrapper'>
 				{cardsPage.map(prod => (
 					<div key={prod.id}>
 						<Card
-							imgHome={prod.img_home}
+							imgHome={prod.img_home.secure_url}
 							id={prod.id}
 							name={prod.name}
-							price={prod.price}
+							price={prod.ProductTypes[0].price}
 						/>
 					</div>
 				))}
 			</div>
-		</>
+		</div>
 	);
 }

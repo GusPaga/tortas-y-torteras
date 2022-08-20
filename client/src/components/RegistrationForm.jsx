@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { validateRegister } from '../validations/registerValidation';
 import '../components/RegistrationForm.css';

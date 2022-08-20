@@ -29,8 +29,5 @@ export const validateRegister = input => {
 	if (!validateMail.test(input.email)) error.email = 'It has to be an email';
 	if (!noEmpty.test(input.password) || !validatePassword.test(input.password))
 		error.password = 'Requires 8 characters or more';
-	if (!noEmpty.test(input.cpassword) || !validatePassword.test(input.cpassword))
-		error.cpassword = 'Requires 8 characters or more';
-
 	return error;
 };

@@ -1,14 +1,5 @@
-.bar-header {
-	display: flex;
-	align-items: center;
-	height: 50px;
-	background-color: #000;
-	color: #ffffff;
-}
-
-.bar-brush-icon {
+.bar-brush-icon i {
 	font-size: 25px;
-	position: absolute;
 	left: 25px;
 	color: #a238ff;
 	text-shadow: 1px 0px 20px #7d2bc4;
@@ -20,10 +11,24 @@
 	font-size: 18px;
 }
 
+.bar-heading span {
+	color: #c684ff;
+}
+
 .bar-bag-icon {
 	position: absolute;
 	font-size: 25px;
 	right: 150px;
+}
+.bar-bag-icon i {
+	color: #fff;
+}
+#navbar-shp-num {
+	font-size: 12px;
+	color: #7d2bc4;
+	position: absolute;
+	top: 19px;
+	left: 8px;
 }
 
 .bar-user-icon {
@@ -37,4 +42,10 @@
 	position: absolute;
 	right: 25px;
 	font-size: 16px;
+	text-decoration: none;
+	color: #fff;
+}
+
+.bar-login-text:hover {
+	color: rgb(0, 248, 0);
 }

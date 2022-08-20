@@ -5,6 +5,8 @@ export default function Card(props) {
 	// eslint-disable-next-line react/prop-types
 	const { id, imgHome, name, price } = props;
 
+	// console.log('cart=', cart);
+
 	return (
 		<div className='card-wrapper'>
 			<Link to={`/${id}`}>
@@ -17,7 +19,7 @@ export default function Card(props) {
 			</Link>
 			<div className='card-text'>
 				<span className='card-name'>{name}</span>
-				<span className='card-price'>{price}</span>
+				<span className='card-price'>$ {price}</span>
 			</div>
 		</div>
 	);

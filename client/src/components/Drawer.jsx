@@ -8,8 +8,12 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import { MultOpts } from './MultOpts';
 import Checkbox from '@mui/material/Checkbox';
+import { useDispatch } from 'react-redux';
+import { getFilteredData } from '../redux/actions';
 
 export default function TemporaryDrawer() {
+	const [queryColors, setQueryColors] = React.useState([]);
+	const dispatch = useDispatch();
 	const [state, setState] = React.useState({
 		top: false,
 		left: false,
@@ -55,6 +59,42 @@ export default function TemporaryDrawer() {
 		setState({ ...state, [anchor]: open });
 	};
 
+	const OnClickItem = e => {
+		const li = // si el click es en algun span, el elemento es li
+			e.target.classList[0] === 'item' ? e.target : e.target.parentElement;
+		li.classList.toggle('checked');
+		try {
+			li.classList[1]
+				? queryColors.length <= 2 && // maximo 3 colores
+				  setQueryColors([...queryColors, li.childNodes[1].innerText])
+				: setQueryColors(
+						queryColors.filter(e => e !== li.childNodes[1].innerText)
+				  );
+		} catch (error) {
+			console.log(error);
+		}
+		// Count selected
+		const checked = document.querySelectorAll('.checked');
+		const btnText = document.querySelector('.btn-text');
+		checked.length
+			? (btnText.innerText = `${checked.length} Selected`)
+			: (btnText.innerText = 'Select Temperament');
+	};
+
+	const makeQuery = () => {
+		const queryString = `?
+		${queryColors[0] ? `color1=${queryColors[0]}&` : ''}
+		${queryColors[1] ? `color2=${queryColors[1]}&` : ''}
+		${queryColors[2] ? `color3=${queryColors[2]}&` : ''}
+		${collection.chk1 ? `collection=Abstract&` : ''}
+		${collection.chk2 ? `collection=Flowers&` : ''}
+		${collection.chk3 ? `collection=Butterflies&` : ''}
+		${collection.chk4 ? `collection=Other&` : ''}
+		stock=${available}
+		`.replace(/\s/g, '');
+		dispatch(getFilteredData(queryString));
+	};
+
 	const list = anchor => (
 		<Box
 			style={{ padding: '30px' }}
@@ -63,9 +103,12 @@ export default function TemporaryDrawer() {
 			// onClick={toggleDrawer(anchor, false)}
 			onKeyDown={toggleDrawer(anchor, false)}
 		>
-			<h5 style={{ padding: '30px', fontFamily: 'roboto' }}>
+			<button
+				onClick={makeQuery}
+				style={{ padding: '30px', fontFamily: 'roboto' }}
+			>
 				Filtering <FilterAltIcon />
-			</h5>
+			</button>
 			<div className='filter-1'>
 				<h6 style={{ fontFamily: 'roboto' }}>Avaibility</h6>
 				<FormControlLabel
@@ -98,7 +141,7 @@ export default function TemporaryDrawer() {
 			<hr />
 			<div className='filter-3'></div>
 			<h6 style={{ fontFamily: 'roboto' }}>Colors</h6>
-			<MultOpts />
+			<MultOpts OnClickItem={OnClickItem} queryColors={queryColors} />
 			<Divider />
 		</Box>
 	);

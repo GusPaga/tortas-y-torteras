@@ -42,10 +42,10 @@ export default function Home() {
 				{cardsPage.map(prod => (
 					<div key={prod.id}>
 						<Card
-							imgHome={prod.img_home}
+							imgHome={prod.img_home.secure_url}
 							id={prod.id}
 							name={prod.name}
-							price={prod.price}
+							price={prod.ProductTypes[0].price}
 						/>
 					</div>
 				))}

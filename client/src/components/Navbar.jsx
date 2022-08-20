@@ -6,7 +6,6 @@ import { ShoppingCartContext } from '../context/ShoppingCartContext';
 
 export default function Navbar() {
 	const [cart, setCart] = useContext(ShoppingCartContext);
-	console.log(cart.length);
 
 	useEffect(() => {
 		document.getElementById('navbar-shp-num').innerHTML = cart.length;

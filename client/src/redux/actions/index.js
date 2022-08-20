@@ -1,5 +1,11 @@
 import axios from 'axios';
-import { SET_LOADING, SET_PAGE, GET_DATA, GET_COLORS } from './types';
+import {
+	SET_LOADING,
+	SET_PAGE,
+	GET_DATA,
+	GET_FILTERED_DATA,
+	GET_COLORS,
+} from './types';
 
 export const setLoading = payload => ({ type: SET_LOADING, payload });
 
@@ -16,6 +22,23 @@ export const getData = () => {
 				dispatch({ type: GET_DATA, payload: response.data });
 		} catch {
 			dispatch({ type: GET_DATA, payload: null });
+		}
+		dispatch(setLoading(false));
+	};
+};
+
+// Get filtered Products from backend
+export const getFilteredData = query => {
+	return async dispatch => {
+		dispatch(setLoading(true));
+		try {
+			const response = await axios.get(
+				`http://localhost:3001/products/${query}`
+			);
+			if (response.status === 200)
+				dispatch({ type: GET_FILTERED_DATA, payload: response.data });
+		} catch {
+			dispatch({ type: GET_FILTERED_DATA, payload: null });
 		}
 		dispatch(setLoading(false));
 	};

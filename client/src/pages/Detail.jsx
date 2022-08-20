@@ -25,8 +25,10 @@ function Detail() {
 		async function fetchData() {
 			try {
 				dispatch(setLoading(true));
-				const response = await axios.get('http://localhost:3001/products');
-				setProduct(response.data.find(e => e.id === id));
+				const response = await axios.get(
+					`http://localhost:3001/products/${id}`
+				);
+				setProduct(response.data);
 				dispatch(setLoading(false));
 			} catch (error) {
 				alert(error);
@@ -83,7 +85,7 @@ function Detail() {
 								>
 									<div
 										style={{
-											backgroundImage: `url(${im})`,
+											backgroundImage: `url(${im.secure_url})`,
 										}}
 										className='det-img d-block w-100'
 										alt='...'
@@ -123,7 +125,9 @@ function Detail() {
 					<div className='detail-1'>
 						<div className='dt1-ref'>Ref-{product.id}</div>
 						<div className='dt1-name'>{product.name}</div>
-						<div className='dt1-price'>Price: {product.price}</div>
+						<div className='dt1-price'>
+							Price: {product.ProductTypes[0].price}
+						</div>
 					</div>
 					<div className='detail-2'>
 						{/* <span>{product.score}/5</span> */}

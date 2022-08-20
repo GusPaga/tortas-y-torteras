@@ -44,7 +44,7 @@ const RegistrationForm = () => {
 					email: '',
 					password: '',
 				});
-
+				setCpassword('');
 				alert('User Created');
 			} catch (error) {
 				alert('User email already exists');

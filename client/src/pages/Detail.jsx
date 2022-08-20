@@ -65,6 +65,7 @@ function Detail() {
 		</>
 	);
 
+	console.log(product);
 	if (!product.id) return <h1>Cargando...</h1>;
 
 	return (
@@ -126,7 +127,7 @@ function Detail() {
 						<div className='dt1-ref'>Ref-{product.id}</div>
 						<div className='dt1-name'>{product.name}</div>
 						<div className='dt1-price'>
-							Price: {product.ProductTypes[0].price}
+							{/* Price: {product.ProductTypes[0].price} */}
 						</div>
 					</div>
 					<div className='detail-2'>

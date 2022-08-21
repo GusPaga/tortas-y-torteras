@@ -8,13 +8,12 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import { MultOpts } from './MultOpts';
 import Checkbox from '@mui/material/Checkbox';
-import { useDispatch, useSelector } from 'react-redux';
-import { getData, getFilteredData } from '../redux/actions';
+import { useDispatch } from 'react-redux';
+import { getFilteredData } from '../redux/actions';
 
 export default function TemporaryDrawer() {
 	const [queryColors, setQueryColors] = React.useState([]);
 	const dispatch = useDispatch();
-	const { redData } = useSelector(state => state);
 	const [state, setState] = React.useState({
 		top: false,
 		left: false,
@@ -60,10 +59,20 @@ export default function TemporaryDrawer() {
 		setState({ ...state, [anchor]: open });
 	};
 
+	const countSelected = () => {
+		// Count selected
+		const checked = document.querySelectorAll('.checked');
+		const btnText = document.querySelector('.btn-text');
+		checked.length
+			? (btnText.innerText = `${checked.length} Selected`)
+			: (btnText.innerText = 'Select Color');
+	};
+
 	const OnClickItem = e => {
 		const li = // si el click es en algun span, el elemento es li
 			e.target.classList[0] === 'item' ? e.target : e.target.parentElement;
-		// console.log(li.classList);
+		if (li.className === 'item' && queryColors.length === 3)
+			return console.log();
 		li.classList.toggle('checked');
 		try {
 			li.classList[1]
@@ -75,18 +84,12 @@ export default function TemporaryDrawer() {
 		} catch (error) {
 			console.log(error);
 		}
-		// Count selected
-		const checked = document.querySelectorAll('.checked');
-		const btnText = document.querySelector('.btn-text');
-		checked.length
-			? (btnText.innerText = `${checked.length} Selected`)
-			: (btnText.innerText = 'Select Temperament');
+		countSelected();
 	};
 
-	console.log(queryColors);
-
+	let queryString = '';
 	const makeQuery = async () => {
-		const queryString = `?
+		queryString = `?
 		${queryColors[0] ? `color1=${queryColors[0]}&` : ''}
 		${queryColors[1] ? `color2=${queryColors[1]}&` : ''}
 		${queryColors[2] ? `color3=${queryColors[2]}&` : ''}
@@ -98,6 +101,16 @@ export default function TemporaryDrawer() {
 		`.replace(/\s/g, '');
 		console.log(queryString);
 		dispatch(getFilteredData(queryString));
+		setQueryColors([]);
+		setCollection({
+			chk1: false,
+			chk2: false,
+			chk3: false,
+			chk4: false,
+		});
+		setAvaible(false);
+		document.querySelectorAll('.checked').forEach(e => (e.className = 'item'));
+		countSelected();
 	};
 
 	const list = anchor => (

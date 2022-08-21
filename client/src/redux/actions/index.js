@@ -30,16 +30,18 @@ export const getData = () => {
 // Get filtered Products from backend
 export const getFilteredData = query => {
 	return async dispatch => {
-		dispatch(setLoading(true));
 		try {
+			dispatch(setLoading(true));
 			const response = await axios.get(
 				`http://localhost:3001/products/${query}`
 			);
-			if (response.status === 200)
-				dispatch({ type: GET_FILTERED_DATA, payload: response.data });
-		} catch {
-			dispatch({ type: GET_FILTERED_DATA, payload: null });
+			dispatch({ type: GET_FILTERED_DATA, payload: response.data });
+		} catch (error) {
+			console.log(error);
+			alert(error);
+			getData();
 		}
+
 		dispatch(setLoading(false));
 	};
 };

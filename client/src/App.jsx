@@ -1,5 +1,4 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
 import "./App.css";
 
 function App() {
@@ -8,6 +7,7 @@ function App() {
   return (
     <div className="App">
       <h1>Hola mundo 😋!!</h1>
+      <h2>This a test</h2>
     </div>
   );
 }

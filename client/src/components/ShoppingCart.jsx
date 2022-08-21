@@ -6,7 +6,10 @@ import './ShoppingCart.css';
 const ShoppingCart = () => {
 	const [cart, setCart] = useContext(ShoppingCartContext);
 	const history = useHistory();
-	const totalPrice = cart.reduce((acc, curr) => acc + curr.price, 0);
+	const totalPrice = cart.reduce(
+		(acc, curr) => acc + curr.ProductTypes[0].price,
+		0
+	);
 
 	return (
 		<div className='shopping-wrapper'>
@@ -46,7 +49,7 @@ const ShoppingCart = () => {
 												</span>
 											</div>
 										</div>
-										<div>$ {e.price}</div>
+										<div>$ {e.ProductTypes[0].price}</div>
 									</div>
 									<hr />
 								</div>

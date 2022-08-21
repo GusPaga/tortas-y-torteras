@@ -15,10 +15,11 @@ export default function Card(props) {
 					style={{
 						backgroundImage: `url(${imgHome})`,
 					}}
-				></div>
+				>
+					<span className='card-name'>{name}</span>
+				</div>
 			</Link>
 			<div className='card-text'>
-				<span className='card-name'>{name}</span>
 				<span className='card-price'>$ {price}</span>
 			</div>
 		</div>

@@ -59,6 +59,15 @@ export default function TemporaryDrawer() {
 		setState({ ...state, [anchor]: open });
 	};
 
+	const countSelected = () => {
+		// Count selected
+		const checked = document.querySelectorAll('.checked');
+		const btnText = document.querySelector('.btn-text');
+		checked.length
+			? (btnText.innerText = `${checked.length} Selected`)
+			: (btnText.innerText = 'Select Color');
+	};
+
 	const OnClickItem = e => {
 		const li = // si el click es en algun span, el elemento es li
 			e.target.classList[0] === 'item' ? e.target : e.target.parentElement;
@@ -75,16 +84,8 @@ export default function TemporaryDrawer() {
 		} catch (error) {
 			console.log(error);
 		}
-		// Count selected
-		const checked = document.querySelectorAll('.checked');
-		const btnText = document.querySelector('.btn-text');
-		checked.length
-			? (btnText.innerText = `${checked.length} Selected`)
-			: (btnText.innerText = 'Select Temperament');
+		countSelected();
 	};
-
-	// console.log(queryColors);
-	// console.log(collection);
 
 	let queryString = '';
 	const makeQuery = async () => {
@@ -108,6 +109,8 @@ export default function TemporaryDrawer() {
 			chk4: false,
 		});
 		setAvaible(false);
+		document.querySelectorAll('.checked').forEach(e => (e.className = 'item'));
+		countSelected();
 	};
 
 	const list = anchor => (

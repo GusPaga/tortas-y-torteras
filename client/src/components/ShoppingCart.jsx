@@ -26,7 +26,7 @@ const ShoppingCart = () => {
 										<div
 											className='shp-img'
 											style={{
-												backgroundImage: `url('${e.img_home}')`,
+												backgroundImage: `url('${e.img_home.secure_url}')`,
 											}}
 										></div>
 										<div className='shp-details'>
@@ -74,7 +74,7 @@ const ShoppingCart = () => {
 				</div>
 			</div>
 			<button
-				onClick={() => history.push('/')}
+				onClick={() => history.push('/home')}
 				className='detail-back'
 				type='button'
 			>

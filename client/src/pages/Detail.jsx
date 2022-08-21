@@ -185,9 +185,10 @@ function Detail() {
 				</div>
 			</div>
 			<button
-				onClick={() => history.push('/')}
+				onClick={() => history.push('/home')}
 				className='detail-back'
 				type='button'
+				style={{ backgroundColor: '#f9004d' }}
 			>
 				back
 			</button>

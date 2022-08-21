@@ -56,63 +56,67 @@ const RegistrationForm = () => {
 	useEffect(() => {}, []);
 
 	return (
-		<div className='registrationFormContainer'>
-			<form onSubmit={handleSubmit}>
-				<span className='registrationFormHeader'>Registration Form</span>
+		<div className='min-h-screen w-full'>
+			<form onSubmit={handleSubmit} className='relative w-2/5 min-h-75vh flex flex-col justify-evenly py-[20px 10px] bg-white my-[50px] mx-auto'>
+				<span className='uppercase tracking-wide text-black text-center text-lg font-bold mb-2'>Sign Up</span>
 
-				<label>First Name</label>
+				<label className='uppercase tracking-wide text-black text-xs font-bold mb-2 inline-block'>First Name</label>
+				{error.name && <div className="text-red-500 text-xs italic">{error.name}</div>}
 				<input
 					type='text'
+					className='w-full bg-gray-100 text-black border border-gray-200 rounded-md py-1 px-4 mb-3'
 					name='name'
 					placeholder='Name...'
 					value={input.name}
 					onChange={handleChange}
 				/>
-				{error.name && <div className={'danger'}>{error.name}</div>}
 
-				<label>Last Name</label>
+				<label className='uppercase tracking-wide text-black text-xs font-bold mb-2'>Last Name</label>
+				{error.lastname && <div className="text-red-500 text-xs italic">{error.lastname}</div>}
 				<input
 					type='text'
+					className='w-full bg-gray-100 text-black border border-gray-200 rounded-md py-1 px-4 mb-3'
 					name='lastname'
 					placeholder='LastName...'
 					value={input.lastname}
 					onChange={handleChange}
 				/>
-				{error.lastname && <div className={'danger'}>{error.lastname}</div>}
 
-				<label>Email</label>
+				<label className='uppercase tracking-wide text-black text-xs font-bold mb-2'>Email</label>
+				{error.email && <div className="text-red-500 text-xs italic">{error.email}</div>}
 				<input
 					type='email'
+					className='w-full bg-gray-100 text-black border border-gray-200 rounded-md py-1 px-4 mb-3'
 					name='email'
 					placeholder='Email...'
 					value={input.email}
 					onChange={handleChange}
 				/>
-				{error.email && <div className={'danger'}>{error.email}</div>}
 
-				<label>Password</label>
+				<label className='uppercase tracking-wide text-black text-xs font-bold mb-2'>Password</label>
+				{error.password && <div className="text-red-500 text-xs italic">{error.password}</div>}
 				<div className='dialog'>
 					<input
 						type='password'
+						className='w-full bg-gray-100 text-black border border-gray-200 rounded-md py-1 px-4 mb-3'
 						name='password'
 						placeholder='Password...'
 						value={input.password}
 						onChange={handleChange}
 					/>
 				</div>
-				{error.password && <div className={'danger'}>{error.password}</div>}
 
-				<label>Confirm password</label>
+				<label className='uppercase tracking-wide text-black text-xs font-bold mb-2'>Confirm password</label>
 				<input
 					type='password'
+					className='w-full bg-gray-100 text-black border border-gray-200 rounded-md py-1 px-4 mb-3'
 					name='cpassword'
 					placeholder='Confirm password...'
 					value={cpassword}
 					onChange={handleChange}
 				/>
-				{error.cpassword && <div className={'danger'}>{error.cpassword}</div>}
 
-				<input type={'submit'} value='Register' />
+				<input type={'submit'} value='Register' className='uppercase tracking-wide text-black text-sm font-bold mb-2 border-solid border-1 border-indigo-600/60 rounded-md' />
 			</form>
 		</div>
 	);

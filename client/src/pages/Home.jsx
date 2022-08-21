@@ -55,7 +55,9 @@ export default function Home() {
 							imgHome={prod.img_home.secure_url}
 							id={prod.id}
 							name={prod.name}
-							price={prod.ProductTypes[0].price}
+							price1={prod.ProductTypes[0].price}
+							price2={prod.ProductTypes[1].price}
+							collection={prod.collection}
 						/>
 					</div>
 				))}

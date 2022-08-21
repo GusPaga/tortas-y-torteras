@@ -127,7 +127,7 @@ function Detail() {
 						<div className='dt1-ref'>Ref-{product.id}</div>
 						<div className='dt1-name'>{product.name}</div>
 						<div className='dt1-price'>
-							{/* Price: {product.ProductTypes[0].price} */}
+							Price: $ {product.ProductTypes[0].price}
 						</div>
 					</div>
 					<div className='detail-2'>
@@ -165,18 +165,21 @@ function Detail() {
 						<span>Size</span>
 						<div className='dt4'>
 							<div className='dt4-1'>
-								<p className='dt4-1-p1'>Medium</p>
+								<p className='dt4-1-p1'>Cake Trail</p>
 								<p className='dt4-1-p2'>32 cm</p>
+								<p className='dt4-1-p2'>
+									Price: $ {product.ProductTypes[0].price}
+								</p>
 							</div>
 							<div className='dt4-2'>
-								<p className='dt4-2-p1'>Large</p>
+								<p className='dt4-2-p1'>Turn Table</p>
 								<p className='dt4-1-p2'>35 cm</p>
+								Price: $ {product.ProductTypes[1].price}
 							</div>
 						</div>
 					</div>
 					<div className='detail-5'>Avaibility: In stock</div>
 					<div className='detail-6'>
-						<span>Add</span>
 						<div onClick={addToCart} className='dt6-1'>
 							Add to bag
 						</div>

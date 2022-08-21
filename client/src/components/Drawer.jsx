@@ -50,6 +50,7 @@ export default function TemporaryDrawer() {
 	};
 
 	const toggleDrawer = (anchor, open) => event => {
+		setQueryColors([]);
 		if (
 			event.type === 'keydown' &&
 			(event.key === 'Tab' || event.key === 'Shift')
@@ -93,10 +94,10 @@ export default function TemporaryDrawer() {
 		${queryColors[0] ? `color1=${queryColors[0]}&` : ''}
 		${queryColors[1] ? `color2=${queryColors[1]}&` : ''}
 		${queryColors[2] ? `color3=${queryColors[2]}&` : ''}
-		${collection.chk1 ? `collection=Abstract&` : ''}
-		${collection.chk2 ? `collection=Flowers&` : ''}
-		${collection.chk3 ? `collection=Butterflies&` : ''}
-		${collection.chk4 ? `collection=Other&` : ''}
+		${collection.chk1 ? `collection1=Abstract&` : ''}
+		${collection.chk2 ? `collection2=Flowers&` : ''}
+		${collection.chk3 ? `collection3=Butterflies&` : ''}
+		${collection.chk4 ? `collection4=Other&` : ''}
 		stock=${available}
 		`.replace(/\s/g, '');
 		console.log(queryString);

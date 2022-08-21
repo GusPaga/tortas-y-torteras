@@ -311,6 +311,7 @@ const ProductForm = () => {
 				</ul>
 
 				<input
+					style={{ padding: '10px 30px 10px 30px' }}
 					type={'submit'}
 					value='Add product'
 					className='uppercase tracking-wide text-black text-sm font-bold mb-2 border-solid border-1 border-indigo-600/60 rounded-md'

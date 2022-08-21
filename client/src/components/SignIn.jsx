@@ -1,4 +1,4 @@
-import * as React from 'react';
+// import * as React from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -12,6 +12,10 @@ import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { getData } from '../redux/actions';
+import { useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 
 function Copyright(props) {
 	return (
@@ -34,6 +38,17 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignInSide() {
+	const dispatch = useDispatch();
+	const { redData } = useSelector(state => state);
+
+	useEffect(() => {
+		dispatch(getData());
+	}, [dispatch]); //
+
+	const arrayImg = [];
+	for (const product of redData) arrayImg.push(product.img_home.secure_url);
+	const randomImg = Math.floor(Math.random() * 20);
+
 	const handleSubmit = event => {
 		event.preventDefault();
 		const data = new FormData(event.currentTarget);
@@ -53,7 +68,7 @@ export default function SignInSide() {
 					sm={4}
 					md={7}
 					sx={{
-						backgroundImage: 'url(https://source.unsplash.com/random)',
+						backgroundImage: `url(${arrayImg[randomImg]})`,
 						backgroundRepeat: 'no-repeat',
 						backgroundColor: t =>
 							t.palette.mode === 'light'
@@ -109,14 +124,16 @@ export default function SignInSide() {
 								control={<Checkbox value='remember' color='primary' />}
 								label='Remember me'
 							/>
-							<Button
-								type='submit'
-								fullWidth
-								variant='contained'
-								sx={{ mt: 3, mb: 2 }}
-							>
-								Sign In
-							</Button>
+							<NavLink to='/home'>
+								<Button
+									type='submit'
+									fullWidth
+									variant='contained'
+									sx={{ mt: 3, mb: 2 }}
+								>
+									Sign In
+								</Button>
+							</NavLink>
 							<Grid container>
 								<Grid item xs>
 									<Link href='#' variant='body2'>
@@ -124,7 +141,7 @@ export default function SignInSide() {
 									</Link>
 								</Grid>
 								<Grid item>
-									<Link href='#' variant='body2'>
+									<Link href='/registration' variant='body2'>
 										{"Don't have an account? Sign Up"}
 									</Link>
 								</Grid>

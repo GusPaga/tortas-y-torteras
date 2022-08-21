@@ -28,6 +28,6 @@ export const validateRegister = input => {
 		error.lastname = 'Last Name is required';
 	if (!validateMail.test(input.email)) error.email = 'It has to be an email';
 	if (!noEmpty.test(input.password) || !validatePassword.test(input.password))
-		error.password = 'Requires 8 characters or more';
+		error.password = 'Be aware of password requirements';
 	return error;
 };

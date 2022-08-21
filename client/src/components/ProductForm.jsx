@@ -8,6 +8,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import { validateProduct } from '../validations/productValidation';
 import '../components/ProductForm.css';
+import axios from 'axios';
 
 const ProductForm = () => {
 	const { redColors } = useSelector(state => state);
@@ -103,6 +104,7 @@ const ProductForm = () => {
 			) */
 		};
 	};
+
 
 	const handleChangeStock = e => {
 		if (e.target.value < 0) return alert('negative quantity not allowed');

@@ -6,7 +6,6 @@ import { ShoppingCartContext } from '../context/ShoppingCartContext';
 
 export default function Navbar() {
 	const [cart, setCart] = useContext(ShoppingCartContext);
-	console.log(cart.length);
 
 	useEffect(() => {
 		document.getElementById('navbar-shp-num').innerHTML = cart.length;
@@ -18,7 +17,7 @@ export default function Navbar() {
 			<AppBar style={{ backgroundColor: '#1f2937' }} position='relative'>
 				<Toolbar>
 					<span className='bar-brush-icon'>
-						<Link to='/'>
+						<Link to='/home'>
 							<i className='fa-solid fa-palette'></i>
 						</Link>
 					</span>
@@ -35,7 +34,7 @@ export default function Navbar() {
 					<span className='bar-user-icon'>
 						<i className='fa-solid fa-circle-user'></i>
 					</span>
-					<Link to='/registration' className='bar-login-text'>
+					<Link to='/bases/signin' className='bar-login-text'>
 						Log In
 					</Link>
 				</Toolbar>

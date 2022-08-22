@@ -1,34 +1,38 @@
-import axios from 'axios';
-import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { getColors } from '../redux/actions';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
-import { validateProduct } from '../validations/productValidation';
-import '../components/ProductForm.css';
 import axios from 'axios';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import '../components/ProductForm.css';
+import { getColors } from '../redux/actions';
+import { validateProduct } from '../validations/productValidation';
 
 const ProductForm = () => {
 	const { redColors } = useSelector(state => state);
 	const [queryColors, setQueryColors] = useState([]);
+	const [imageMain, setImageMain] = useState();
+	const [imagesDetail, setimagesDatail] = useState();
+	const errorSelectColor = useRef();
+	const errorSelectColl = useRef();
+	const errorSelectImage = useRef();
+	const errorSelectImageDetail = useRef();
+	const errorAll = useRef();
+	const success = useRef();
 	const [stock, setStock] = useState({
 		cakeTrail: '',
 		turntable: '',
 	});
-	const [file, setFile] = useState(); // eslint-disable-line no-unused-vars
 	const dispatch = useDispatch();
 	const [input, setInput] = useState({
 		name: '',
 		description: '',
-		// imageMain: '',
-		imagesDetail: [],
 		collection: '',
 		artist: '',
 		stock: [
-			{ quantity: 0, productTypeName: "Cake Tray" },
-      { quantity: 0, productTypeName: "Turntable" }
+			{ quantity: 0, productTypeName: 'Cake Tray' },
+			{ quantity: 0, productTypeName: 'Turntable' },
 		],
 		color: [],
 	});
@@ -47,7 +51,7 @@ const ProductForm = () => {
 	};
 
 	const OnClickItem = e => {
-		setInput({...input,color:[...input.color, e.target.id]})
+		setInput({ ...input, color: [...input.color, e.target.id] });
 		const li = // si el click es en algun span, el elemento es li
 			e.target.classList[0] === 'item' ? e.target : e.target.parentElement;
 		li.classList.toggle('checked');
@@ -56,7 +60,7 @@ const ProductForm = () => {
 				? setQueryColors([...queryColors, li.childNodes[1].innerText])
 				: setQueryColors(
 						queryColors.filter(e => e !== li.childNodes[1].innerText)
-				);
+				  );
 		} catch (error) {
 			console.log(error);
 		}
@@ -79,8 +83,9 @@ const ProductForm = () => {
 	};
 
 	const handleImage = e => {
-		const imageAsB64 = URL.createObjectURL(e.target.files[0])
-		setFile(imageAsB64);
+
+		setImageMain(e.target.files[0]);
+
 		/* setError(
 			validateProduct({
 				...input,
@@ -90,20 +95,10 @@ const ProductForm = () => {
 	};
 
 	const handleChangeImages = e => {
-		if(input.imagesDetail.includes(URL.createObjectURL(e.target.files[0]))) {alert('Image exists already')}
-		else {
-			setInput({
-				...input,
-				imagesDetail: [...input.imagesDetail, URL.createObjectURL(e.target.files[0])]
-			});
-			/* setError(
-				validateProduct({
-					...input,
-					[e.target.name]: e.target.value,
-				})
-			) */
-		};
-	};
+
+		setimagesDatail(e.target.files);
+	
+		}
 
 
 	const handleChangeStock = e => {
@@ -118,31 +113,58 @@ const ProductForm = () => {
 
 	const handleSubmit = async e => {
 		e.preventDefault();
-		const newProduct = { ...input };
-		newProduct.imageMain = file;
-		newProduct.stock[0].quantity = stock.cakeTrail;
-		newProduct.stock[1].quantity = stock.turntable;
-		console.log('ANTES', newProduct);
-		if (!newProduct.name || !!Object.keys(error).length)
-			alert('Some fields are missing');
-			try {
-				const newInput = {
-					name: newProduct.name,
-					description: newProduct.description,
-					collection: newProduct.collection,
-					imageMain:newProduct.imageMain,
-					imagesDetail:newProduct.imagesDetail,
-					artist: newProduct.artist,
-					stock: newProduct.stock,
-					colors:[
-						{hex: newProduct.color[0].split(",")[0],name:newProduct.color[0].split(",")[1]},
-						{hex:newProduct.color[1].split(",")[0],name:newProduct.color[1].split(",")[1]},
-						{hex:newProduct.color[2].split(",")[0],name:newProduct.color[2].split(",")[1]}]
+
+		success.current.innerText = '';
+		try {
+			const images = [];
+			if (imagesDetail) {
+				for (const image of imagesDetail) {
+					images.push(image);
 				}
-				console.log('DESPUES', newInput)
-				await axios.post('http://localhost:3001/products', newInput);
+			}
+			const newProduct = { ...input };
+			newProduct.imageMain = imageMain;
+			newProduct.imagesDetail = images || [];
+			newProduct.stock[0].quantity = stock.cakeTrail;
+			newProduct.stock[1].quantity = stock.turntable;
+			console.log('ANTES', newProduct);
+			if (!newProduct.color.length)
+				errorSelectColor.current.innerText = 'Select 3 colors';
+			else errorSelectColor.current.innerText = '';
+			if (!newProduct.imageMain)
+				errorSelectImage.current.innerText = 'Add a image';
+			else errorSelectImage.current.innerText = '';
+			if (!newProduct.imagesDetail.length)
+				errorSelectImageDetail.current.innerText = 'Select at least 1 image';
+			else errorSelectImageDetail.current.innerText = '';
+			if (!newProduct.collection)
+				errorSelectColl.current.innerText = 'Add a collection';
+			else errorSelectColl.current.innerText = '';
+			if (!newProduct.name || Object.entries(newProduct).length === 0) {
+				errorAll.current.innerText = 'Some fields are missing';
+			} else {
+				const res = await axios.post(
+					'http://localhost:3001/products',
+					newProduct,
+					{
+						headers: {
+							'Content-Type': 'multipart/form-data',
+						},
+					}
+				);
+				if (res.data.success === 'ok') {
+					errorAll.current.innerText = '';
+					return (success.current.innerText = 'Product added successfully');
+				}
+			}
+
+			// console.log(res);
 			// });
-			} catch (error) {}
+		} catch (error) {
+			errorAll.current.innerText = error.response.data;
+			// console.log(error.response.data);
+		}
+
 	};
 
 	useEffect(() => {}, []);
@@ -157,7 +179,9 @@ const ProductForm = () => {
 				<label className='uppercase tracking-wide text-black text-xs font-bold mb-2'>
 					Name
 				</label>
-				{error.name && <span className="text-red-500 text-xs italic">{error.name}</span>}
+				{error.name && (
+					<span className='text-red-500 text-xs italic'>{error.name}</span>
+				)}
 				<input
 					type='text'
 					className='w-full bg-gray-100 text-black border border-gray-200 rounded-md py-1 px-4 mb-3'
@@ -170,7 +194,11 @@ const ProductForm = () => {
 				<label className='uppercase tracking-wide text-black text-xs font-bold mb-2'>
 					Description
 				</label>
-				{error.description && <span className="text-red-500 text-xs italic">{error.description}</span>}
+				{error.description && (
+					<span className='text-red-500 text-xs italic'>
+						{error.description}
+					</span>
+				)}
 				<input
 					type='text'
 					className='w-full bg-gray-100 text-black border border-gray-200 rounded-md py-1 px-4 mb-3'
@@ -183,10 +211,18 @@ const ProductForm = () => {
 				<label className='uppercase tracking-wide text-black text-xs font-bold mb-2'>
 					Image Main
 				</label>
-				{error.imageMain && <span className="text-red-500 text-xs italic">{error.imageMain}</span>}
+
+				<small
+					className='p-0.5 text-red-400 italic'
+					ref={errorSelectImage}
+				></small>
+
+				{error.imageMain && (
+					<span className='text-red-500 text-xs italic'>{error.imageMain}</span>
+				)}
 				<input
-					data-toggle="tooltip"
-					data-placement="bottom"
+					data-toggle='tooltip'
+					data-placement='bottom'
 					type='file'
 					className='w-full bg-gray-100 text-black border border-gray-200 rounded-md py-1 px-4 mb-3'
 					name='imageMain'
@@ -197,14 +233,29 @@ const ProductForm = () => {
 				<label
 					// class="custom-file-label"
 					// for="customFileLangHTML"
-					data-browse="Elegir archivo"
-					>* Seleccionar una foto
-					</label>
+					data-browse='Elegir archivo'
+
+				></label>
+
+				>
+
+				</label>
+
 
 				<label className='uppercase tracking-wide text-black text-xs font-bold mb-2'>
 					Images Details
 				</label>
-				{error.imagesDetail && <span className="text-red-500 text-xs italic">{error.imagesDetail}</span>}
+
+				<small
+					className='p-0.5 text-red-400 italic'
+					ref={errorSelectImageDetail}
+				></small>
+
+				{error.imagesDetail && (
+					<span className='text-red-500 text-xs italic'>
+						{error.imagesDetail}
+					</span>
+				)}
 				<input
 					type='file'
 					className='w-full bg-gray-100 text-black border border-gray-200 rounded-md py-1 px-4 mb-3'
@@ -217,6 +268,10 @@ const ProductForm = () => {
 				<label className='uppercase tracking-wide text-black text-xs font-bold mb-2'>
 					Collection
 				</label>
+				<small
+					className='p-0.5 text-red-400 italic'
+					ref={errorSelectColl}
+				></small>
 				<FormControl>
 					<RadioGroup
 						row
@@ -271,7 +326,9 @@ const ProductForm = () => {
 				<label className='uppercase tracking-wide text-black text-xs font-bold mb-2'>
 					Artist
 				</label>
-				{error.artist && <span className="text-red-500 text-xs italic">{error.artist}</span>}
+				{error.artist && (
+					<span className='text-red-500 text-xs italic'>{error.artist}</span>
+				)}
 				<input
 					type='text'
 					className='w-full bg-gray-100 text-black border border-gray-200 rounded-md py-1 px-4 mb-3'
@@ -284,6 +341,10 @@ const ProductForm = () => {
 				<label className='uppercase tracking-wide text-black text-xs font-bold mb-2'>
 					Colors
 				</label>
+				<small
+					className='p-0.5 text-red-400 italic'
+					ref={errorSelectColor}
+				></small>
 				<div onClick={handleOnClickDiv} className='select-btn'>
 					<span className='btn-text'>Select Color </span>
 					<span className='filter'>
@@ -295,7 +356,7 @@ const ProductForm = () => {
 						<li key={c.id} className='item' name='colors' onClick={OnClickItem}>
 							<span
 								className='checkbox'
-								id={[c.hex,c.name]}
+								id={[c.hex, c.name]}
 								style={{
 									backgroundColor: `${c.hex}`,
 									borderColor: `${c.hex}`,
@@ -303,17 +364,22 @@ const ProductForm = () => {
 							>
 								<i className='fa-solid fa-check check-icon'></i>
 							</span>
-							<span /* id={`item${c.id}`} */ id={[c.hex,c.name]} className='item-text'>
+							<span
+								/* id={`item${c.id}`} */ id={[c.hex, c.name]}
+								className='item-text'
+							>
 								{c.name}
 							</span>
 						</li>
 					))}
 				</ul>
-
+				<span className='p-0.5 text-red-400 italic' ref={errorAll}></span>
+				<span className='p-0.5 text-green-400 italic' ref={success}></span>
 				<input
+					style={{ padding: '10px 30px 10px 30px' }}
 					type={'submit'}
 					value='Add product'
-					className='uppercase tracking-wide text-black text-sm font-bold mb-2 border-solid border-1 border-indigo-600/60 rounded-md'
+					className='uppercase tracking-wide text-black text-sm font-bold mt-4 mb-2 border-solid border-1 p-2 border-indigo-600/60 rounded-md'
 				/>
 			</form>
 		</div>

@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { getData } from '../redux/actions';
 import { useEffect } from 'react';
+import { NavLink } from 'react-router-dom';
 
 function Copyright(props) {
 	return (
@@ -123,14 +124,16 @@ export default function SignInSide() {
 								control={<Checkbox value='remember' color='primary' />}
 								label='Remember me'
 							/>
-							<Button
-								type='submit'
-								fullWidth
-								variant='contained'
-								sx={{ mt: 3, mb: 2 }}
-							>
-								Sign In
-							</Button>
+							<NavLink to='/home'>
+								<Button
+									type='submit'
+									fullWidth
+									variant='contained'
+									sx={{ mt: 3, mb: 2 }}
+								>
+									Sign In
+								</Button>
+							</NavLink>
 							<Grid container>
 								<Grid item xs>
 									<Link href='#' variant='body2'>

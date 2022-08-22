@@ -7,8 +7,8 @@ export const validateProduct = input => {
 
 	if (!letters.test(input.name) || input.name.length < 4)
 		error.name = 'Name is required. Alphabetic field';
-	if (input.description.length > 50 || input.description.length < 5)
+	else if (input.description.length > 50 || input.description.length < 5)
 		error.description = 'Description cannot be longer than 50 characters';
-	if (!letters.test(input.artist)) error.artist = 'Artist is required';
+	else if (!letters.test(input.artist)) error.artist = 'Artist is required';
 	return error;
 };

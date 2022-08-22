@@ -6,14 +6,45 @@ import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-import { MultOpts } from './MultOpts';
+// import { MultOpts } from './MultOpts';
 import Checkbox from '@mui/material/Checkbox';
-import { useDispatch } from 'react-redux';
-import { getFilteredData } from '../redux/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { getColors, getFilteredData } from '../redux/actions';
+// import OutlinedInput from '@mui/material/OutlinedInput';
+// import InputLabel from '@mui/material/InputLabel';
+// import MenuItem from '@mui/material/MenuItem';
+// import FormControl from '@mui/material/FormControl';
+// import ListItemText from '@mui/material/ListItemText';
+// import Select from '@mui/material/Select';
+// import './Drawer.css';
+import { MultOpts } from './MultOpts';
+
+// const ITEM_HEIGHT = 48;
+// const ITEM_PADDING_TOP = 8;
+// const MenuProps = {
+// 	PaperProps: {
+// 		style: {
+// 			maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+// 			width: 200,
+// 		},
+// 	},
+// };
+
+// function getStyles(name, personName, theme) {
+// 	return {
+// 		fontWeight:
+// 			personName.indexOf(name) === -1
+// 				? theme.typography.fontWeightRegular
+// 				: theme.typography.fontWeightMedium,
+// 	};
+// }
 
 export default function TemporaryDrawer() {
 	const [queryColors, setQueryColors] = React.useState([]);
 	const dispatch = useDispatch();
+	// const [personName, setPersonName] = React.useState([]);
+	// const { redColors } = useSelector(state => state);
+
 	const [state, setState] = React.useState({
 		top: false,
 		left: false,
@@ -27,6 +58,10 @@ export default function TemporaryDrawer() {
 		chk3: true,
 		chk4: true,
 	});
+
+	React.useEffect(() => {
+		dispatch(getColors());
+	}, []); //
 
 	const handleChangeSwitch = event => {
 		setAvaible(event.target.checked);
@@ -112,12 +147,23 @@ export default function TemporaryDrawer() {
 		setAvaible(true);
 		document.querySelectorAll('.checked').forEach(e => (e.className = 'item'));
 		countSelected();
+		setState({ ...state, left: false });
 	};
+
+	// const handleChange = event => {
+	// 	const {
+	// 		target: { value },
+	// 	} = event;
+	// 	setPersonName(
+	// 		// On autofill we get a stringified value.
+	// 		typeof value === 'string' ? value.split(',') : value
+	// 	);
+	// };
 
 	const list = anchor => (
 		<Box
-			style={{ padding: '30px' }}
-			sx={{ width: 250 }}
+			style={{ padding: '20px' }}
+			sx={{ width: 280 }}
 			// role='presentation'
 			// onClick={toggleDrawer(anchor, false)}
 			onKeyDown={toggleDrawer(anchor, false)}
@@ -168,8 +214,42 @@ export default function TemporaryDrawer() {
 			</div>
 			<hr />
 			<div className='filter-3'></div>
-			<h6 style={{ fontFamily: 'roboto', margin: '20px' }}>Colors</h6>
+			<h6 style={{ fontFamily: 'roboto', margin: '20px' }}>
+				Select max 3 colors
+			</h6>
 			<MultOpts OnClickItem={OnClickItem} queryColors={queryColors} />
+			{/* <div>
+				<FormControl sx={{ m: 1, width: 200 }}>
+					<InputLabel id='demo-multiple-checkbox-label'>Color</InputLabel>
+					<Select
+						labelId='demo-multiple-checkbox-label'
+						id='demo-multiple-checkbox'
+						multiple
+						value={personName}
+						onChange={handleChange}
+						input={<OutlinedInput label='Tag' />}
+						renderValue={selected => selected.join(', ')}
+						MenuProps={MenuProps}
+					>
+						{redColors.map(color => (
+							<MenuItem key={color.id} value={color.name}>
+								<div
+									className='drawer-div'
+									style={{
+										backgroundColor: `${color.hex}`,
+									}}
+								>
+									<Checkbox
+										checked={personName.indexOf(color.name) > -1}
+										color='default'
+									/>
+								</div>
+								<ListItemText primary={color.name} />
+							</MenuItem>
+						))}
+					</Select>
+				</FormControl>
+			</div> */}
 			<Divider />
 		</Box>
 	);

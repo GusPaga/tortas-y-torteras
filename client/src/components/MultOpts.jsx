@@ -22,8 +22,9 @@ export const MultOpts = ({ OnClickItem, queryColors }) => {
 
 			<ul className='list-items'>
 				{redColors.map(c => (
-					<li key={c.id} className='item' onClick={OnClickItem}>
+					<li key={c.id} className='item'>
 						<span
+							onClick={OnClickItem}
 							className='checkbox'
 							style={{
 								backgroundColor: `${c.hex}`,

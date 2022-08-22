@@ -4,7 +4,7 @@ import './Card.css';
 
 export default function Card(props) {
 	// eslint-disable-next-line react/prop-types
-	const { id, imgHome, name, price1, price2, collection } = props;
+	const { id, imgHome, name, color1, color2, color3, collection } = props;
 
 	// console.log('cart=', cart);
 
@@ -17,20 +17,42 @@ export default function Card(props) {
 						backgroundImage: `url(${imgHome})`,
 					}}
 				>
-					<div>card-header</div>
-					<span className='card-name'>{name}</span>
-					<FavoriteBorderIcon />
-					{/* <span className='card-collection'>Collection: {collection}</span> */}
+					<div className='card-header'>
+						<span className='card-name'>{name}</span>
+						<FavoriteBorderIcon />
+					</div>
 				</div>
 			</Link>
 			<div className='card-text'>
 				<div className='card-text-container'>
-					<span className='card-type1'>Cake Trail:</span>
-					<span className='card-price1'>$ {price1}</span>
+					<span className='card-collection'>Collection:</span>
+					<span className='card-collection'>{collection}</span>
 				</div>
 				<div className='card-text-container'>
-					<span className='card-type2'>Turn Table: </span>
-					<span className='card-price2'>$ {price2}</span>
+					<span className='card-colors'>Main Colors:</span>
+					<span className='card-colors'>
+						<div
+							className='card-color1'
+							style={{
+								backgroundColor: `${color1}`,
+								border: `2px solid ${color1}`,
+							}}
+						></div>
+						<div
+							className='card-color2'
+							style={{
+								backgroundColor: `${color2}`,
+								border: `2px solid ${color2}`,
+							}}
+						></div>
+						<div
+							className='card-color3'
+							style={{
+								backgroundColor: `${color3}`,
+								border: `2px solid ${color3}`,
+							}}
+						></div>
+					</span>
 				</div>
 			</div>
 		</div>

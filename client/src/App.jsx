@@ -9,6 +9,7 @@ import Landing from './pages/Landing';
 import ShoppingCart from './components/ShoppingCart';
 import Try from './components/Try';
 import SignInSide from './components/SignIn';
+import Page404 from './components/Pag404';
 
 function App() {
 	return (
@@ -22,6 +23,7 @@ function App() {
 				<Route exact path='/shop/shoppingCart' component={ShoppingCart} />
 				<Route exact path='/bases/try' component={Try} />
 				<Route exact path='/bases/signin' component={SignInSide} />
+				<Route path='/' component={Page404} />
 
 				<Route exact path='/:id' component={Detail} />
 			</Switch>

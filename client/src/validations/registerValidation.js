@@ -1,5 +1,6 @@
 const noEmpty = /\S+/;
-const letters = /^[a-z]+$/i;
+// const letters = /^[a-z]+$/i;
+const letters = /^([a-zA-Z]+)(\s[a-zA-Z]+)*$/;
 const validateMail =
 	/[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*@[a-zA-Z0-9_]+([.][a-zA-Z0-9_]+)*[.][a-zA-Z]{2,5}$/;
 const validatePassword =

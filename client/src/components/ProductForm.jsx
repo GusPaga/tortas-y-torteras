@@ -8,7 +8,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import { validateProduct } from '../validations/productValidation';
 import '../components/ProductForm.css';
-import axios from 'axios';
 
 const ProductForm = () => {
 	const { redColors } = useSelector(state => state);
@@ -27,8 +26,8 @@ const ProductForm = () => {
 		collection: '',
 		artist: '',
 		stock: [
-			{ quantity: 0, productTypeName: "Cake Tray" },
-      { quantity: 0, productTypeName: "Turntable" }
+			{ quantity: 0, productTypeName: 'Cake Tray' },
+			{ quantity: 0, productTypeName: 'Turntable' },
 		],
 		color: [],
 	});
@@ -47,7 +46,7 @@ const ProductForm = () => {
 	};
 
 	const OnClickItem = e => {
-		setInput({...input,color:[...input.color, e.target.id]})
+		setInput({ ...input, color: [...input.color, e.target.id] });
 		const li = // si el click es en algun span, el elemento es li
 			e.target.classList[0] === 'item' ? e.target : e.target.parentElement;
 		li.classList.toggle('checked');
@@ -56,7 +55,7 @@ const ProductForm = () => {
 				? setQueryColors([...queryColors, li.childNodes[1].innerText])
 				: setQueryColors(
 						queryColors.filter(e => e !== li.childNodes[1].innerText)
-				);
+				  );
 		} catch (error) {
 			console.log(error);
 		}
@@ -79,7 +78,7 @@ const ProductForm = () => {
 	};
 
 	const handleImage = e => {
-		const imageAsB64 = URL.createObjectURL(e.target.files[0])
+		const imageAsB64 = URL.createObjectURL(e.target.files[0]);
 		setFile(imageAsB64);
 		/* setError(
 			validateProduct({
@@ -90,11 +89,15 @@ const ProductForm = () => {
 	};
 
 	const handleChangeImages = e => {
-		if(input.imagesDetail.includes(URL.createObjectURL(e.target.files[0]))) {alert('Image exists already')}
-		else {
+		if (input.imagesDetail.includes(URL.createObjectURL(e.target.files[0]))) {
+			alert('Image exists already');
+		} else {
 			setInput({
 				...input,
-				imagesDetail: [...input.imagesDetail, URL.createObjectURL(e.target.files[0])]
+				imagesDetail: [
+					...input.imagesDetail,
+					URL.createObjectURL(e.target.files[0]),
+				],
 			});
 			/* setError(
 				validateProduct({
@@ -102,9 +105,8 @@ const ProductForm = () => {
 					[e.target.name]: e.target.value,
 				})
 			) */
-		};
+		}
 	};
-
 
 	const handleChangeStock = e => {
 		if (e.target.value < 0) return alert('negative quantity not allowed');
@@ -125,24 +127,34 @@ const ProductForm = () => {
 		console.log('ANTES', newProduct);
 		if (!newProduct.name || !!Object.keys(error).length)
 			alert('Some fields are missing');
-			try {
-				const newInput = {
-					name: newProduct.name,
-					description: newProduct.description,
-					collection: newProduct.collection,
-					imageMain:newProduct.imageMain,
-					imagesDetail:newProduct.imagesDetail,
-					artist: newProduct.artist,
-					stock: newProduct.stock,
-					colors:[
-						{hex: newProduct.color[0].split(",")[0],name:newProduct.color[0].split(",")[1]},
-						{hex:newProduct.color[1].split(",")[0],name:newProduct.color[1].split(",")[1]},
-						{hex:newProduct.color[2].split(",")[0],name:newProduct.color[2].split(",")[1]}]
-				}
-				console.log('DESPUES', newInput)
-				await axios.post('http://localhost:3001/products', newInput);
+		try {
+			const newInput = {
+				name: newProduct.name,
+				description: newProduct.description,
+				collection: newProduct.collection,
+				imageMain: newProduct.imageMain,
+				imagesDetail: newProduct.imagesDetail,
+				artist: newProduct.artist,
+				stock: newProduct.stock,
+				colors: [
+					{
+						hex: newProduct.color[0].split(',')[0],
+						name: newProduct.color[0].split(',')[1],
+					},
+					{
+						hex: newProduct.color[1].split(',')[0],
+						name: newProduct.color[1].split(',')[1],
+					},
+					{
+						hex: newProduct.color[2].split(',')[0],
+						name: newProduct.color[2].split(',')[1],
+					},
+				],
+			};
+			console.log('DESPUES', newInput);
+			await axios.post('http://localhost:3001/products', newInput);
 			// });
-			} catch (error) {}
+		} catch (error) {}
 	};
 
 	useEffect(() => {}, []);
@@ -157,7 +169,9 @@ const ProductForm = () => {
 				<label className='uppercase tracking-wide text-black text-xs font-bold mb-2'>
 					Name
 				</label>
-				{error.name && <span className="text-red-500 text-xs italic">{error.name}</span>}
+				{error.name && (
+					<span className='text-red-500 text-xs italic'>{error.name}</span>
+				)}
 				<input
 					type='text'
 					className='w-full bg-gray-100 text-black border border-gray-200 rounded-md py-1 px-4 mb-3'
@@ -170,7 +184,11 @@ const ProductForm = () => {
 				<label className='uppercase tracking-wide text-black text-xs font-bold mb-2'>
 					Description
 				</label>
-				{error.description && <span className="text-red-500 text-xs italic">{error.description}</span>}
+				{error.description && (
+					<span className='text-red-500 text-xs italic'>
+						{error.description}
+					</span>
+				)}
 				<input
 					type='text'
 					className='w-full bg-gray-100 text-black border border-gray-200 rounded-md py-1 px-4 mb-3'
@@ -183,10 +201,12 @@ const ProductForm = () => {
 				<label className='uppercase tracking-wide text-black text-xs font-bold mb-2'>
 					Image Main
 				</label>
-				{error.imageMain && <span className="text-red-500 text-xs italic">{error.imageMain}</span>}
+				{error.imageMain && (
+					<span className='text-red-500 text-xs italic'>{error.imageMain}</span>
+				)}
 				<input
-					data-toggle="tooltip"
-					data-placement="bottom"
+					data-toggle='tooltip'
+					data-placement='bottom'
 					type='file'
 					className='w-full bg-gray-100 text-black border border-gray-200 rounded-md py-1 px-4 mb-3'
 					name='imageMain'
@@ -197,14 +217,19 @@ const ProductForm = () => {
 				<label
 					// class="custom-file-label"
 					// for="customFileLangHTML"
-					data-browse="Elegir archivo"
-					>* Seleccionar una foto
-					</label>
+					data-browse='Elegir archivo'
+				>
+					* Seleccionar una foto
+				</label>
 
 				<label className='uppercase tracking-wide text-black text-xs font-bold mb-2'>
 					Images Details
 				</label>
-				{error.imagesDetail && <span className="text-red-500 text-xs italic">{error.imagesDetail}</span>}
+				{error.imagesDetail && (
+					<span className='text-red-500 text-xs italic'>
+						{error.imagesDetail}
+					</span>
+				)}
 				<input
 					type='file'
 					className='w-full bg-gray-100 text-black border border-gray-200 rounded-md py-1 px-4 mb-3'
@@ -271,7 +296,9 @@ const ProductForm = () => {
 				<label className='uppercase tracking-wide text-black text-xs font-bold mb-2'>
 					Artist
 				</label>
-				{error.artist && <span className="text-red-500 text-xs italic">{error.artist}</span>}
+				{error.artist && (
+					<span className='text-red-500 text-xs italic'>{error.artist}</span>
+				)}
 				<input
 					type='text'
 					className='w-full bg-gray-100 text-black border border-gray-200 rounded-md py-1 px-4 mb-3'
@@ -295,7 +322,7 @@ const ProductForm = () => {
 						<li key={c.id} className='item' name='colors' onClick={OnClickItem}>
 							<span
 								className='checkbox'
-								id={[c.hex,c.name]}
+								id={[c.hex, c.name]}
 								style={{
 									backgroundColor: `${c.hex}`,
 									borderColor: `${c.hex}`,
@@ -303,7 +330,10 @@ const ProductForm = () => {
 							>
 								<i className='fa-solid fa-check check-icon'></i>
 							</span>
-							<span /* id={`item${c.id}`} */ id={[c.hex,c.name]} className='item-text'>
+							<span
+								/* id={`item${c.id}`} */ id={[c.hex, c.name]}
+								className='item-text'
+							>
 								{c.name}
 							</span>
 						</li>

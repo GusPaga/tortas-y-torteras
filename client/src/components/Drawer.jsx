@@ -7,7 +7,7 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
 import Checkbox from '@mui/material/Checkbox';
 import { useDispatch } from 'react-redux';
-import { getFilteredData } from '../redux/actions';
+import { getFilteredData, setPage } from '../redux/actions';
 import { MultOpts } from './MultOpts';
 
 export default function TemporaryDrawer() {
@@ -103,6 +103,7 @@ export default function TemporaryDrawer() {
 		setAvaible(true);
 		document.querySelectorAll('.checked').forEach(e => (e.className = 'item'));
 		setState({ ...state, left: false });
+		dispatch(setPage(1));
 	};
 
 	const list = anchor => (

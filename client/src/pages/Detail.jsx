@@ -65,8 +65,32 @@ function Detail() {
 		</>
 	);
 
-	console.log(product);
 	if (!product.id) return <h1>Cargando...</h1>;
+
+	const handleClick = e => {
+		const miClassDiv = e.target.className.slice(0, 5);
+		if (miClassDiv === 'dt4-1') {
+			document.querySelector('.dt4-1').className = 'dt4-1 selected';
+			document.querySelector('.dt4-2').className = 'dt4-2';
+			document.querySelector(
+				'.dt1-price'
+			).innerHTML = ` Price: $ ${product.ProductTypes[0].price}`;
+			document.querySelector(
+				'.detail-5'
+			).innerHTML = `Stock: ${product.ProductTypes[0].Stocks.quantity} un`;
+		} else {
+			document.querySelector('.dt4-1').className = 'dt4-1';
+			document.querySelector('.dt4-2').className = 'dt4-2 selected';
+			document.querySelector(
+				'.dt1-price'
+			).innerHTML = ` Price: $ ${product.ProductTypes[1].price}`;
+			document.querySelector(
+				'.detail-5'
+			).innerHTML = `Stock: ${product.ProductTypes[1].Stocks.quantity} un`;
+		}
+
+		// document.getElementsByClassName(miClassDiv).classList.toggle('selected');
+	};
 
 	return (
 		<div className='detail-wrapper'>
@@ -162,23 +186,21 @@ function Detail() {
 						</div>
 					</div>
 					<div className='detail-4'>
-						<span>Size</span>
+						<span>Type</span>
 						<div className='dt4'>
-							<div className='dt4-1'>
+							<div className='dt4-1 selected' onClick={handleClick}>
 								<p className='dt4-1-p1'>Cake Trail</p>
 								<p className='dt4-1-p2'>32 cm</p>
-								<p className='dt4-1-p2'>
-									Price: $ {product.ProductTypes[0].price}
-								</p>
 							</div>
-							<div className='dt4-2'>
+							<div className='dt4-2' onClick={handleClick}>
 								<p className='dt4-2-p1'>Turn Table</p>
-								<p className='dt4-1-p2'>35 cm</p>
-								Price: $ {product.ProductTypes[1].price}
+								<p className='dt4-2-p2'>35 cm</p>
 							</div>
 						</div>
 					</div>
-					<div className='detail-5'>Avaibility: In stock</div>
+					<div className='detail-5'>
+						{`Stock: ${product.ProductTypes[0].Stocks.quantity} un`}
+					</div>
 					<div className='detail-6'>
 						<div onClick={addToCart} className='dt6-1'>
 							Add to bag

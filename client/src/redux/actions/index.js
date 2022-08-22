@@ -36,11 +36,11 @@ export const getFilteredData = query => {
 				`http://localhost:3001/products/${query}`
 			);
 			dispatch({ type: GET_FILTERED_DATA, payload: response.data });
+			setPage(1);
 		} catch (error) {
 			alert('No data found');
 			getData();
 		}
-
 		dispatch(setLoading(false));
 	};
 };

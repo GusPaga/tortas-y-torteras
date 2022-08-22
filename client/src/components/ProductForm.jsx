@@ -39,13 +39,13 @@ const ProductForm = () => {
 		color3: '',
 	});
 
-	const countSelected = () => {
-		const checked = document.querySelectorAll('.checked');
-		const btnText = document.querySelector('.btn-text');
-		checked.length
-			? (btnText.innerText = `${checked.length} Selected`)
-			: (btnText.innerText = 'Select Temperament');
-	};
+	// const countSelected = () => {
+	// 	const checked = document.querySelectorAll('.checked');
+	// 	const btnText = document.querySelector('.btn-text');
+	// 	checked.length
+	// 		? (btnText.innerText = `${checked.length} Selected`)
+	// 		: (btnText.innerText = 'Select Temperament');
+	// };
 
 	const handleOnClickDiv = () => {
 		dispatch(getColors());
@@ -54,8 +54,13 @@ const ProductForm = () => {
 
 	const OnClickItem = e => {
 		setInput({ ...input, color: [...input.color, e.target.id] });
-		const li = // si el click es en algun span, el elemento es li
-			e.target.classList[0] === 'item' ? e.target : e.target.parentElement;
+		let li =
+			e.target.classList[0] === 'item' ? e.target : e.target.parentElement; // si el click es en algun span, el elemento es li
+		li = e.target.classList[0] === 'item' ? e.target : e.target.parentElement; // lo hago dos veces por si el click es en el tag i
+		if (li.className === 'item' && queryColors.length === 3) {
+			document.getElementById('select-colors').style.color = 'red';
+			return console.log('Max 3 colors');
+		}
 		li.classList.toggle('checked');
 		try {
 			li.classList[1]
@@ -66,7 +71,19 @@ const ProductForm = () => {
 		} catch (error) {
 			console.log(error);
 		}
-		countSelected();
+		// const li = // si el click es en algun span, el elemento es li
+		// 	e.target.classList[0] === 'item' ? e.target : e.target.parentElement;
+		// li.classList.toggle('checked');
+		// try {
+		// 	li.classList[1]
+		// 		? setQueryColors([...queryColors, li.childNodes[1].innerText])
+		// 		: setQueryColors(
+		// 				queryColors.filter(e => e !== li.childNodes[1].innerText)
+		// 		  );
+		// } catch (error) {
+		// 	console.log(error);
+		// }
+		// countSelected();
 	};
 
 	const [error, setError] = useState({});
@@ -114,6 +131,7 @@ const ProductForm = () => {
 	console.log(juancho);
 	juancho.ProductTypes[0].Stocks.quantity = types['Cake Tray'];
 	juancho.ProductTypes[1].Stocks.quantity = types.Turntable; */
+	console.log(imageMain);
 
 	const handleSubmit = async e => {
 		e.preventDefault();
@@ -126,7 +144,7 @@ const ProductForm = () => {
 				}
 			}
 			const newProduct = { ...input };
-			// newProduct.imageMain = imageMain;
+			newProduct.imageMain = imageMain;
 			newProduct.imagesDetail = images || [];
 			newProduct.color1 = newProduct.color[0];
 			newProduct.color2 = newProduct.color[1];
@@ -366,7 +384,11 @@ const ProductForm = () => {
 					ref={errorSelectColor}
 				></small>
 				<div onClick={handleOnClickDiv} className='select-btn'>
-					<span className='btn-text'>Select Color </span>
+					<span className='btn-text'>
+						{!queryColors.length
+							? 'Select Color...'
+							: `${queryColors.length} selected`}
+					</span>
 					<span className='filter'>
 						<i className='fa-solid fa-paintbrush'></i>
 					</span>

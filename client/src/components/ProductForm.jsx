@@ -30,11 +30,13 @@ const ProductForm = () => {
 		description: '',
 		collection: '',
 		artist: '',
-		stock: [
-			{ quantity: 0, productTypeName: 'Cake Tray' },
-			{ quantity: 0, productTypeName: 'Turntable' },
-		],
+		// imagesDetail:[],
+		stockCakeTray: 0,
+		stockTurntable: 0,
 		color: [],
+		color1: '',
+		color2: '',
+		color3: '',
 	});
 
 	const countSelected = () => {
@@ -124,10 +126,26 @@ const ProductForm = () => {
 				}
 			}
 			const newProduct = { ...input };
-			newProduct.imageMain = imageMain;
+			// newProduct.imageMain = imageMain;
 			newProduct.imagesDetail = images || [];
-			newProduct.stock[0].quantity = stock.cakeTrail;
-			newProduct.stock[1].quantity = stock.turntable;
+			newProduct.color1 = newProduct.color[0];
+			newProduct.color2 = newProduct.color[1];
+			newProduct.color3 = newProduct.color[2];
+			// newProduct.colors = [
+			// 	{
+			// 		hex: newProduct.color[0].split(',')[0],
+			// 		name: newProduct.color[0].split(',')[1],
+			// 	},
+			// 	{
+			// 		hex: newProduct.color[1].split(',')[0],
+			// 		name: newProduct.color[1].split(',')[1],
+			// 	},
+			// 	{
+			// 		hex: newProduct.color[2].split(',')[0],
+			// 		name: newProduct.color[2].split(',')[1],
+			// 	},
+			// ];
+
 			console.log('ANTES', newProduct);
 			if (!newProduct.color.length)
 				errorSelectColor.current.innerText = 'Select 3 colors';
@@ -146,7 +164,19 @@ const ProductForm = () => {
 			} else {
 				const res = await axios.post(
 					'http://localhost:3001/products',
-					newProduct,
+					{
+						name: newProduct.name,
+						description: newProduct.description,
+						collection: newProduct.collection,
+						imageMain,
+						imagesDetail: newProduct.imagesDetail,
+						artist: newProduct.artist,
+						color1: newProduct.color1,
+						color2: newProduct.color2,
+						color3: newProduct.color3,
+						stockCakeTray: stock.cakeTrail,
+						stockTurntable: stock.turntable,
+					},
 					{
 						headers: {
 							'Content-Type': 'multipart/form-data',

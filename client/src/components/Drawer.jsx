@@ -141,19 +141,27 @@ export default function TemporaryDrawer() {
 				<h6 style={{ fontFamily: 'roboto', margin: '20px' }}>Collection</h6>
 				<FormGroup>
 					<FormControlLabel
-						control={<Checkbox id='chk1' onChange={handleChangeChk} />}
+						control={
+							<Checkbox id='chk1' onChange={handleChangeChk} defaultChecked />
+						}
 						label='Abstract'
 					/>
 					<FormControlLabel
-						control={<Checkbox id='chk2' onChange={handleChangeChk} />}
+						control={
+							<Checkbox id='chk2' onChange={handleChangeChk} defaultChecked />
+						}
 						label='Flowers'
 					/>
 					<FormControlLabel
-						control={<Checkbox id='chk3' onChange={handleChangeChk} />}
+						control={
+							<Checkbox id='chk3' onChange={handleChangeChk} defaultChecked />
+						}
 						label='Butterflies'
 					/>
 					<FormControlLabel
-						control={<Checkbox id='chk4' onChange={handleChangeChk} />}
+						control={
+							<Checkbox id='chk4' onChange={handleChangeChk} defaultChecked />
+						}
 						label='Other'
 					/>
 				</FormGroup>

@@ -14,7 +14,11 @@ export const MultOpts = ({ OnClickItem, queryColors }) => {
 	return (
 		<div className='opts-container'>
 			<div onClick={handleOnClickDiv} className='select-btn'>
-				<span className='btn-text'>Select Color </span>
+				<span className='btn-text'>
+					{!queryColors.length
+						? 'Select Color...'
+						: `${queryColors.length} selected`}
+				</span>
 				<span className='filter'>
 					<i className='fa-solid fa-paintbrush'></i>
 				</span>
@@ -22,9 +26,8 @@ export const MultOpts = ({ OnClickItem, queryColors }) => {
 
 			<ul className='list-items'>
 				{redColors.map(c => (
-					<li key={c.id} className='item'>
+					<li key={c.id} className='item' onClick={OnClickItem}>
 						<span
-							onClick={OnClickItem}
 							className='checkbox'
 							style={{
 								backgroundColor: `${c.hex}`,
@@ -33,9 +36,7 @@ export const MultOpts = ({ OnClickItem, queryColors }) => {
 						>
 							<i className='fa-solid fa-check check-icon'></i>
 						</span>
-						<span id={`item${c.id}`} className='item-text'>
-							{c.name}
-						</span>
+						<span className='item-text'>{c.name}</span>
 					</li>
 				))}
 			</ul>

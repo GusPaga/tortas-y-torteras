@@ -23,9 +23,8 @@ function App() {
 				<Route exact path='/shop/shoppingCart' component={ShoppingCart} />
 				<Route exact path='/bases/try' component={Try} />
 				<Route exact path='/bases/signin' component={SignInSide} />
-				<Route path='/' component={Page404} />
-
 				<Route exact path='/:id' component={Detail} />
+				<Route path='/' component={Page404} />
 			</Switch>
 			{/* <Footer /> */}
 		</>

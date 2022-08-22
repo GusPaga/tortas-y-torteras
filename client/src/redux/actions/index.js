@@ -37,8 +37,7 @@ export const getFilteredData = query => {
 			);
 			dispatch({ type: GET_FILTERED_DATA, payload: response.data });
 		} catch (error) {
-			console.log(error);
-			alert(error);
+			alert('No data found');
 			getData();
 		}
 

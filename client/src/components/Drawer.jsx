@@ -20,12 +20,12 @@ export default function TemporaryDrawer() {
 		bottom: false,
 		right: false,
 	});
-	const [available, setAvaible] = React.useState(false);
+	const [available, setAvaible] = React.useState(true);
 	const [collection, setCollection] = React.useState({
-		chk1: false,
-		chk2: false,
-		chk3: false,
-		chk4: false,
+		chk1: true,
+		chk2: true,
+		chk3: true,
+		chk4: true,
 	});
 
 	const handleChangeSwitch = event => {
@@ -50,6 +50,7 @@ export default function TemporaryDrawer() {
 	};
 
 	const toggleDrawer = (anchor, open) => event => {
+		setQueryColors([]);
 		if (
 			event.type === 'keydown' &&
 			(event.key === 'Tab' || event.key === 'Shift')
@@ -57,6 +58,7 @@ export default function TemporaryDrawer() {
 			return;
 		}
 		setState({ ...state, [anchor]: open });
+
 	};
 
 	const countSelected = () => {
@@ -93,24 +95,26 @@ export default function TemporaryDrawer() {
 		${queryColors[0] ? `color1=${queryColors[0]}&` : ''}
 		${queryColors[1] ? `color2=${queryColors[1]}&` : ''}
 		${queryColors[2] ? `color3=${queryColors[2]}&` : ''}
-		${collection.chk1 ? `collection=Abstract&` : ''}
-		${collection.chk2 ? `collection=Flowers&` : ''}
-		${collection.chk3 ? `collection=Butterflies&` : ''}
-		${collection.chk4 ? `collection=Other&` : ''}
+		${collection.chk1 ? `collection1=Abstract&` : ''}
+		${collection.chk2 ? `collection2=Flowers&` : ''}
+		${collection.chk3 ? `collection3=Butterflies&` : ''}
+		${collection.chk4 ? `collection4=Other&` : ''}
 		stock=${available}
 		`.replace(/\s/g, '');
 		console.log(queryString);
 		dispatch(getFilteredData(queryString));
 		setQueryColors([]);
 		setCollection({
-			chk1: false,
-			chk2: false,
-			chk3: false,
-			chk4: false,
+			chk1: true,
+			chk2: true,
+			chk3: true,
+			chk4: true,
 		});
-		setAvaible(false);
+		setAvaible(true);
 		document.querySelectorAll('.checked').forEach(e => (e.className = 'item'));
 		countSelected();
+		setState({ ...state, left: false });
+
 	};
 
 	const list = anchor => (
@@ -131,7 +135,7 @@ export default function TemporaryDrawer() {
 			<div className='filter-1'>
 				<h6 style={{ fontFamily: 'roboto', margin: '20px' }}>Avaibility</h6>
 				<FormControlLabel
-					control={<Switch onChange={handleChangeSwitch} />}
+					control={<Switch onChange={handleChangeSwitch} defaultChecked />}
 					label='On Stock'
 				/>
 			</div>
@@ -140,19 +144,27 @@ export default function TemporaryDrawer() {
 				<h6 style={{ fontFamily: 'roboto', margin: '20px' }}>Collection</h6>
 				<FormGroup>
 					<FormControlLabel
-						control={<Checkbox id='chk1' onChange={handleChangeChk} />}
+						control={
+							<Checkbox id='chk1' onChange={handleChangeChk} defaultChecked />
+						}
 						label='Abstract'
 					/>
 					<FormControlLabel
-						control={<Checkbox id='chk2' onChange={handleChangeChk} />}
+						control={
+							<Checkbox id='chk2' onChange={handleChangeChk} defaultChecked />
+						}
 						label='Flowers'
 					/>
 					<FormControlLabel
-						control={<Checkbox id='chk3' onChange={handleChangeChk} />}
+						control={
+							<Checkbox id='chk3' onChange={handleChangeChk} defaultChecked />
+						}
 						label='Butterflies'
 					/>
 					<FormControlLabel
-						control={<Checkbox id='chk4' onChange={handleChangeChk} />}
+						control={
+							<Checkbox id='chk4' onChange={handleChangeChk} defaultChecked />
+						}
 						label='Other'
 					/>
 				</FormGroup>

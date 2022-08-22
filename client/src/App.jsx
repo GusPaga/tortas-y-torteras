@@ -9,6 +9,7 @@ import Try from './components/Try';
 import Detail from './pages/Detail';
 import Home from './pages/Home';
 import Landing from './pages/Landing';
+import Page404 from './components/Pag404';
 
 
 function App() {
@@ -23,8 +24,8 @@ function App() {
 				<Route exact path='/shop/shoppingCart' component={ShoppingCart} />
 				<Route exact path='/bases/try' component={Try} />
 				<Route exact path='/bases/signin' component={SignInSide} />
-
 				<Route exact path='/:id' component={Detail} />
+				<Route path='/' component={Page404} />
 			</Switch>
 			{/* <Footer /> */}
 		</>

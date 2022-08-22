@@ -20,12 +20,12 @@ export default function TemporaryDrawer() {
 		bottom: false,
 		right: false,
 	});
-	const [available, setAvaible] = React.useState(false);
+	const [available, setAvaible] = React.useState(true);
 	const [collection, setCollection] = React.useState({
-		chk1: false,
-		chk2: false,
-		chk3: false,
-		chk4: false,
+		chk1: true,
+		chk2: true,
+		chk3: true,
+		chk4: true,
 	});
 
 	const handleChangeSwitch = event => {
@@ -104,12 +104,12 @@ export default function TemporaryDrawer() {
 		dispatch(getFilteredData(queryString));
 		setQueryColors([]);
 		setCollection({
-			chk1: false,
-			chk2: false,
-			chk3: false,
-			chk4: false,
+			chk1: true,
+			chk2: true,
+			chk3: true,
+			chk4: true,
 		});
-		setAvaible(false);
+		setAvaible(true);
 		document.querySelectorAll('.checked').forEach(e => (e.className = 'item'));
 		countSelected();
 	};
@@ -132,7 +132,7 @@ export default function TemporaryDrawer() {
 			<div className='filter-1'>
 				<h6 style={{ fontFamily: 'roboto', margin: '20px' }}>Avaibility</h6>
 				<FormControlLabel
-					control={<Switch onChange={handleChangeSwitch} />}
+					control={<Switch onChange={handleChangeSwitch} defaultChecked />}
 					label='On Stock'
 				/>
 			</div>

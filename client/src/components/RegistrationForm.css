@@ -1,0 +1,54 @@
+.registrationFormContainer{
+    min-height: 100vh;
+    width: 100%;
+    display: inline-flex;
+}
+
+.registrationFormContainer form{
+    position: relative;
+    width: 40%;
+    min-height: 75vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding: 20px 10px;
+    background-color: skyblue;
+    margin: 50px auto;
+    border-radius: 20px;
+}
+
+.registrationFormHeader{
+    position: absolute;
+    top: -20px;
+    right: 160px;
+    background-color: aquamarine;
+    font-size: x-large;
+    border-radius: 10px;
+    padding: 10px;
+}
+
+.danger{
+    color: red;
+}
+
+.dialog{
+    position: relative;
+}
+.dialog input{
+    width: 100%;
+}
+
+.dialog:hover::after{
+    content: "Al menos un número 0-9 \A Al menos una mayúscula \A Al menos una minúscula \A Al menos un carácter especial (.,*!?¿¡/#$%&) \A Longitud mínima de 8 caracteres, 64 máxima \A No acepta espacios";
+    white-space: pre-wrap;
+    display: flex;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    margin-top: 5px;
+    padding: 5px;
+    padding-left: 20px;
+    background-color: red;
+    color: white;
+}

@@ -1,15 +1,34 @@
-import { useState } from "react";
-import "./App.css";
+
+import { Route, Switch } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import ProductForm from './components/ProductForm';
+import RegistrationForm from './components/RegistrationForm';
+import ShoppingCart from './components/ShoppingCart';
+import SignInSide from './components/SignIn';
+import Try from './components/Try';
+import Detail from './pages/Detail';
+import Home from './pages/Home';
+import Landing from './pages/Landing';
+
 
 function App() {
-  const [count, setCount] = useState(0);
+	return (
+		<>
+			{location.pathname !== '/' && <Navbar />}
+			<Switch>
+				<Route exact path='/' component={Landing} />
+				<Route exact path='/home' component={Home} />
+				<Route exact path='/registration' component={RegistrationForm} />
+				<Route exact path='/addproduct' component={ProductForm} />
+				<Route exact path='/shop/shoppingCart' component={ShoppingCart} />
+				<Route exact path='/bases/try' component={Try} />
+				<Route exact path='/bases/signin' component={SignInSide} />
 
-  return (
-    <div className="App">
-      <h1>Hola mundo 😋!!</h1>
-      <h2>This a test</h2>
-    </div>
-  );
+				<Route exact path='/:id' component={Detail} />
+			</Switch>
+			{/* <Footer /> */}
+		</>
+	);
 }
 
 export default App;

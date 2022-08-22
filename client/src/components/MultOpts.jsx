@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import './MultOpt.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { getColors } from '../redux/actions';

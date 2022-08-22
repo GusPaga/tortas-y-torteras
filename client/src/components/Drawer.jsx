@@ -60,7 +60,6 @@ export default function TemporaryDrawer() {
 	};
 
 	const OnClickItem = e => {
-		console.log(e.target);
 		let li = // si el click es en algun span, el elemento es li
 			e.target.classList[0] === 'item' ? e.target : e.target.parentElement;
 		li = e.target.classList[0] === 'item' ? e.target : e.target.parentElement; // lo hago dos veces por si el click es en el tag i

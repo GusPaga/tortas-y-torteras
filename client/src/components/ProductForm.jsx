@@ -83,7 +83,9 @@ const ProductForm = () => {
 	};
 
 	const handleImage = e => {
+
 		setImageMain(e.target.files[0]);
+
 		/* setError(
 			validateProduct({
 				...input,
@@ -93,15 +95,11 @@ const ProductForm = () => {
 	};
 
 	const handleChangeImages = e => {
+
 		setimagesDatail(e.target.files);
-		/* setError(
-				validateProduct({
-					...input,
-					[e.target.name]: e.target.value,
-				})
-			) */
-		// }
-	};
+	
+		}
+
 
 	const handleChangeStock = e => {
 		if (e.target.value < 0) return alert('negative quantity not allowed');
@@ -115,6 +113,7 @@ const ProductForm = () => {
 
 	const handleSubmit = async e => {
 		e.preventDefault();
+
 		success.current.innerText = '';
 		try {
 			const images = [];
@@ -165,6 +164,7 @@ const ProductForm = () => {
 			errorAll.current.innerText = error.response.data;
 			// console.log(error.response.data);
 		}
+
 	};
 
 	useEffect(() => {}, []);
@@ -211,10 +211,12 @@ const ProductForm = () => {
 				<label className='uppercase tracking-wide text-black text-xs font-bold mb-2'>
 					Image Main
 				</label>
+
 				<small
 					className='p-0.5 text-red-400 italic'
 					ref={errorSelectImage}
 				></small>
+
 				{error.imageMain && (
 					<span className='text-red-500 text-xs italic'>{error.imageMain}</span>
 				)}
@@ -232,15 +234,23 @@ const ProductForm = () => {
 					// class="custom-file-label"
 					// for="customFileLangHTML"
 					data-browse='Elegir archivo'
+
 				></label>
+
+				>
+
+				</label>
+
 
 				<label className='uppercase tracking-wide text-black text-xs font-bold mb-2'>
 					Images Details
 				</label>
+
 				<small
 					className='p-0.5 text-red-400 italic'
 					ref={errorSelectImageDetail}
 				></small>
+
 				{error.imagesDetail && (
 					<span className='text-red-500 text-xs italic'>
 						{error.imagesDetail}
@@ -366,6 +376,7 @@ const ProductForm = () => {
 				<span className='p-0.5 text-red-400 italic' ref={errorAll}></span>
 				<span className='p-0.5 text-green-400 italic' ref={success}></span>
 				<input
+					style={{ padding: '10px 30px 10px 30px' }}
 					type={'submit'}
 					value='Add product'
 					className='uppercase tracking-wide text-black text-sm font-bold mt-4 mb-2 border-solid border-1 p-2 border-indigo-600/60 rounded-md'

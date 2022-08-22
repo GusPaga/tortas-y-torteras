@@ -1,19 +1,19 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import Divider from '@mui/material/Divider';
 import FilterAltIcon from '@mui/icons-material/FilterAlt';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Switch from '@mui/material/Switch';
-import { MultOpts } from './MultOpts';
 import Checkbox from '@mui/material/Checkbox';
 import { useDispatch } from 'react-redux';
 import { getFilteredData } from '../redux/actions';
+import { MultOpts } from './MultOpts';
 
 export default function TemporaryDrawer() {
 	const [queryColors, setQueryColors] = React.useState([]);
 	const dispatch = useDispatch();
+
 	const [state, setState] = React.useState({
 		top: false,
 		left: false,
@@ -50,7 +50,6 @@ export default function TemporaryDrawer() {
 	};
 
 	const toggleDrawer = (anchor, open) => event => {
-		setQueryColors([]);
 		if (
 			event.type === 'keydown' &&
 			(event.key === 'Tab' || event.key === 'Shift')
@@ -58,40 +57,31 @@ export default function TemporaryDrawer() {
 			return;
 		}
 		setState({ ...state, [anchor]: open });
-
-	};
-
-	const countSelected = () => {
-		// Count selected
-		const checked = document.querySelectorAll('.checked');
-		const btnText = document.querySelector('.btn-text');
-		checked.length
-			? (btnText.innerText = `${checked.length} Selected`)
-			: (btnText.innerText = 'Select Color');
 	};
 
 	const OnClickItem = e => {
-		const li = // si el click es en algun span, el elemento es li
+		console.log(e.target);
+		let li = // si el click es en algun span, el elemento es li
 			e.target.classList[0] === 'item' ? e.target : e.target.parentElement;
-		if (li.className === 'item' && queryColors.length === 3)
-			return console.log();
+		li = e.target.classList[0] === 'item' ? e.target : e.target.parentElement; // lo hago dos veces por si el click es en el tag i
+		if (li.className === 'item' && queryColors.length === 3) {
+			document.getElementById('select-colors').style.color = 'red';
+			return console.log('Max 3 colors');
+		}
 		li.classList.toggle('checked');
 		try {
 			li.classList[1]
-				? queryColors.length <= 2 && // maximo 3 colores
-				  setQueryColors([...queryColors, li.childNodes[1].innerText])
+				? setQueryColors([...queryColors, li.childNodes[1].innerText])
 				: setQueryColors(
 						queryColors.filter(e => e !== li.childNodes[1].innerText)
 				  );
 		} catch (error) {
 			console.log(error);
 		}
-		countSelected();
 	};
 
-	let queryString = '';
-	const makeQuery = async () => {
-		queryString = `?
+	const makeQuery = () => {
+		const queryString = `?
 		${queryColors[0] ? `color1=${queryColors[0]}&` : ''}
 		${queryColors[1] ? `color2=${queryColors[1]}&` : ''}
 		${queryColors[2] ? `color3=${queryColors[2]}&` : ''}
@@ -112,15 +102,13 @@ export default function TemporaryDrawer() {
 		});
 		setAvaible(true);
 		document.querySelectorAll('.checked').forEach(e => (e.className = 'item'));
-		countSelected();
 		setState({ ...state, left: false });
-
 	};
 
 	const list = anchor => (
 		<Box
-			style={{ padding: '30px' }}
-			sx={{ width: 250 }}
+			style={{ padding: '20px' }}
+			sx={{ width: 280 }}
 			// role='presentation'
 			// onClick={toggleDrawer(anchor, false)}
 			onKeyDown={toggleDrawer(anchor, false)}
@@ -171,9 +159,10 @@ export default function TemporaryDrawer() {
 			</div>
 			<hr />
 			<div className='filter-3'></div>
-			<h6 style={{ fontFamily: 'roboto', margin: '20px' }}>Colors</h6>
+			<h6 id='select-colors' style={{ fontFamily: 'roboto', margin: '20px' }}>
+				Select max 3 colors
+			</h6>
 			<MultOpts OnClickItem={OnClickItem} queryColors={queryColors} />
-			<Divider />
 		</Box>
 	);
 

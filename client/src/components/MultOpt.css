@@ -30,15 +30,10 @@
 	width: 30px;
 	color: #fff;
 	font-size: 14px;
-	border-radius: 2px;
 	background: rgb(0, 68, 255);
 	align-items: center;
 	justify-content: center;
-	transition: 1s;
 	border-radius: 50%;
-}
-.select-btn.open .arrow-dwn {
-	transform: rotate(-180deg);
 }
 
 .list-items {
@@ -49,7 +44,6 @@
 	background-color: #fff;
 	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
 	display: none;
-	z-index: 1;
 }
 
 .select-btn.open ~ .list-items {
@@ -58,7 +52,8 @@
 	flex-direction: column;
 }
 
-.list-items .item {
+.item {
+	font-family: 'roboto';
 	display: flex;
 	align-items: center;
 	height: 30px;
@@ -69,9 +64,10 @@
 	transition: 1s;
 	padding: 0 15px;
 	border-radius: 8px;
+	z-index: 10;
 }
 
-.list-items .item:hover {
+.item:hover {
 	background-color: #e7edfe;
 }
 

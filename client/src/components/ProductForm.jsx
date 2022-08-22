@@ -8,7 +8,6 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import { validateProduct } from '../validations/productValidation';
 import '../components/ProductForm.css';
-// import axios from 'axios';
 
 const ProductForm = () => {
 	const { redColors } = useSelector(state => state);

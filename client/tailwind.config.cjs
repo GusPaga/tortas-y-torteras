@@ -4,7 +4,7 @@ module.exports = {
 	theme: {
 		extend: {
 			minHeight: {
-				'75vh': '75vh',
+				'55vh': '55vh',
 			},
 			padding: {
 				'20px 10px': '20px 10px',

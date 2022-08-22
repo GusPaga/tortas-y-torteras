@@ -76,11 +76,7 @@ const ShoppingCart = () => {
 					</div>
 				</div>
 			</div>
-			<button
-				onClick={() => history.push('/home')}
-				className='detail-back'
-				type='button'
-			>
+			<button onClick={() => history.push('/home')} className='shp-back'>
 				back
 			</button>
 		</div>

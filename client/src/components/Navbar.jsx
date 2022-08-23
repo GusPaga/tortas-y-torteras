@@ -5,7 +5,7 @@ import { AppBar, Toolbar } from '@mui/material';
 import { ShoppingCartContext } from '../context/ShoppingCartContext';
 
 export default function Navbar() {
-	const [cart, setCart] = useContext(ShoppingCartContext);
+	const [cart, setCart] = useContext(ShoppingCartContext); // eslint-disable-line no-unused-vars
 
 	useEffect(() => {
 		document.getElementById('navbar-shp-num').innerHTML = cart.length;
@@ -34,7 +34,7 @@ export default function Navbar() {
 					<span className='bar-user-icon'>
 						<i className='fa-solid fa-circle-user'></i>
 					</span>
-					<Link to='/bases/signin' className='bar-login-text'>
+					<Link to='/user/auth' className='bar-login-text'>
 						Log In
 					</Link>
 				</Toolbar>

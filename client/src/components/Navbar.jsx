@@ -14,7 +14,7 @@ export default function Navbar() {
 	};
 
 	return (
-		<nav className='mx-auto p-2 bg-neutral-900 text-purple-50 select-none drop-shadow-xl'>
+		<nav className='mx-auto p-2 bg-neutral-900 text-purple-50 select-none drop-shadow-2xl'>
 			<div
 				className='
       container
@@ -86,7 +86,6 @@ export default function Navbar() {
 					left-0
 					top-16
 					bg-neutral-900
-					shadow-xl
 					text-center
 					text-lg
 					p-6

@@ -131,20 +131,3 @@
 	border: 2px solid #1f2937;
 	color: #1f2937;
 }
-.detail-back {
-	margin-top: 32px;
-	height: 48px;
-	width: 128px;
-	color: white;
-	font-size: 16px;
-	border: 2px solid transparent;
-	font-weight: bold;
-	border-radius: 15px;
-	transition: 1s;
-}
-.detail-back:hover {
-	background-color: #fff;
-	border: 2px solid #f9004d;
-	cursor: pointer;
-	color: #f9004d;
-}

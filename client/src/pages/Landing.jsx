@@ -19,7 +19,7 @@ const Landing = () => {
 		<div className='landing-wrapper'>
 			<div className='landing'>
 				<div
-					className='landing-image'
+					className='landing-image rounded-xl bg-local '
 					style={{
 						backgroundImage: `url(${arrayImg[randomImg]})`,
 					}}

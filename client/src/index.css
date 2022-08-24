@@ -10,3 +10,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.btn {
+	@apply font-bold py-3 px-5 rounded-2xl duration-1000 w-32;
+}
+
+.btn-red {
+	@apply bg-myRed text-white;
+}
+
+.btn-red:hover {
+	@apply bg-transparent border-myRed text-myRed;
+}

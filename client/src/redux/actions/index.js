@@ -17,7 +17,9 @@ export const getData = () => {
 	return async dispatch => {
 		dispatch(setLoading(true));
 		try {
-			const response = await axios.get('http://localhost:3001/products');
+			const response = await axios.get(
+				'https://tytecommerce.herokuapp.com/products'
+			);
 			if (response.status === 200)
 				dispatch({ type: GET_DATA, payload: response.data });
 		} catch {

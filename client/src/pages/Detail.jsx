@@ -26,7 +26,7 @@ function Detail() {
 			try {
 				dispatch(setLoading(true));
 				const response = await axios.get(
-					`http://localhost:3001/products/${id}`
+					`https://tytecommerce.herokuapp.com/products/${id}`
 				);
 				setProduct(response.data);
 				dispatch(setLoading(false));
@@ -211,9 +211,7 @@ function Detail() {
 			</div>
 			<button
 				onClick={() => history.push('/home')}
-				className='detail-back'
-				type='button'
-				style={{ backgroundColor: '#f9004d' }}
+				className='btn btn-red mt-4'
 			>
 				back
 			</button>

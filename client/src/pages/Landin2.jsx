@@ -17,8 +17,8 @@ const Landin2 = () => {
 
 	return (
 		<>
-			<section className='relative bg-neutral-900  w-screen h-screen md:pt-12 lg:pt-24 grid grid-cols-2 border'>
-				<div className='flex flex-col p-12 justify-center w-2/3 border'>
+			<section className='relative bg-neutral-900  w-screen h-screen md:pt-12 lg:pt-24 grid grid-cols-2'>
+				<div className='flex flex-col p-12 justify-center w-2/3'>
 					<span className='text-sm'>Unique Art Pieces</span>
 					<span className='mt-4 text-6xl'>
 						Cakes<span className='text-7xl text-myPurple-100'>&</span>Bases
@@ -29,7 +29,7 @@ const Landin2 = () => {
 						collected togheter to achieve this unique art pieces.
 					</p>
 				</div>
-				<div className="bg-[url('./src/assets/IMG_1.png')] bg-center bg-no-repeat bg-contain w-2/3 border"></div>
+				<div className="bg-[url('./assets/IMG_1.png')] bg-center bg-no-repeat bg-contain w-2/3"></div>
 
 				{/* <div
 					className='

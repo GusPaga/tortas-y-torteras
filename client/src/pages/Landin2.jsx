@@ -29,7 +29,7 @@ const Landin2 = () => {
 						collected togheter to achieve this unique art pieces.
 					</p>
 				</div>
-				<div className="bg-[url('./assets/IMG_1.png')] bg-center bg-no-repeat bg-contain w-2/3"></div>
+				<div className="bg-[url('')] bg-center bg-no-repeat bg-contain w-2/3"></div>
 
 				{/* <div
 					className='

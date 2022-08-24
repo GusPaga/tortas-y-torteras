@@ -59,11 +59,8 @@ export default function Navbar() {
         hover:text-myPurple-100
 				duration-1000
         '
-					// aria-expanded='true'
-					// aria-label='Open Menu'
 				>
 					<svg
-						xmlns='http://www.w3.org/2000/svg'
 						className='h-8 w-8'
 						fill='none'
 						viewBox='0 0 24 24'
@@ -138,7 +135,7 @@ export default function Navbar() {
 							duration-1000
 						lg:mr-auto
 						'
-						href='/'
+						href='#'
 					>
 						<svg
 							fill='none'
@@ -170,7 +167,7 @@ export default function Navbar() {
 						hover:text-purple-400
 						duration-1000
           	'
-						href='/'
+						href='/shop/shoppingCart'
 					>
 						<div className='flex justify-center items-center'>
 							<svg
@@ -205,7 +202,7 @@ export default function Navbar() {
 						text-white
 						rounded-md
 					'
-						href='/'
+						href='/bases/signin'
 					>
 						<i className='text-2xl mr-3 fa-solid fa-circle-user'></i>
 						Sign In

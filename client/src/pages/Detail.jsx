@@ -74,7 +74,7 @@ function Detail() {
 			document.querySelector('.dt4-2').className = 'dt4-2';
 			document.querySelector(
 				'.dt1-price'
-			).innerHTML = ` Price: $ ${product.ProductTypes[0].price}`;
+			).innerHTML = ` Price: $ ${product.ProductTypes[0].Stocks.price}`;
 			document.querySelector(
 				'.detail-5'
 			).innerHTML = `Stock: ${product.ProductTypes[0].Stocks.quantity} un`;
@@ -83,7 +83,7 @@ function Detail() {
 			document.querySelector('.dt4-2').className = 'dt4-2 selected';
 			document.querySelector(
 				'.dt1-price'
-			).innerHTML = ` Price: $ ${product.ProductTypes[1].price}`;
+			).innerHTML = ` Price: $ ${product.ProductTypes[1].Stocks.price}`;
 			document.querySelector(
 				'.detail-5'
 			).innerHTML = `Stock: ${product.ProductTypes[1].Stocks.quantity} un`;
@@ -151,7 +151,7 @@ function Detail() {
 						<div className='dt1-ref'>Ref-{product.id}</div>
 						<div className='dt1-name'>{product.name}</div>
 						<div className='dt1-price'>
-							Price: $ {product.ProductTypes[0].price}
+							Price: $ {product.ProductTypes[0].Stocks.price}
 						</div>
 					</div>
 					<div className='detail-2'>

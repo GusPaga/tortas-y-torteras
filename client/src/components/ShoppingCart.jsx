@@ -7,7 +7,7 @@ const ShoppingCart = () => {
 	const [cart, setCart] = useContext(ShoppingCartContext);
 	const history = useHistory();
 	const totalPrice = cart.reduce(
-		(acc, curr) => acc + curr.ProductTypes[0].price,
+		(acc, curr) => acc + curr.ProductTypes[0].Stocks.price,
 		0
 	);
 
@@ -49,7 +49,7 @@ const ShoppingCart = () => {
 												</span>
 											</div>
 										</div>
-										<div>$ {e.ProductTypes[0].price}</div>
+										<div>$ {e.ProductTypes[0].Stocks.price}</div>
 									</div>
 									<hr />
 								</div>

@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react';
 import { ShoppingCartContext } from '../context/ShoppingCartContext';
 
 export default function Navbar() {
-	const [cart, setCart] = useContext(ShoppingCartContext);
+	const [cart, setCart] = useContext(ShoppingCartContext); // eslint-disable-line no-unused-vars
 
 	useEffect(() => {
 		document.getElementById('shp-num').innerHTML = cart.length;

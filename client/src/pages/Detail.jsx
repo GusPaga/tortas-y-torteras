@@ -25,9 +25,7 @@ function Detail() {
 		async function fetchData() {
 			try {
 				dispatch(setLoading(true));
-				const response = await axios.get(
-					`https://tytecommerce.herokuapp.com/products/${id}`
-				);
+				const response = await axios.get(`/products/${id}`);
 				setProduct(response.data);
 				dispatch(setLoading(false));
 			} catch (error) {

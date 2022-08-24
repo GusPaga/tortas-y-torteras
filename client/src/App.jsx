@@ -2,7 +2,7 @@ import { Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import ProductForm from './components/ProductForm';
 import ShoppingCart from './components/ShoppingCart';
-import SignInSide from './components/SignIn';
+// import SignInSide from './components/SignIn';
 import SignInUp from './components/formsUsers/Index';
 import Try from './components/Try';
 import Detail from './pages/Detail';
@@ -20,7 +20,7 @@ function App() {
 				<Route exact path='/home' component={Home} />
 				<Route exact path='/addproduct' component={ProductForm} />
 				<Route exact path='/shop/shoppingCart' component={ShoppingCart} />
-				<Route exact path='/bases/signin' component={SignInSide} />
+				{/* <Route exact path='/bases/signin' component={SignInSide} /> */}
 				<Route exact path='/bases/try' component={Try} />
 				<Route exact path='/user/auth' component={SignInUp} />
 				<Route exact path='/:id' component={Detail} />

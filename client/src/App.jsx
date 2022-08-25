@@ -11,7 +11,8 @@ import ShoppingCart from './components/ShoppingCart';
 import Try from './components/Try';
 import { auth } from './firebase/firebase-config';
 import Detail from './pages/Detail';
-import Home from './pages/Home';
+// import Home from './pages/Home';
+import Home2 from './pages/Home2';
 import Landing from './pages/Landing';
 import { login } from './redux/actions';
 
@@ -33,12 +34,13 @@ function App() {
 	}, [dispatch, isLoggedIn, checking]);
 	return (
 		<>
-			{location.pathname !== '/' && <Navbar />}
+			<Navbar />
 			<Switch>
 				<Route exact path='/' component={Landing} />
-				<Route exact path='/home' component={Home} />
+				<Route exact path='/home' component={Home2} />
 				<Route exact path='/addproduct' component={ProductForm} />
 				<Route exact path='/shop/shoppingCart' component={ShoppingCart} />
+				{/* <Route exact path='/bases/signin' component={SignInSide} /> */}
 				<Route exact path='/bases/try' component={Try} />
 				<Route exact path='/signup' component={SignUp} />
 				<Route

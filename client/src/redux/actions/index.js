@@ -22,7 +22,7 @@ export const getData = () => {
 	return async dispatch => {
 		dispatch(setLoading(true));
 		try {
-			const response = await axios.get('http://localhost:3001/products');
+			const response = await axios.get('/products');
 			if (response.status === 200)
 				dispatch({ type: GET_DATA, payload: response.data });
 		} catch {
@@ -37,9 +37,7 @@ export const getFilteredData = query => {
 	return async dispatch => {
 		try {
 			dispatch(setLoading(true));
-			const response = await axios.get(
-				`http://localhost:3001/products/${query}`
-			);
+			const response = await axios.get(`/products/${query}`);
 			dispatch({ type: GET_FILTERED_DATA, payload: response.data });
 			setPage(1);
 		} catch (error) {
@@ -54,7 +52,7 @@ export const getFilteredData = query => {
 export const getColors = () => {
 	return async dispatch => {
 		dispatch(setLoading(true));
-		const response = await axios.get('http://localhost:3001/colors');
+		const response = await axios.get('/colors');
 		dispatch({ type: GET_COLORS, payload: response.data });
 		dispatch(setLoading(false));
 	};

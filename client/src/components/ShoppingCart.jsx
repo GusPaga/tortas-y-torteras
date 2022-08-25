@@ -40,12 +40,12 @@ const ShoppingCart = () => {
 											<div id='shp-bottom-shp-details'>
 												<span className='shp-add-fv'>Add to favorites</span>
 												<span
-													className='shp-remove'
+													className='text-myRed ml-4 text-xl'
 													onClick={() =>
 														setCart(cart.filter(i => i.id !== e.id))
 													}
 												>
-													Remove
+													<i className='fa-solid fa-trash-can'></i>
 												</span>
 											</div>
 										</div>
@@ -76,7 +76,10 @@ const ShoppingCart = () => {
 					</div>
 				</div>
 			</div>
-			<button onClick={() => history.push('/home')} className='shp-back'>
+			<button
+				className='btn btn-red hover:btn-red mx-auto my-5'
+				onClick={() => history.push('/home')}
+			>
 				back
 			</button>
 		</div>

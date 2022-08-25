@@ -6,6 +6,7 @@ import {
 	GET_COLORS,
 	GET_DATA,
 	GET_FILTERED_DATA,
+	SET_LOGIN,
 	LOGIN,
 	LOGOUT,
 	SET_LOADING,
@@ -16,6 +17,8 @@ export const setLoading = payload => ({ type: SET_LOADING, payload });
 
 export const setPage = page => dispatch =>
 	dispatch({ type: SET_PAGE, payload: page });
+
+export const loggin = () => dispatch => dispatch({ type: SET_LOGIN });
 
 // Get Products from backend
 export const getData = () => {

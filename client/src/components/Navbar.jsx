@@ -14,7 +14,7 @@ export default function Navbar() {
 	};
 
 	return (
-		<nav className='mx-auto p-2 bg-neutral-900 text-purple-50 select-none drop-shadow-2xl'>
+		<nav className='mx-auto p-4 bg-black select-none h-32'>
 			<div
 				className='
       container
@@ -77,7 +77,7 @@ export default function Navbar() {
 				<div
 					id='menubar'
 					className='
-					flex
+					hidden
 					flex-col
 					gap-4
 					absolute
@@ -85,7 +85,7 @@ export default function Navbar() {
 					right-0
 					left-0
 					top-16
-					bg-neutral-900
+					bg-black
 					text-center
 					text-lg
 					p-6

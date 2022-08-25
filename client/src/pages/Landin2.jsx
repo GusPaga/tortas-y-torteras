@@ -4,91 +4,83 @@
 import './Landing.css';
 
 const Landin2 = () => {
-	// const dispatch = useDispatch();
-	// const { redData } = useSelector(state => state);
-
-	// useEffect(() => {
-	// 	dispatch(getData());
-	// }, [dispatch]); //
-
-	// const arrayImg = [];
-	// for (const product of redData) arrayImg.push(product.img_home.secure_url);
-	// const randomImg = Math.floor(Math.random() * redData.length);
-
+	/*
+	sm:bg-yellow-500
+	md:bg-blue-500
+	lg:bg-red-500
+	xl:bg-green-500
+	2xl:bg-pink-500
+	*/
 	return (
 		<>
-			<section className='relative bg-neutral-900  w-screen h-screen md:pt-12 lg:pt-24 grid grid-cols-2'>
-				<div className='flex flex-col p-12 justify-center w-2/3'>
-					<span className='text-sm'>Unique Art Pieces</span>
-					<span className='mt-4 text-6xl'>
-						Cakes<span className='text-7xl text-myPurple-100'>&</span>Bases
-					</span>
-					<p className='mt-4'>
-						Functional Art in your Table. Original pieces created with love
-						creativity. Wood, painting, colors, and advanced techniques are
-						collected togheter to achieve this unique art pieces.
-					</p>
-				</div>
-				<div className="bg-[url('')] bg-center bg-no-repeat bg-contain w-2/3"></div>
-
-				{/* <div
-					className='
-					absolute
-					inset-0
-					bottom-8
-					md:bottom-24
-					xl:bottom-32
-					-z-10
-					bg-gradient-to-b
-					from-neutral-900
-					to-white
-					border
-					'
-				></div>
+			<section
+				style={{ height: 'calc(100vh - 8rem)' }}
+				className='w-screen select-none -z-10
+			bg-gradient-to-b from-black to-purple-700 flex items-center justify-center'
+			>
 				<div
-					className='
-					border
-				container
-      mx-auto
-      grid
-      grid-rows-1
-      place-items-center
-      px-2
-        '
+					className='h-full
+					w-[420px] 
+					lg:w-[1020px] lg:h-[510px]  
+					xl:w-[1480px] xl:h-[620px]  
+					2xl:w-[1620px] 2xl:h-[820px]
+				'
 				>
-					<img
-						src='./src/assets/IMG_2.png'
-						className='
-
-        row-start-1
-        row-end-2
-        col-start-1
-        col-end-2
-        mx-auto
-        '
-						alt='Couch'
-					></img>
 					<div
-						className='
-            absolute
-        w-1/3
-        right-0
-        border
-        '
+						className='relative bg-center bg-no-repeat bg-cover
+							w-[420px] h-[420px]
+							lg:w-[520px]
+							xl:w-[720px] xl:h-[620px]  
+							2xl:w-[1020px] 2xl:h-[820px]
+							'
+						style={{
+							backgroundImage: `url(https://i.ibb.co/5xRfKDy/img3.png)`,
+						}}
 					>
-						<h5>
-							Cakes<span>&</span>Bases
-						</h5>
-						<h1>Unique Art Pieces</h1>
-						<p>
-							Functional Art in your Table. Original pieces created with
-							love creativity. Wood, painting, colors, and advanced	techniques are collected togheter to achieve this unique pieces of art.
-						</p>
-						<p>
-							Each piece dedicated to people who likes functional art at home.
-						</p>
+						<div
+							className='absolute flex flex-col items-center p-7 bg-neutral-900 rounded-xl drop-shadow-2xl h-auto
+							top-[100%]
+							lg:items-start lg:top-1/2 lg:left-3/4 lg:h-[50%] lg:mt-[-20%] lg:w-[500px] 
+							xl:p-10 xl:w-[600px] xl:h-[40%]
+						'
+						>
+							<span className='text-sm'>Unique Art Pieces</span>
+							<span
+								className='mt-4 text-4xl 
+								2xl:text-6xl'
+							>
+								Cakes
+								<span className='text-5xl 2xl:text-7xl text-myPurple-100'>
+									&
+								</span>
+								Bases
+							</span>
+							<p
+								className='mt-4 text-center max-w-xl text-sm
+								lg:max-w-md lg:text-left lg:text-[12px]
+								xl:max-w-2xl  xl:text-[14px]
+								2xl:text-lg
+								'
+							>
+								Functional Art in your Table. Original pieces created with love
+								creativity. Wood, painting, colors, and advanced techniques are
+								collected togheter to achieve this unique art pieces.
+							</p>
+						</div>
 					</div>
-				</div> */}
+					{/* <div
+						style={{
+							backgroundImage: `url(https://i.ibb.co/5xRfKDy/img3.png)`,
+						}}
+						className='mx-auto bg-center bg-no-repeat -z-10 bg-cover 
+						w-[420px] h-[420px] 
+						xl:w-[620px] xl:h-[620px]  
+						2xl:w-[620px] 2xl:h-[620px]
+						'
+					>
+						ACA ESTOY
+					</div> */}
+				</div>
 			</section>
 		</>
 	);

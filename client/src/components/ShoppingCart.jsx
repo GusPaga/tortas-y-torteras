@@ -53,17 +53,17 @@ const ShoppingCart = () => {
 			let orderId=""
 			try {
 				// I look for the id of the order in the cart if it already exists
-				orderId=(await axios.get(`http://localhost:3001/purchases/cart?userId=${userId}`)).data
+				orderId=(await axios.get(`/purchases/cart?userId=${userId}`)).data
 				// if it already exists, I delete the items, to leave only the current ones loaded
 				if(orderId.length>0) {
 					orderId=orderId[0].id
-					await axios.delete(`http://localhost:3001/orderItems/PurchaseId/${orderId}`)
+					await axios.delete(`/order-items/PurchaseId/${orderId}`)
 				} else {
 				// if it doesn't exist, I create the purchase order
-				orderId= (await axios.post(`http://localhost:3001/purchases/${userId}`,{})).data.id
+				orderId= (await axios.post(`/purchases/${userId}`,{})).data.id
 				}
 				// in both cases I create the items of the cart without confirming and clean the state when leaving
-				await Promise.all (cart.map(el=>axios.post("http://localhost:3001/orderItems",{
+				await Promise.all (cart.map(el=>axios.post("/order-items",{
 					stockId:el.stockId,
 					quantity: el.quantity,
 					purchaseId: orderId,
@@ -78,10 +78,10 @@ const ShoppingCart = () => {
 			// loggin: raise DB and merge with local storage (if duplicates add quantities) and validate maximum stock
 			let orderId=""
 			try{
-				const data=(await axios.get(`http://localhost:3001/purchases/cart?userId=${userId}`))
+				const data=(await axios.get(`/purchases/cart?userId=${userId}`))
 				orderId=data.data
 				if(orderId.length>0) {
-					const orderItems= (await axios.get(`http://localhost:3001/orderItems?PurchaseId=${orderId[0].id}`)).data
+					const orderItems= (await axios.get(`/order-items?PurchaseId=${orderId[0].id}`)).data
 	
 					const ordersDB= orderItems.map(el=>({
 						name:el.Stock.Product.name,
@@ -118,9 +118,9 @@ const ShoppingCart = () => {
 	
 	// look up the contact information of the last order and preload it
 	async function handleCheckOut() {
-		!login.login && history.push('/bases/signin')
+		!login.login && history.push('/signin')
 		try {
-			const orderId= (await axios.get(`http://localhost:3001/purchases/data?userId=${userId}`)).data
+			const orderId= (await axios.get(`/purchases/data?userId=${userId}`)).data
 			if(orderId.length>0) {
 				setOrderData({
 					...orderData,
@@ -150,18 +150,18 @@ const ShoppingCart = () => {
 		let orderId=""		
 		try {
 			// find cart order
-			orderId=(await axios.get(`http://localhost:3001/purchases/cart?userId=${userId}`)).data
+			orderId=(await axios.get(`/purchases/cart?userId=${userId}`)).data
 			// if it already exists, update contact information (If it has previous orders it brings previous information )
 			if(orderId.length>0) {
 				orderId=orderId[0].id
-				await axios.put(`http://localhost:3001/purchases/user/${orderId}`,{
+				await axios.put(`/purchases/user/${orderId}`,{
 					...orderData,
 					shipmentFee: totalShipping,
 					tax:(totalPrice + totalShipping) * 0.2
 				})
 			} else {
 			// if it doesn't exist, I create the purchase order
-			const orderId= (await axios.post(`http://localhost:3001/purchases/${userId}`,{
+			const orderId= (await axios.post(`/purchases/${userId}`,{
 				...orderData,
 				shipmentFee: totalShipping,
 				tax:(totalPrice + totalShipping) * 0.2
@@ -180,17 +180,17 @@ const ShoppingCart = () => {
 	try {
 	// change order status, order setted in handleOrder 
 	console.log("cambio estado a reservado")
-	const orderId=(await axios.get(`http://localhost:3001/purchases/cart?userId=${userId}`)).data
+	const orderId=(await axios.get(`/purchases/cart?userId=${userId}`)).data
 	console.log(orderId[0].id)
-	await axios.put(`http://localhost:3001/purchases/user/${orderId[0].id}`,{
+	await axios.put(`/purchases/user/${orderId[0].id}`,{
 			status: "Reserved",
 		})
 	// if line items, delete to update (if there are not, doesn´t throw error)
 	console.log("elimino los existentes si hay")
-	await axios.delete(`http://localhost:3001/orderItems/PurchaseId/${orderId[0].id}`)
+	await axios.delete(`/order-items/PurchaseId/${orderId[0].id}`)
 	// set order items and decrement stock
 	console.log("creo los nuevos") 
-	await Promise.all (cart.map(el=>axios.post("http://localhost:3001/orderItems/confirmed",{
+	await Promise.all (cart.map(el=>axios.post("/order-items/confirmed",{
 			stockId:el.stockId,
 			quantity: el.quantity,
 			purchaseId: orderId[0].id,

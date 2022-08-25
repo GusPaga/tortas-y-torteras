@@ -5,12 +5,15 @@ import {
 	GET_DATA,
 	GET_FILTERED_DATA,
 	GET_COLORS,
+	SET_LOGIN,
 } from './types';
 
 export const setLoading = payload => ({ type: SET_LOADING, payload });
 
 export const setPage = page => dispatch =>
 	dispatch({ type: SET_PAGE, payload: page });
+
+export const loggin = () => dispatch => dispatch({ type: SET_LOGIN });
 
 // Get Products from backend
 export const getData = () => {

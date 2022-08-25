@@ -42,7 +42,12 @@ export default function Home() {
 					</button>
 				</div>
 				<div className='pag-wrapper'>
-					<Pagination size='large' count={pages} onChange={handleChange} />
+					<Pagination
+						size='large'
+						count={pages}
+						color='secondary'
+						onChange={handleChange}
+					/>
 				</div>
 
 				<TemporaryDrawer />

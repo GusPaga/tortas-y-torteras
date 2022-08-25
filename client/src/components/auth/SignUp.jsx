@@ -1,7 +1,8 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import DotLoader from 'react-spinners/DotLoader';
-import { validationSchema } from '../../helpers/validations.helper';
+import { validationSignUpSchema } from '../../helpers/validations.helper';
 export const SignUp = () => {
 	const [spinner, setSpinner] = useState(true);
 	return (
@@ -31,7 +32,7 @@ export const SignUp = () => {
 								password: '',
 								c_password: '',
 							}}
-							validationSchema={validationSchema}
+							validationSchema={validationSignUpSchema}
 							onSubmit={(values, { resetForm }) => {
 								resetForm();
 								setSpinner(!spinner);
@@ -48,11 +49,10 @@ export const SignUp = () => {
 												First Name
 											</label>
 											<Field
-												className='w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline'
+												className='w-full px-3 py-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline'
 												id='firstName'
 												name='firstName'
 												type='text'
-												autoFocus
 												placeholder='First Name'
 											/>
 											<ErrorMessage
@@ -72,7 +72,7 @@ export const SignUp = () => {
 												Last Name
 											</label>
 											<Field
-												className='w-full px-3 py-2 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline'
+												className='w-full px-3 py-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline'
 												id='lastName'
 												name='lastName'
 												type='text'
@@ -96,7 +96,7 @@ export const SignUp = () => {
 											Email
 										</label>
 										<Field
-											className='w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline'
+											className='w-full px-3 py-3 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline'
 											id='email'
 											name='email'
 											type='email'
@@ -120,7 +120,7 @@ export const SignUp = () => {
 												Password
 											</label>
 											<Field
-												className='w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border border-red-500 rounded shadow appearance-none focus:outline-none focus:shadow-outline'
+												className='w-full px-3 py-3 mb-3 text-sm leading-tight text-gray-700 border border-red-500 rounded shadow appearance-none focus:outline-none focus:shadow-outline'
 												id='password'
 												name='password'
 												type='password'
@@ -143,7 +143,7 @@ export const SignUp = () => {
 												Confirm Password
 											</label>
 											<Field
-												className='w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline'
+												className='w-full px-3 py-3 mb-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline'
 												id='c_password'
 												name='c_password'
 												type='password'
@@ -161,7 +161,7 @@ export const SignUp = () => {
 									</div>
 									<div className='mb-6 text-center'>
 										<button
-											className='w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-full hover:bg-blue-700 focus:outline-none focus:shadow-outline'
+											className='w-full px-4 py-2 font-bold text-white rounded-full bg-violet-400 hover:bg-violet-500 focus:outline-none focus:shadow-outline'
 											type='submit'
 										>
 											Register Account
@@ -180,12 +180,12 @@ export const SignUp = () => {
 										</a>
 									</div>
 									<div className='text-center'>
-										<a
+										<Link
 											className='inline-block text-sm text-blue-500 align-baseline hover:text-blue-800'
-											href='./index.html'
+											to='/signin'
 										>
 											Already have an account? Login!
-										</a>
+										</Link>
 									</div>
 								</Form>
 							)}

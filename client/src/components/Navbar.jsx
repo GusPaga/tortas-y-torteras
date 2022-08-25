@@ -1,8 +1,8 @@
-import './Navbar.css';
-import { Link } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
 import { AppBar, Toolbar } from '@mui/material';
+import { useContext, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { ShoppingCartContext } from '../context/ShoppingCartContext';
+import './Navbar.css';
 
 export default function Navbar() {
 	const [cart, setCart] = useContext(ShoppingCartContext); // eslint-disable-line no-unused-vars
@@ -34,7 +34,7 @@ export default function Navbar() {
 					<span className='bar-user-icon'>
 						<i className='fa-solid fa-circle-user'></i>
 					</span>
-					<Link to='/user/auth' className='bar-login-text'>
+					<Link to='/signin' className='bar-login-text'>
 						Log In
 					</Link>
 				</Toolbar>

@@ -7,7 +7,7 @@ import SignInUp from './components/formsUsers/Index';
 import Try from './components/Try';
 import Detail from './pages/Detail';
 import Home from './pages/Home';
-import Landin2 from './pages/Landin2';
+import Landing from './pages/Landing';
 import Page404 from './components/Pag404';
 
 function App() {
@@ -16,7 +16,7 @@ function App() {
 			{/* {location.pathname !== '/' && <Navbar />} */}
 			<Navbar />
 			<Switch>
-				<Route exact path='/' component={Landin2} />
+				<Route exact path='/' component={Landing} />
 				<Route exact path='/home' component={Home} />
 				<Route exact path='/addproduct' component={ProductForm} />
 				<Route exact path='/shop/shoppingCart' component={ShoppingCart} />

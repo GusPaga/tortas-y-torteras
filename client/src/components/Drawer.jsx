@@ -118,7 +118,8 @@ export default function TemporaryDrawer() {
 				className='filter-text'
 				style={{ marginBottom: '40px', padding: '10px', fontFamily: 'roboto' }}
 			>
-				Apply Filter <FilterAltIcon />
+				<FilterAltIcon />
+				Apply Filter
 			</button>
 			<div className='filter-1'>
 				<h6 style={{ fontFamily: 'roboto', margin: '20px' }}>Avaibility</h6>
@@ -170,7 +171,8 @@ export default function TemporaryDrawer() {
 		<div>
 			<React.Fragment key={'left'}>
 				<button className='filter-text' onClick={toggleDrawer('left', true)}>
-					Filter <FilterAltIcon fontSize='large' />
+					<FilterAltIcon fontSize='large' />
+					Filter
 				</button>
 				<Drawer
 					anchor={'left'}

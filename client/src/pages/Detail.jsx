@@ -1,7 +1,7 @@
 import './Detail.css';
 import axios from 'axios';
 import { useEffect, useState, useContext } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import Rating from '../components/Rating';
 import { setLoading } from '../redux/actions';
@@ -15,19 +15,20 @@ function Detail() {
 	const { id } = useParams();
 	const [product, setProduct] = useState({});
 	const [open, setOpen] = useState(false);
+	const [quantityNull, setquantityNull] = useState(false);
+	const [quantityAvailable, setquantityAvailable] = useState(false);
 	const history = useHistory();
 	const dispatch = useDispatch();
-	const { redLoading } = useSelector(state => state);
+	// const { redLoading } = useSelector(state => state);
 	const [cart, setCart] = useContext(ShoppingCartContext);
-	const [amount, setAmount] = useState(1);
+	// const [amount, setAmount] = useState(1);
+
 
 	useEffect(() => {
 		async function fetchData() {
 			try {
 				dispatch(setLoading(true));
-				const response = await axios.get(
-					`http://localhost:3001/products/${id}`
-				);
+				const response = await axios.get(`/products/${id}`);
 				setProduct(response.data);
 				dispatch(setLoading(false));
 			} catch (error) {
@@ -38,8 +39,51 @@ function Detail() {
 	}, [dispatch, id]);
 
 	const addToCart = () => {
-		if (!cart.some(e => e.id === id)) setCart([...cart, product]);
-		setOpen(true);
+		if(parseInt(document.querySelector("#quantity").value)>0) { // agrega en cero!!!!!
+
+		const selection = {
+			name:product.name,
+			prodImageHome:product.img_home.secure_url,
+			prodType: product.ProductTypes[document.querySelector(
+				'.detail-4'
+			).id].name,
+			stockId:product.ProductTypes[document.querySelector(
+				'.detail-4'
+			).id].Stocks.id,
+			price:product.ProductTypes[document.querySelector(
+				'.detail-4'
+			).id].Stocks.price,
+			quantity:parseInt(document.querySelector("#quantity").value),
+			stockQuantity:parseInt(product.ProductTypes[document.querySelector(
+				'.detail-4'
+			).id].Stocks.quantity),
+		}
+
+		const stock=product.ProductTypes[document.querySelector(
+			'.detail-4'
+		).id].Stocks.quantity
+		console.log(cart)
+
+		const alreadySelected= cart.find(e => e.stockId === selection.stockId) 
+
+		if(alreadySelected) {
+			if((alreadySelected.quantity+selection.quantity) > stock) {
+				// alert(`Stock available is only  ${stock} units`)
+				setquantityAvailable(true);
+			} else {
+				setOpen(true);
+			}
+			alreadySelected.quantity= (alreadySelected.quantity+selection.quantity) > stock ? stock :  (alreadySelected.quantity+selection.quantity)
+		} else {
+			setCart([...cart, selection]);	
+			setOpen(true);
+
+		}
+
+	} else {
+		setquantityNull(true);
+
+	}
 	};
 
 	const handleClose = (event, reason) => {
@@ -47,6 +91,8 @@ function Detail() {
 			return;
 		}
 		setOpen(false);
+		setquantityNull(false);
+		setquantityAvailable(false);
 	};
 
 	const action = (
@@ -74,19 +120,36 @@ function Detail() {
 			document.querySelector('.dt4-2').className = 'dt4-2';
 			document.querySelector(
 				'.dt1-price'
-			).innerHTML = ` Price: $ ${product.ProductTypes[0].price}`;
+			).innerHTML = ` Price: $ ${product.ProductTypes[0].Stocks.price}`;
 			document.querySelector(
 				'.detail-5'
 			).innerHTML = `Stock: ${product.ProductTypes[0].Stocks.quantity} un`;
+			document.querySelector(
+				'.detail-7'
+			).value = `${product.ProductTypes[0].Stocks.quantity}`;
+			document.querySelector(
+				'.detail-4'
+			).id = 0;
+			document.querySelector("#quantity").max = `${product.ProductTypes[0].Stocks.quantity}`;
+			document.querySelector("#quantity").value = 0;
 		} else {
 			document.querySelector('.dt4-1').className = 'dt4-1';
 			document.querySelector('.dt4-2').className = 'dt4-2 selected';
 			document.querySelector(
 				'.dt1-price'
-			).innerHTML = ` Price: $ ${product.ProductTypes[1].price}`;
+			).innerHTML = ` Price: $ ${product.ProductTypes[1].Stocks.price}`;
 			document.querySelector(
 				'.detail-5'
 			).innerHTML = `Stock: ${product.ProductTypes[1].Stocks.quantity} un`;
+			document.querySelector(
+				'.detail-7'
+			).value = `${product.ProductTypes[1].Stocks.quantity}`;
+			document.querySelector(
+				'.detail-4'
+			).id = 1;
+			document.querySelector("#quantity").max = `${product.ProductTypes[1].Stocks.quantity}`;
+			document.querySelector("#quantity").value = 0;
+
 		}
 
 		// document.getElementsByClassName(miClassDiv).classList.toggle('selected');
@@ -151,7 +214,7 @@ function Detail() {
 						<div className='dt1-ref'>Ref-{product.id}</div>
 						<div className='dt1-name'>{product.name}</div>
 						<div className='dt1-price'>
-							Price: $ {product.ProductTypes[0].price}
+							Price: $ {product.ProductTypes[0].Stocks.price}
 						</div>
 					</div>
 					<div className='detail-2'>
@@ -185,22 +248,29 @@ function Detail() {
 							></div>
 						</div>
 					</div>
-					<div className='detail-4'>
+					<div className='detail-4' id={0}>
 						<span>Type</span>
 						<div className='dt4'>
 							<div className='dt4-1 selected' onClick={handleClick}>
-								<p className='dt4-1-p1'>Cake Trail</p>
-								<p className='dt4-1-p2'>32 cm</p>
+								<p className='dt4-1-p1'>{product.ProductTypes[0].name}</p>
+								<p className='dt4-1-p2'>{`${product.ProductTypes[0].diameter} cm`}</p>
 							</div>
 							<div className='dt4-2' onClick={handleClick}>
-								<p className='dt4-2-p1'>Turn Table</p>
-								<p className='dt4-2-p2'>35 cm</p>
+								<p className='dt4-2-p1'>{product.ProductTypes[1].name}</p>
+								<p className='dt4-2-p2'>{`${product.ProductTypes[1].diameter} cm`}</p>
 							</div>
 						</div>
 					</div>
 					<div className='detail-5'>
 						{`Stock: ${product.ProductTypes[0].Stocks.quantity} un`}
 					</div>
+					<div className='detail-7'>
+						<span>Select quantity:</span>
+						<div className='detail-7'>
+						<input type="number" id="quantity" max={product.ProductTypes[0].Stocks.quantity} placeholder="0" min="0">
+							</input>	
+						</div>
+						</div>	
 					<div className='detail-6'>
 						<div onClick={addToCart} className='dt6-1'>
 							Add to bag
@@ -211,17 +281,29 @@ function Detail() {
 			</div>
 			<button
 				onClick={() => history.push('/home')}
-				className='detail-back'
-				type='button'
-				style={{ backgroundColor: '#f9004d' }}
+				className='btn btn-red mt-4'
 			>
 				back
 			</button>
 			<Snackbar
+				open={quantityNull}
+				autoHideDuration={2000}
+				onClose={handleClose}
+				message='Select the number of units'
+				action={action}
+			/>
+			<Snackbar
 				open={open}
-				autoHideDuration={6000}
+				autoHideDuration={3000}
 				onClose={handleClose}
 				message='Product added to Bag'
+				action={action}
+			/>
+			<Snackbar
+				open={quantityAvailable}
+				autoHideDuration={3000}
+				onClose={handleClose}
+				message={`Products added to Bag limited to the maximum quantity of stock available`}
 				action={action}
 			/>
 		</div>

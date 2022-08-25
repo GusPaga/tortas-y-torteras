@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
-import './Card.css';
+// import './Card.css';
 
 export default function Card(props) {
 	// eslint-disable-next-line react/prop-types
@@ -9,21 +8,26 @@ export default function Card(props) {
 	// console.log('cart=', cart);
 
 	return (
-		<div className='card-wrapper'>
+		<div className=''>
 			<Link to={`/${id}`}>
 				<div
-					className='card-card'
+					className='bg-center bg-no-repeat bg-cover w-full p-4
+				h-[600px]
+				sm:h-[300px]
+				md:h-[250px]
+				'
 					style={{
 						backgroundImage: `url(${imgHome})`,
 					}}
 				>
 					<div className='card-header'>
-						<span className='card-name'>{name}</span>
-						<FavoriteBorderIcon />
+						<span className='bg-[rgba(0,0,0,0.5)] rounded-md p-1'>
+							{collection}
+						</span>
 					</div>
 				</div>
 			</Link>
-			<div className='card-text'>
+			{/* <div className='card-text'>
 				<div className='card-text-container'>
 					<span className='card-collection'>Collection:</span>
 					<span className='card-collection'>{collection}</span>
@@ -54,7 +58,7 @@ export default function Card(props) {
 						></div>
 					</span>
 				</div>
-			</div>
+			</div> */}
 		</div>
 	);
 }

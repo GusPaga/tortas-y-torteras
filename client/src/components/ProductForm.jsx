@@ -33,6 +33,8 @@ const ProductForm = () => {
 		// imagesDetail:[],
 		stockCakeTray: 0,
 		stockTurntable: 0,
+		priceCakeTray: "",
+		priceTurntable: "",
 		color: [],
 		color1: '',
 		color2: '',
@@ -194,6 +196,8 @@ const ProductForm = () => {
 						color3: newProduct.color3,
 						stockCakeTray: stock.cakeTrail,
 						stockTurntable: stock.turntable,
+						priceCakeTray: newProduct.priceCakeTray,
+						priceTurntable: newProduct.priceTurntable,
 					},
 					{
 						headers: {
@@ -337,7 +341,7 @@ const ProductForm = () => {
 				</FormControl>
 
 				<label className='uppercase tracking-wide text-black text-xs font-bold mb-2'>
-					Cake Trail Stock:
+					Cake Tray Stock:
 				</label>
 				<input
 					type='number'
@@ -359,6 +363,30 @@ const ProductForm = () => {
 					// value={input.stock[1].quantity}
 					value={stock.turntable}
 					onChange={handleChangeStock}
+				/>
+
+				<label className='uppercase tracking-wide text-black text-xs font-bold mb-2'>
+					Cake Tray Price:
+				</label>
+				<input
+					type='number'
+					className='w-full bg-gray-100 text-black border border-gray-200 rounded-md py-1 px-4 mb-3'
+					name='priceCakeTray'
+					placeholder='$...'
+					value={input.priceCakeTray}
+					onChange={handleChange}
+				/>
+
+				<label className='uppercase tracking-wide text-black text-xs font-bold mb-2'>
+					Turntable Price:
+				</label>
+				<input
+					type='number'
+					className='w-full bg-gray-100 text-black border border-gray-200 rounded-md py-1 px-4 mb-3'
+					name='priceTurntable'
+					placeholder='$...'
+					value={input.priceTurntable}
+					onChange={handleChange}
 				/>
 
 				<label className='uppercase tracking-wide text-black text-xs font-bold mb-2'>

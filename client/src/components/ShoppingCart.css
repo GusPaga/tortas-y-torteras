@@ -93,23 +93,3 @@
 	background-color: #c684ff;
 	color: #fff;
 }
-
-.shp-back {
-	margin-top: 32px;
-	background: grey;
-	height: 48px;
-	width: 128px;
-	color: white;
-	font-size: 16px;
-	border: 2px solid transparent;
-	font-weight: bold;
-	border-radius: 15px;
-	transition: 1s;
-}
-
-.shp-back:hover {
-	background: transparent;
-	border: 2px solid #f9004d;
-	cursor: pointer;
-	color: #f9004d;
-}

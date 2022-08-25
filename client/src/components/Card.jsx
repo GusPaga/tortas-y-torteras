@@ -6,12 +6,13 @@ export default function Card(props) {
 	const { id, imgHome, name, color1, color2, color3, collection } = props;
 
 	// console.log('cart=', cart);
+	console.log(color1);
 
 	return (
 		<div className=''>
 			<Link to={`/${id}`}>
 				<div
-					className='bg-center bg-no-repeat bg-cover w-full p-4
+					className='bg-center bg-no-repeat bg-cover w-full p-2
 				h-[600px]
 				sm:h-[300px]
 				md:h-[250px]
@@ -21,19 +22,37 @@ export default function Card(props) {
 					}}
 				>
 					<div className='h-full flex flex-col justify-between'>
-						<span className='text-white text-xs w-fit bg-[rgba(0,0,0,0.5)] rounded-md p-1'>
-							{name}
-						</span>
-						<div>
+						<div className='w-full flex justify-between'>
 							<span className='text-white text-xs w-fit bg-[rgba(0,0,0,0.5)] rounded-md p-1'>
 								{collection}
 							</span>
-							<div>
-								<div></div>
-								<div></div>
-								<div></div>
+							<div className='flex gap-[2px]'>
+								<div
+									className={'rounded-full w-3 h-3'}
+									style={{
+										backgroundColor: `${color1}`,
+										border: ` ${color1}`,
+									}}
+								></div>
+								<div
+									className={'rounded-full w-3 h-3'}
+									style={{
+										backgroundColor: `${color2}`,
+										border: ` ${color2}`,
+									}}
+								></div>
+								<div
+									className={'rounded-full w-3 h-3'}
+									style={{
+										backgroundColor: `${color3}`,
+										border: ` ${color3}`,
+									}}
+								></div>
 							</div>
 						</div>
+						<span className='text-white text-xs w-fit bg-[rgba(0,0,0,0.5)] rounded-md p-1'>
+							{name}
+						</span>
 					</div>
 				</div>
 			</Link>

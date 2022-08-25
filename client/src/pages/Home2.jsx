@@ -21,7 +21,7 @@ const Home2 = () => {
 				onClick={() =>
 					document
 						.querySelector('.sidebar')
-						.classList.toggle('translate-x-full')
+						.classList.toggle('translate-x-[300px]')
 				}
 			>
 				<i className='bi bi-filter-left px-2'></i>
@@ -40,7 +40,7 @@ const Home2 = () => {
 							onClick={() =>
 								document
 									.querySelector('.sidebar')
-									.classList.toggle('translate-x-full')
+									.classList.toggle('translate-x-[300px]')
 							}
 						></i>
 					</div>

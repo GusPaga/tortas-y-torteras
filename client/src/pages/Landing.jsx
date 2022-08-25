@@ -45,7 +45,7 @@ const Landing = () => {
 						}}
 					>
 						<div
-							className='absolute flex flex-col items-center p-7 bg-neutral-900 rounded-xl drop-shadow-2xl h-auto border-myPurple-100 border-solid border-2
+							className='absolute flex flex-col items-center p-7 text-white bg-neutral-900 rounded-xl drop-shadow-2xl h-auto border-myPurple-100 border-solid border-2
 							top-[100%]
 							lg:items-start lg:top-1/2 lg:left-3/4 lg:h-[50%] lg:mt-[-20%] lg:w-[500px] 
 							xl:p-10 xl:w-[600px] xl:h-[40%]

@@ -17,7 +17,7 @@ export default function Navbar() {
 	};
 
 	return (
-		<nav className='sticky top-0 mx-auto p-4 bg-black select-none lg:h-32'>
+		<nav className='sticky top-0 mx-auto p-4 bg-black select-none lg:h-32 text-white'>
 			<div className='container mx-auto flex items-center justify-between'>
 				<a
 					href='/home'

@@ -1,6 +1,6 @@
 import { useContext, useEffect } from 'react';
-import { ShoppingCartContext } from '../context/ShoppingCartContext';
 import { useLocation } from 'react-router-dom';
+import { ShoppingCartContext } from '../context/ShoppingCartContext';
 // import TemporaryDrawer from '../components/Drawer';
 
 export default function Navbar() {

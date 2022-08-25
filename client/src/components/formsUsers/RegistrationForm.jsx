@@ -1,13 +1,13 @@
-import axios from 'axios';
-import { useState, useEffect } from 'react';
-import { validateRegister } from '../../validations/registerValidation';
+import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import TextField from '@mui/material/TextField';
 import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { validateRegister } from '../../validations/registerValidation';
 
 import './RegistrationForm.css';
 
@@ -47,7 +47,10 @@ const RegistrationForm = () => {
 			alert('Incorrect password. They must be the same!');
 		else {
 			try {
-				await axios.post('http://localhost:3001/users/signup', input);
+				await axios.post(
+					'https://tytecommerce.herokuapp.com/users/signup',
+					input
+				);
 				setInput({
 					name: '',
 					lastname: '',
@@ -69,11 +72,11 @@ const RegistrationForm = () => {
 		<ThemeProvider theme={theme}>
 			<Box
 				sx={{
-				my: 8,
-				mx: 4,
-				display: 'flex',
-				flexDirection: 'column',
-				alignItems: 'center',
+					my: 8,
+					mx: 4,
+					display: 'flex',
+					flexDirection: 'column',
+					alignItems: 'center',
 				}}
 			>
 				<Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -82,63 +85,93 @@ const RegistrationForm = () => {
 				<Typography component='h1' variant='h5'>
 					Sign Up
 				</Typography>
-				<Box
-					component='form'
-					noValidate
-					onSubmit={handleSubmit}
-					sx={{ mt: 1 }}
-				>
-
+				<Box component='form' noValidate onSubmit={handleSubmit} sx={{ mt: 1 }}>
 					<Box display='flex'>
-						<Box sx={{ minWidth: 'md', md: 'width-50% mb-0', px: '12px', mb: '24px' }}>
+						<Box
+							sx={{
+								minWidth: 'md',
+								md: 'width-50% mb-0',
+								px: '12px',
+								mb: '24px',
+							}}
+						>
 							<TextField
-									margin='normal'
-									required
-									fullWidth
-									id='name'
-									label='First Name'
-									name='name'
-									autoComplete='name'
-									autoFocus
-									onChange={handleChange}
-							/>
-							{error.name && <div className="text-red-500 text-xs italic">{error.name}</div>}
-						</Box>
-
-						<Box sx={{ minWidth: 'md', md: 'width-50% mb-0', px: '12px', mb: '24px' }}>
-							<TextField
-									margin='normal'
-									required
-									fullWidth
-									id='lastname'
-									label='Last Name'
-									name='lastname'
-									autoComplete='lastname'
-									autoFocus
-									onChange={handleChange}
-							/>
-							{error.lastname && <div className="text-red-500 text-xs italic">{error.lastname}</div>}
-						</Box>
-					</Box>
-
-					<Box sx={{ minWidth: 'md', md: 'width-50% mb-0', px: '12px', mb: '24px' }}>
-						<TextField
 								margin='normal'
 								required
 								fullWidth
-								id='email'
-								label='Email Address'
-								name='email'
-								autoComplete='email'
+								id='name'
+								label='First Name'
+								name='name'
+								autoComplete='name'
 								autoFocus
 								onChange={handleChange}
+							/>
+							{error.name && (
+								<div className='text-red-500 text-xs italic'>{error.name}</div>
+							)}
+						</Box>
+
+						<Box
+							sx={{
+								minWidth: 'md',
+								md: 'width-50% mb-0',
+								px: '12px',
+								mb: '24px',
+							}}
+						>
+							<TextField
+								margin='normal'
+								required
+								fullWidth
+								id='lastname'
+								label='Last Name'
+								name='lastname'
+								autoComplete='lastname'
+								autoFocus
+								onChange={handleChange}
+							/>
+							{error.lastname && (
+								<div className='text-red-500 text-xs italic'>
+									{error.lastname}
+								</div>
+							)}
+						</Box>
+					</Box>
+
+					<Box
+						sx={{
+							minWidth: 'md',
+							md: 'width-50% mb-0',
+							px: '12px',
+							mb: '24px',
+						}}
+					>
+						<TextField
+							margin='normal'
+							required
+							fullWidth
+							id='email'
+							label='Email Address'
+							name='email'
+							autoComplete='email'
+							autoFocus
+							onChange={handleChange}
 						/>
-							{error.email && <div className="text-red-500 text-xs italic">{error.email}</div>}
+						{error.email && (
+							<div className='text-red-500 text-xs italic'>{error.email}</div>
+						)}
 					</Box>
 
 					<Box display='flex'>
-					<Box sx={{ minWidth: 'md', md: 'width-50% mb-0', px: '12px', mb: '24px' }}>
-							<div className="dialog">
+						<Box
+							sx={{
+								minWidth: 'md',
+								md: 'width-50% mb-0',
+								px: '12px',
+								mb: '24px',
+							}}
+						>
+							<div className='dialog'>
 								<TextField
 									margin='normal'
 									required
@@ -150,11 +183,22 @@ const RegistrationForm = () => {
 									autoComplete='current-password'
 									onChange={handleChange}
 								/>
-								{error.password && <div className="text-red-500 text-xs italic">{error.password}</div>}
+								{error.password && (
+									<div className='text-red-500 text-xs italic'>
+										{error.password}
+									</div>
+								)}
 							</div>
 						</Box>
 
-						<Box sx={{ minWidth: 'md', md: 'width-50% mb-0', px: '12px', mb: '24px' }}>
+						<Box
+							sx={{
+								minWidth: 'md',
+								md: 'width-50% mb-0',
+								px: '12px',
+								mb: '24px',
+							}}
+						>
 							<TextField
 								margin='normal'
 								required
@@ -169,7 +213,7 @@ const RegistrationForm = () => {
 						</Box>
 					</Box>
 
-					<div className="px-3 mb-6 md:mb-0">
+					<div className='px-3 mb-6 md:mb-0'>
 						<Button
 							type='submit'
 							fullWidth
@@ -182,7 +226,6 @@ const RegistrationForm = () => {
 				</Box>
 			</Box>
 		</ThemeProvider>
-
 	);
 };
 

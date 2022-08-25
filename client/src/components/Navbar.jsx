@@ -1,8 +1,11 @@
 import { useContext, useEffect } from 'react';
 import { ShoppingCartContext } from '../context/ShoppingCartContext';
+import { useLocation } from 'react-router-dom';
+// import TemporaryDrawer from '../components/Drawer';
 
 export default function Navbar() {
 	const [cart, setCart] = useContext(ShoppingCartContext); // eslint-disable-line no-unused-vars
+	const location = useLocation();
 
 	useEffect(() => {
 		document.getElementById('shp-num').innerHTML = cart.length;
@@ -14,39 +17,31 @@ export default function Navbar() {
 	};
 
 	return (
-		<nav className='mx-auto p-4 bg-black select-none h-32'>
-			<div
-				className='
-      container
-      mx-auto
-      flex
-      items-center
-      justify-between
-			'
-			>
+		<nav className='sticky top-0 mx-auto p-4 bg-black select-none lg:h-32'>
+			<div className='container mx-auto flex items-center justify-between'>
 				<a
 					href='/home'
-					className='
-        z-50
-        hover:text-purple-300
-				duration-1000
-				lg:absolute
-        lg:left-1/2
-        lg:-translate-x-1/2
-        lg:top-9
+					className='z-50 hover:text-purple-300	duration-1000				
+					lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:top-9
 				'
 				>
 					<i
-						className='
+						className={`
 					fa-solid fa-palette
 					text-3xl
-					text-myPurple-100
+					${location.pathname === '/home' ? 'text-blue-500' : 'text-myPurple-100'}
 					mr-4
-					'
+					`}
 					></i>
 					<span className='text-2xl'>
 						Cakes
-						<span className='text-myPurple-100 text-3xl font-bold'>&</span>
+						<span
+							className={`text-3xl font-bold
+					${location.pathname === '/home' ? 'text-blue-500' : 'text-myPurple-100'}
+						`}
+						>
+							&
+						</span>
 						Bases
 					</span>
 				</a>
@@ -54,11 +49,11 @@ export default function Navbar() {
 					id='menu'
 					onClick={handleOnClick}
 					className='
-        lg:hidden
-        text-purple-100
-        hover:text-myPurple-100
+ lg:hidden
+ text-purple-100
+ hover:text-myPurple-100
 				duration-1000
-        '
+ '
 				>
 					<svg
 						className='h-8 w-8'
@@ -97,6 +92,7 @@ export default function Navbar() {
 					lg:w-full
 					'
 				>
+					{/* <TemporaryDrawer /> */}
 					<a
 						className='
 						flex
@@ -156,16 +152,17 @@ export default function Navbar() {
 						</svg>
 						Bases
 					</a>
+
 					<a
 						role='menuitem'
 						className='
-          flex
+ flex
 						gap-2
 						py-1
 						px-6
 						hover:text-purple-400
 						duration-1000
-          	'
+ 	'
 						href='/shop/shoppingCart'
 					>
 						<div className='flex justify-center items-center'>
@@ -194,13 +191,13 @@ export default function Navbar() {
 					</a>
 					<a
 						role='menuitem'
-						className='
+						className={`
 						py-2
 						px-6
-						bg-myPurple-100
+						${location.pathname === '/home' ? 'bg-blue-500' : 'bg-myPurple-100'}
 						text-white
 						rounded-md
-					'
+					`}
 						href='/bases/signin'
 					>
 						<i className='text-2xl mr-3 fa-solid fa-circle-user'></i>

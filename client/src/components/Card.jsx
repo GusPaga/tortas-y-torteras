@@ -20,45 +20,23 @@ export default function Card(props) {
 						backgroundImage: `url(${imgHome})`,
 					}}
 				>
-					<div className='card-header'>
-						<span className='bg-[rgba(0,0,0,0.5)] rounded-md p-1'>
-							{collection}
+					<div className='h-full flex flex-col justify-between'>
+						<span className='text-white text-xs w-fit bg-[rgba(0,0,0,0.5)] rounded-md p-1'>
+							{name}
 						</span>
+						<div>
+							<span className='text-white text-xs w-fit bg-[rgba(0,0,0,0.5)] rounded-md p-1'>
+								{collection}
+							</span>
+							<div>
+								<div></div>
+								<div></div>
+								<div></div>
+							</div>
+						</div>
 					</div>
 				</div>
 			</Link>
-			{/* <div className='card-text'>
-				<div className='card-text-container'>
-					<span className='card-collection'>Collection:</span>
-					<span className='card-collection'>{collection}</span>
-				</div>
-				<div className='card-text-container'>
-					<span className='card-colors'>Main Colors:</span>
-					<span className='card-colors'>
-						<div
-							className='card-color1'
-							style={{
-								backgroundColor: `${color1}`,
-								border: `2px solid ${color1}`,
-							}}
-						></div>
-						<div
-							className='card-color2'
-							style={{
-								backgroundColor: `${color2}`,
-								border: `2px solid ${color2}`,
-							}}
-						></div>
-						<div
-							className='card-color3'
-							style={{
-								backgroundColor: `${color3}`,
-								border: `2px solid ${color3}`,
-							}}
-						></div>
-					</span>
-				</div>
-			</div> */}
 		</div>
 	);
 }

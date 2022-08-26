@@ -3,8 +3,9 @@ import { useDispatch } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { SignIn } from './components/auth/SignIn';
 import { SignUp } from './components/auth/SignUp';
-import { EditUserProfile } from './components/formsUsers/EditUserProfile';
-import { ChangePassword } from './components/formsUsers/ChangePassword';
+// import { EditUserProfile } from './components/dashboardClient/formsUsers/EditUserProfile';
+// import { ChangePassword } from './components/dashboardClient/formsUsers/ChangePassword';
+import { Menu } from './components/dashboardClient/Menu'
 import Navbar from './components/Navbar';
 import Page404 from './components/Pag404';
 import ProductForm from './components/ProductForm';
@@ -44,8 +45,9 @@ function App() {
 				{/* <Route exact path='/bases/signin' component={SignInSide} /> */}
 				<Route exact path='/bases/try' component={Try} />
 				<Route exact path='/signup' component={SignUp} />
-				<Route exact path='/user/edit' component={EditUserProfile} />
-				<Route exact path='/user/changepassword' component={ChangePassword} />
+				<Route exact path='/user/main' component={Menu} />
+				{/* <Route exact path='/user/edit' component={EditUserProfile} />
+				<Route exact path='/user/changepassword' component={ChangePassword} /> */}
 				<Route
 					exact
 					path='/signin'

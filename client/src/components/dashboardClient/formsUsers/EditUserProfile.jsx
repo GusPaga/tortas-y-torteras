@@ -1,7 +1,9 @@
+// import axios from 'axios';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { validateUser } from '../../validations/editProfileValidate';
+import { validateUser } from '../../../validations/editProfileValidate';
+import { ChangePassword } from './ChangePassword';
 
 export const EditUserProfile = () => {
   const [spinner, setSpinner] = useState(true);
@@ -10,15 +12,17 @@ export const EditUserProfile = () => {
       <div className='flex justify-center px-6 my-12'>
       <Formik
         initialValues={{
-          firstName: '',
-          lastName: '',
+          name: '',
+          lastname: '',
           gender:'',
           identityCard: '',
+          typeIdentityCard: '',
           birthDate: '',
         }}
         validationSchema={validateUser}
-        onSubmit={(values, { resetForm }) => {
+        onSubmit={async (values, { resetForm }) => {
           console.log(values)
+          await // axios.put(`http://localhost:3001/users/user/${id}`, values)
           resetForm();
           setSpinner(!spinner);
         }}
@@ -29,22 +33,22 @@ export const EditUserProfile = () => {
               <div className='mb-4 md:mr-2 md:mb-0'>
                 <label
                   className='block mb-2 text-sm font-bold text-gray-700'
-                  htmlFor='firstName'
+                  htmlFor='name'
                 >
                   First Name
                 </label>
                 <Field
                   className='w-full px-3 py-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline'
-                  id='firstName'
-                  name='firstName'
+                  id='name'
+                  name='name'
                   type='text'
                   placeholder='First Name'
                 />
                 <ErrorMessage
-                  name='firstName'
+                  name='name'
                   component={() => (
                     <p className='text-xs italic mt-3 text-red-500'>
-                      {errors.firstName}
+                      {errors.name}
                     </p>
                   )}
                 />
@@ -52,22 +56,22 @@ export const EditUserProfile = () => {
               <div className='mb-4 md:mr-2 md:mb-0'>
                 <label
                   className='block mb-2 text-sm font-bold text-gray-700'
-                  htmlFor='lastName'
+                  htmlFor='lastname'
                 >
                   Last Name
                 </label>
                 <Field
                   className='w-full px-3 py-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline'
-                  id='lastName'
-                  name='lastName'
+                  id='lastname'
+                  name='lastname'
                   type='text'
                   placeholder='Last Name'
                 />
                 <ErrorMessage
-                  name='lastName'
+                  name='lastname'
                   component={() => (
                     <p className='text-xs italic mt-3 text-red-500'>
-                      {errors.lastName}
+                      {errors.lastname}
                     </p>
                   )}
                 />
@@ -187,7 +191,7 @@ export const EditUserProfile = () => {
             <div className='text-center'>
               <Link
                 className='inline-block text-sm text-blue-500 align-baseline hover:text-blue-800'
-                to='/user/changepassword'
+                to={<ChangePassword />}
               >
                 Change Password?
               </Link>

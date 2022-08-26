@@ -155,36 +155,31 @@ function Detail() {
 	};
 
 	return (
-		<div className='detail-wrapper'>
+		<div
+			className='w-screen min-h-screen select-none -z-10
+			bg-gradient-to-b from-black to-neutral-300  text-white flex flex-col items-center'
+		>
 			<div className='detail-content'>
 				{/* LEFT COLUMN */}
 				<div className='detail-content-left'>
+					{/* Bootstrap Carousel */}
 					<div
 						id='carouselExampleIndicators'
 						className='carousel slide'
 						data-bs-ride='true'
 					>
 						<div className='carousel-indicators'>
-							<button
-								type='button'
-								data-bs-target='#carouselExampleIndicators'
-								data-bs-slide-to='0'
-								className='active'
-								aria-current='true'
-								aria-label='Slide 1'
-							></button>
-							<button
-								type='button'
-								data-bs-target='#carouselExampleIndicators'
-								data-bs-slide-to='1'
-								aria-label='Slide 2'
-							></button>
-							<button
-								type='button'
-								data-bs-target='#carouselExampleIndicators'
-								data-bs-slide-to='2'
-								aria-label='Slide 3'
-							></button>
+							{product.img_detail.map((im, i) => (
+								<button
+									key={i}
+									type='button'
+									data-bs-target='#carouselExampleIndicators'
+									data-bs-slide-to={i}
+									className={`${i === 0 ? 'active' : ''}`}
+									aria-current={`${i === 0 ? 'true' : ''}`}
+									aria-label={`Slide ${i + 1}`}
+								></button>
+							))}
 						</div>
 						<div className='carousel-inner'>
 							{product.img_detail.map((im, i) => (
@@ -285,17 +280,18 @@ function Detail() {
 					<div className='detail-5'>
 						{`Stock: ${product.ProductTypes[0].Stocks.quantity} un`}
 					</div>
-					<div className='detail-7'>
-						<span>Select quantity:</span>
-						<div className='detail-7'>
+					<div className='mt-4 w-full flex'>
+						<span>
+							Select quantity:
 							<input
+								className='text-white ml-4 bg-transparent'
 								type='number'
 								id='quantity'
 								max={product.ProductTypes[0].Stocks.quantity}
 								placeholder='0'
 								min='0'
-							></input>
-						</div>
+							/>
+						</span>
 					</div>
 					<div className='detail-6'>
 						<div onClick={addToCart} className='dt6-1'>

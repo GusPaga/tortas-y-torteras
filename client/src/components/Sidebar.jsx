@@ -7,7 +7,7 @@ const Sidebar = () => {
 	const { redColors } = useSelector(state => state);
 	const [queryColors, setQueryColors] = useState([]);
 	const [filter, setFilter] = useState({
-		inStock: true,
+		onStock: true,
 		coll1: true,
 		coll2: true,
 		coll3: true,
@@ -44,7 +44,7 @@ const Sidebar = () => {
 		${filter.coll2 ? `collection2=Flowers&` : ''}
 		${filter.coll3 ? `collection3=Butterflies&` : ''}
 		${filter.coll4 ? `collection4=Other&` : ''}
-		stock=${filter.inStock}
+		stock=${filter.onStock}
 		`.replace(/\s/g, '');
 		console.log(queryString);
 		dispatch(getFilteredData(queryString));
@@ -99,15 +99,18 @@ const Sidebar = () => {
 					</div>
 				</div>
 
-				<div className='text-left text-sm font-thin mt-2 w-4/5 mx-auto text-gray-200'>
+				<div
+					className='text-left text-sm font-thin mt-2 w-4/5 mx-auto text-gray-200'
+					id='onStock'
+				>
 					<div className='form-check form-switch cursor-pointer p-2 hover:bg-gray-700 rounded-md mt-1 ml-10'>
 						<input
 							className='form-check-input appearance-none rounded-full   bg-gray-300 cursor-pointer'
 							type='checkbox'
 							role='switch'
-							name='inStock'
+							name='onStock'
 							onClick={handleonClickFilter}
-							defaultChecked={filter.inStock}
+							defaultChecked={filter.onStock}
 						/>
 						<label
 							className='form-check-label inline-block text-white'

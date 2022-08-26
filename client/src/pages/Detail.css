@@ -1,9 +1,3 @@
-.detail-wrapper {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	user-select: none;
-}
 .detail-content {
 	margin: 20px;
 	display: flex;

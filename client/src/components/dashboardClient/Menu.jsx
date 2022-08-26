@@ -1,11 +1,15 @@
 import { EditUserProfile } from './formsUsers/EditUserProfile';
-// import { InfOrder } from './formsUsers/InfOrder';
+import { InfOrder } from './formsUsers/InfOrder';
 import {useState} from 'react';
 
 export const Menu = () => {
-  const[show, setShow] = useState(true);
+  const[show, setShow] = useState(false);
   const handleOnClickDiv = () => {
-		document.querySelector('hola').classList.toggle('translate-y-[300px]');
+    if(Document.querySelector('#account')) {
+      setShow(true);
+    } else if(Document.querySelector('#orders')) {
+      setShow(true);
+    }
 	};
 
   return (
@@ -13,32 +17,30 @@ export const Menu = () => {
       <div className='container mx auto flex justify-center'>
         <ul className='flex justify-center'>
           <li>
-            <button type='button' className='flex justify-center px-6 py-6 my-8 border-solid border-1' onClick={() => {
-              setShow(!show);
-            }}>
+            <button id='account' type='button' className='flex justify-center px-6 py-6 my-8 border-solid border-1' onClick={handleOnClickDiv}>
               My Account {show ? '' : ''}
             </button>
           </li>
           <li>
-            <button className='flex justify-center px-6 py-6 my-8 border-solid border-1' href='#'>
-              My Orders
+            <button id='orders' className='flex justify-center px-6 py-6 my-8 border-solid border-1' onClick={handleOnClickDiv}>
+              My Orders {show ? 'show' : 'hide'}
             </button>
           </li>
           <li>
-            <button className='flex justify-center px-6 py-6 my-8 border-solid border-1' href='#'>
+            <button id='favorites' className='flex justify-center px-6 py-6 my-8 border-solid border-1' href='#'>
               My Favorites
             </button>
           </li>
           <li>
-            <button className='flex justify-center px-6 py-6 my-8 border-solid border-1' href='#'>
+            <button id='address' className='flex justify-center px-6 py-6 my-8 border-solid border-1' href='#'>
               Address Book
             </button>
           </li>
         </ul>
       </div>
       {show ? (
-        <div id='hola' className='container text-center justify-center' onClick={handleOnClickDiv}>
-          <EditUserProfile />
+        <div id='show' className='container text-center justify-center' onClick={handleOnClickDiv}>
+          {<EditUserProfile />|| <InfOrder />}
         </div> ) : null}
     </>
   )

@@ -67,16 +67,16 @@ function Detail() {
 			const alreadySelected = cart.find(e => e.stockId === selection.stockId);
 
 			if (alreadySelected) {
-				if (alreadySelected.quantity + selection.quantity > stock) {
+				if ((alreadySelected.quantity + selection.quantity) > stock) {
 					// alert(`Stock available is only  ${stock} units`)
 					setquantityAvailable(true);
 				} else {
 					setOpen(true);
 				}
 				alreadySelected.quantity =
-					alreadySelected.quantity + selection.quantity > stock
+					(alreadySelected.quantity + selection.quantity) > stock
 						? stock
-						: alreadySelected.quantity + selection.quantity;
+						: (alreadySelected.quantity + selection.quantity);
 			} else {
 				setCart([...cart, selection]);
 				setOpen(true);

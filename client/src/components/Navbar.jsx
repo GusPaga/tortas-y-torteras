@@ -177,6 +177,7 @@ export default function Navbar() {
 						hover:text-purple-400
 						duration-1000
  	'
+						to='/shop/shoppingCart'
 						href='/shop/shoppingCart'
 					>
 						<div className='flex justify-center items-center'>
@@ -212,6 +213,7 @@ export default function Navbar() {
 						text-white
 						rounded-md
 					`}
+						to='/signin'
 						href='/signin'
 					>
 						<i className='text-2xl mr-3 fa-solid fa-circle-user'></i>

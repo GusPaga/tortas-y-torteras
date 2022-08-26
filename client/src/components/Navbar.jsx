@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { ShoppingCartContext } from '../context/ShoppingCartContext';
 // import TemporaryDrawer from '../components/Drawer';
 
@@ -22,8 +22,8 @@ export default function Navbar() {
 		lg:h-32'
 		>
 			<div className='container mx-auto flex items-center justify-between'>
-				<a
-					href='/home'
+				<Link
+					to='/'
 					className='z-50 hover:text-purple-300	duration-1000				
 					lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:top-9
 				'
@@ -47,7 +47,7 @@ export default function Navbar() {
 						</span>
 						Bases
 					</span>
-				</a>
+				</Link>
 				<button
 					id='menu'
 					onClick={handleOnClick}
@@ -106,7 +106,7 @@ export default function Navbar() {
 						<i className='bi bi-filter-left px-2'></i>
 						Filter
 					</span>
-					<a
+					<Link
 						className={`
 						flex
 						gap-2
@@ -116,7 +116,7 @@ export default function Navbar() {
 						duration-1000
 						${location.pathname === '/home' && 'hidden'}
 						`}
-						href='/home'
+						to='/home'
 					>
 						<svg
 							fill='none'
@@ -132,8 +132,8 @@ export default function Navbar() {
 							/>
 						</svg>
 						Home
-					</a>
-					<a
+					</Link>
+					<Link
 						role='menuitem'
 						className='
 						flex
@@ -164,10 +164,10 @@ export default function Navbar() {
 								d='M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z'
 							/>
 						</svg>
-						Bases
-					</a>
+						Other
+					</Link>
 
-					<a
+					<Link
 						role='menuitem'
 						className='
  flex
@@ -202,8 +202,8 @@ export default function Navbar() {
 							></span>
 						</div>
 						In the bag
-					</a>
-					<a
+					</Link>
+					<Link
 						role='menuitem'
 						className={`
 						py-2
@@ -212,11 +212,11 @@ export default function Navbar() {
 						text-white
 						rounded-md
 					`}
-						href='/bases/signin'
+						href='/signin'
 					>
 						<i className='text-2xl mr-3 fa-solid fa-circle-user'></i>
 						Sign In
-					</a>
+					</Link>
 				</div>
 			</div>
 		</nav>

@@ -35,7 +35,7 @@ const Landing = () => {
 						}}
 					>
 						<div
-							className='neon absolute flex flex-col items-center p-7 text-white bg-neutral-900 rounded-xl drop-shadow-2xl h-auto border-myPurple-100 border-solid border-2
+							className='neon absolute flex flex-col items-center p-7 text-white bg-neutral-900 rounded-xl drop-shadow-2xl h-auto border-white border-solid border-2
 							top-[100%]
 							lg:lg:top-1/2 lg:left-3/4 lg:h-[50%] lg:mt-[-20%] lg:w-[500px] 
 							xl:p-10 xl:w-[600px] xl:h-[40%]

@@ -4,7 +4,7 @@ import Card from '../components/Card';
 import Sidebar from '../components/Sidebar';
 import { getData } from '../redux/actions';
 
-const Home2 = () => {
+const Bases = () => {
 	const dispatch = useDispatch();
 	const { redData } = useSelector(state => state);
 
@@ -14,17 +14,9 @@ const Home2 = () => {
 
 	return (
 		<div
-			className='w-screen select-none -z-10
+			className='w-screen min-h-screen select-none -z-10
 			bg-gradient-to-b from-black to-blue-500 flex'
 		>
-			<span
-				className='absolute text-white top-5 left-4 cursor-pointer'
-				onClick={() =>
-					document.querySelector('#sidebar').classList.toggle('hidden')
-				}
-			>
-				<i className='bi bi-filter-left px-2'></i>
-			</span>
 			<Sidebar />
 			<div className='container p-8'>
 				<div
@@ -60,4 +52,4 @@ const Home2 = () => {
 	);
 };
 
-export default Home2;
+export default Bases;

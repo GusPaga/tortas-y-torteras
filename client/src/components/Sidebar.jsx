@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getColors, getFilteredData } from '../redux/actions';
+import { getColors, getData, getFilteredData } from '../redux/actions';
 
 const Sidebar = () => {
 	const dispatch = useDispatch();
 	const { redColors } = useSelector(state => state);
 	const [queryColors, setQueryColors] = useState([]);
 	const [filter, setFilter] = useState({
+		usedFilter: false,
 		onStock: true,
 		coll1: true,
 		coll2: true,
@@ -14,7 +15,7 @@ const Sidebar = () => {
 		coll4: true,
 	});
 
-	const handleOnClick = () => {
+	const handleGetColors = () => {
 		!redColors.length && dispatch(getColors());
 		document.querySelector('#colors').classList.toggle('hidden');
 		document.querySelector('#arr-clr').classList.toggle('rotate-180');
@@ -35,6 +36,23 @@ const Sidebar = () => {
 		setFilter({ ...filter, [e.target.name]: e.target.checked });
 	};
 
+	const clearAll = () => {
+		dispatch(getData());
+		setFilter({
+			usedFilter: false,
+			onStock: true,
+			coll1: true,
+			coll2: true,
+			coll3: true,
+			coll4: true,
+		});
+		setQueryColors([]);
+		document.querySelectorAll('.mycolors').forEach(e => {
+			e.checked = false;
+			e.parentNode.style.backgroundColor = '';
+		});
+	};
+
 	const makeQuery = () => {
 		const queryString = `?
 		${queryColors[0] ? `color1=${queryColors[0]}&` : ''}
@@ -48,6 +66,7 @@ const Sidebar = () => {
 		`.replace(/\s/g, '');
 		console.log(queryString);
 		dispatch(getFilteredData(queryString));
+		setFilter({ ...filter, usedFilter: true });
 	};
 
 	return (
@@ -57,30 +76,52 @@ const Sidebar = () => {
 				className='hidden fixed top-0 bottom-0 p-2 w-[300px] overflow-y-auto text-center bg-[rgba(0,0,0,0.9)]
 				'
 			>
-				<div className='text-gray-100 text-xl'>
-					<div className='p-2.5 mt-1 flex items-center'>
-						<i className='bi bi-filter-left px-2'></i>
-						<h1 className='text-gray-200 text-md ml-3' onClick={makeQuery}>
-							Filter
-						</h1>
-						<i
-							className='bi bi-x ml-20 cursor-pointer'
-							onClick={() =>
-								document.querySelector('#sidebar').classList.toggle('hidden')
-							}
-						></i>
-					</div>
-					<hr className='my-2 text-neutral-100' />
-				</div>
+				{/* FILTER HEADER */}
+				<div className='p-2.5 mt-4 flex items-center px-4 text-white text-2xl'>
+					<svg
+						xmlns='http://www.w3.org/2000/svg'
+						fill='none'
+						viewBox='0 0 24 24'
+						strokeWidth='1.5'
+						stroke='currentColor'
+						className='w-6 h-6'
+					>
+						<path
+							strokeLinecap='round'
+							strokeLinejoin='round'
+							d='M10.5 6h9.75M10.5 6a1.5 1.5 0 11-3 0m3 0a1.5 1.5 0 10-3 0M3.75 6H7.5m3 12h9.75m-9.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-3.75 0H7.5m9-6h3.75m-3.75 0a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m-9.75 0h9.75'
+						/>
+					</svg>
 
-				<div className='p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer bg-neutral-900 text-white'>
-					<i className='bi bi-search text-sm'></i>
-					<input
-						type='text'
-						placeholder='Search'
-						className='text-md ml-4 w-full bg-transparent focus:outline-none'
-					/>
+					<div className='flex justify-between w-full items-center'>
+						<h1 className='ml-4 text-gray-200'>Filter</h1>
+						<span>
+							<i
+								className='bi bi-x cursor-pointer'
+								onClick={() =>
+									document.querySelector('#sidebar').classList.toggle('hidden')
+								}
+							></i>
+						</span>
+					</div>
 				</div>
+				<hr className='my-2 text-neutral-100' />
+				{/* FILTER BUTTON */}
+				<button
+					className='p-2.5 mt-3 w-full rounded-md px-4 duration-300 cursor-pointer bg-blue-500 text-white'
+					onClick={makeQuery}
+				>
+					Apply
+				</button>
+				{/* CLEAR FILTER */}
+				<button
+					className={`p-2.5 mt-3 w-full rounded-md px-4 duration-300 cursor-pointer bg-myRed text-white
+					${!filter.usedFilter && 'hidden'}
+					`}
+					onClick={clearAll}
+				>
+					Clear Filter
+				</button>
 
 				{/* On Stock */}
 				<div
@@ -210,7 +251,7 @@ const Sidebar = () => {
 				{/* COLORS */}
 				<div
 					className='p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white'
-					onClick={handleOnClick}
+					onClick={handleGetColors}
 				>
 					<i className='bi bi-chat-left-text-fill'></i>
 					<div className='flex justify-between w-full items-center'>
@@ -234,10 +275,10 @@ const Sidebar = () => {
 								className={`form-check form-switch cursor-pointer p-2 rounded-md mt-1 ml-10`}
 							>
 								<input
-									className='form-check-input appearance-none rounded-full   bg-gray-300 cursor-pointer'
+									className='mycolors form-check-input appearance-none rounded-full   bg-gray-300 cursor-pointer'
 									type='checkbox'
 									role='switch'
-									name={color.hex}
+									name={color.name}
 									onClick={handleOnClickColors}
 									style={{
 										backgroundColor: `${color.hex}`,

@@ -4,7 +4,3 @@ export const GET_DATA = 'GET_DATA';
 export const GET_FILTERED_DATA = 'GET_FILTERED_DATA';
 export const SET_PAGE = 'SET_PAGE';
 export const GET_COLORS = 'GET_COLORS';
-// AUTH
-export const LOGIN = 'LOGIN';
-export const LOGOUT = 'LOGOUT';
-export const SIGNUP = 'SIGNUP';

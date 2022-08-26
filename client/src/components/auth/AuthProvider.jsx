@@ -6,7 +6,7 @@ import {
 	getUserInfo,
 	registerNewUser,
 	userExists,
-} from '../firebase/firebase';
+} from '../../firebase/firebase';
 
 export const AuthProvider = ({
 	children,

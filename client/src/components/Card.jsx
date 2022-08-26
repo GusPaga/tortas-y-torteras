@@ -1,12 +1,8 @@
 import { Link } from 'react-router-dom';
-// import './Card.css';
 
 export default function Card(props) {
 	// eslint-disable-next-line react/prop-types
 	const { id, imgHome, name, color1, color2, color3, collection } = props;
-
-	// console.log('cart=', cart);
-	console.log(color1);
 
 	return (
 		<div className=''>
@@ -26,7 +22,7 @@ export default function Card(props) {
 							<span className='text-white text-xs w-fit bg-[rgba(0,0,0,0.5)] rounded-md p-1'>
 								{collection}
 							</span>
-							<div className='flex gap-[2px]'>
+							<div className='flex gap-[2px] bg-[rgba(0,0,0,0.5)] rounded-md p-1'>
 								<div
 									className={'rounded-full w-3 h-3'}
 									style={{

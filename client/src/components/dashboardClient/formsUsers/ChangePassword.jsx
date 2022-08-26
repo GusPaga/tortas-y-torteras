@@ -1,6 +1,6 @@
 import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useState } from 'react';
-import { validateChangePassword } from '../../validations/editProfileValidate';
+import { validateChangePassword } from '../../../validations/editProfileValidate';
 
 export const ChangePassword = () => {
   const [spinner, setSpinner] = useState(true);

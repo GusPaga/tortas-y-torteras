@@ -125,7 +125,7 @@ function Detail() {
 				'.detail-5'
 			).innerHTML = `Stock: ${product.ProductTypes[0].Stocks.quantity} un`;
 			document.querySelector(
-				'.text-white ml-4 bg-transparent'
+				'.detail-7'
 			).value = `${product.ProductTypes[0].Stocks.quantity}`;
 			document.querySelector('.detail-4').id = 0;
 			document.querySelector(
@@ -142,7 +142,7 @@ function Detail() {
 				'.detail-5'
 			).innerHTML = `Stock: ${product.ProductTypes[1].Stocks.quantity} un`;
 			document.querySelector(
-				'.text-white ml-4 bg-transparent'
+				'.detail-7'
 			).value = `${product.ProductTypes[1].Stocks.quantity}`;
 			document.querySelector('.detail-4').id = 1;
 			document.querySelector(
@@ -283,6 +283,8 @@ function Detail() {
 					<div className='mt-4 w-full flex'>
 						<span>
 							Select quantity:
+						</span>
+							<div className='detail-7'>
 							<input
 								className='text-white ml-4 bg-transparent'
 								type='number'
@@ -291,7 +293,7 @@ function Detail() {
 								placeholder='0'
 								min='0'
 							/>
-						</span>
+					</div>						
 					</div>
 					<div className='detail-6'>
 						<div onClick={addToCart} className='dt6-1'>

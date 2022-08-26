@@ -92,16 +92,27 @@ export default function Navbar() {
 					lg:w-full
 					'
 				>
-					{/* <TemporaryDrawer /> */}
+					<span
+						className={`text-white flex gap-2 py-1 px-6 cursor-pointer
+						${location.pathname !== '/home' && 'hidden'}
+						`}
+						onClick={() =>
+							document.querySelector('#sidebar').classList.toggle('hidden')
+						}
+					>
+						<i className='bi bi-filter-left px-2'></i>
+						Filter
+					</span>
 					<a
-						className='
+						className={`
 						flex
 						gap-2
 						py-1
 						px-6
 						hover:text-purple-400
 						duration-1000
-						'
+						${location.pathname === '/home' && 'hidden'}
+						`}
 						href='/home'
 					>
 						<svg

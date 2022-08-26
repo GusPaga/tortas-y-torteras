@@ -1,5 +1,5 @@
 import { useContext, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { ShoppingCartContext } from '../context/ShoppingCartContext';
 // import TemporaryDrawer from '../components/Drawer';
 
@@ -17,10 +17,13 @@ export default function Navbar() {
 	};
 
 	return (
-		<nav className='sticky top-0 mx-auto p-4 bg-black select-none lg:h-32 text-white'>
+		<nav
+			className='sticky top-0 mx-auto p-4 bg-black select-none  text-white drop-shadow-2xl
+		lg:h-32'
+		>
 			<div className='container mx-auto flex items-center justify-between'>
-				<a
-					href='/home'
+				<Link
+					to='/'
 					className='z-50 hover:text-purple-300	duration-1000				
 					lg:absolute lg:left-1/2 lg:-translate-x-1/2 lg:top-9
 				'
@@ -28,7 +31,7 @@ export default function Navbar() {
 					<i
 						className={`
 					fa-solid fa-palette
-					text-3xl
+					text-2xl
 					${location.pathname === '/home' ? 'text-blue-500' : 'text-myPurple-100'}
 					mr-4
 					`}
@@ -36,7 +39,7 @@ export default function Navbar() {
 					<span className='text-2xl'>
 						Cakes
 						<span
-							className={`text-3xl font-bold
+							className={`text-2xl font-bold
 					${location.pathname === '/home' ? 'text-blue-500' : 'text-myPurple-100'}
 						`}
 						>
@@ -44,7 +47,7 @@ export default function Navbar() {
 						</span>
 						Bases
 					</span>
-				</a>
+				</Link>
 				<button
 					id='menu'
 					onClick={handleOnClick}
@@ -92,17 +95,28 @@ export default function Navbar() {
 					lg:w-full
 					'
 				>
-					{/* <TemporaryDrawer /> */}
-					<a
-						className='
+					<span
+						className={`text-white flex gap-2 py-1 px-6 cursor-pointer
+						${location.pathname !== '/home' && 'hidden'}
+						`}
+						onClick={() =>
+							document.querySelector('#sidebar').classList.toggle('hidden')
+						}
+					>
+						<i className='bi bi-filter-left px-2'></i>
+						Filter
+					</span>
+					<Link
+						className={`
 						flex
 						gap-2
 						py-1
 						px-6
 						hover:text-purple-400
 						duration-1000
-						'
-						href='/home'
+						${location.pathname === '/home' && 'hidden'}
+						`}
+						to='/home'
 					>
 						<svg
 							fill='none'
@@ -118,8 +132,8 @@ export default function Navbar() {
 							/>
 						</svg>
 						Home
-					</a>
-					<a
+					</Link>
+					<Link
 						role='menuitem'
 						className='
 						flex
@@ -150,10 +164,10 @@ export default function Navbar() {
 								d='M16.5 12.75a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0zM18.75 10.5h.008v.008h-.008V10.5z'
 							/>
 						</svg>
-						Bases
-					</a>
+						Other
+					</Link>
 
-					<a
+					<Link
 						role='menuitem'
 						className='
  flex
@@ -163,6 +177,7 @@ export default function Navbar() {
 						hover:text-purple-400
 						duration-1000
  	'
+						to='/shop/shoppingCart'
 						href='/shop/shoppingCart'
 					>
 						<div className='flex justify-center items-center'>
@@ -188,8 +203,8 @@ export default function Navbar() {
 							></span>
 						</div>
 						In the bag
-					</a>
-					<a
+					</Link>
+					<Link
 						role='menuitem'
 						className={`
 						py-2
@@ -198,11 +213,12 @@ export default function Navbar() {
 						text-white
 						rounded-md
 					`}
-						href='/bases/signin'
+						to='/signin'
+						href='/signin'
 					>
 						<i className='text-2xl mr-3 fa-solid fa-circle-user'></i>
 						Sign In
-					</a>
+					</Link>
 				</div>
 			</div>
 		</nav>

@@ -23,7 +23,6 @@ function Detail() {
 	const [cart, setCart] = useContext(ShoppingCartContext);
 	// const [amount, setAmount] = useState(1);
 
-
 	useEffect(() => {
 		async function fetchData() {
 			try {
@@ -39,51 +38,52 @@ function Detail() {
 	}, [dispatch, id]);
 
 	const addToCart = () => {
-		if(parseInt(document.querySelector("#quantity").value)>0) { // agrega en cero!!!!!
+		if (parseInt(document.querySelector('#quantity').value) > 0) {
+			// agrega en cero!!!!!
 
-		const selection = {
-			name:product.name,
-			prodImageHome:product.img_home.secure_url,
-			prodType: product.ProductTypes[document.querySelector(
-				'.detail-4'
-			).id].name,
-			stockId:product.ProductTypes[document.querySelector(
-				'.detail-4'
-			).id].Stocks.id,
-			price:product.ProductTypes[document.querySelector(
-				'.detail-4'
-			).id].Stocks.price,
-			quantity:parseInt(document.querySelector("#quantity").value),
-			stockQuantity:parseInt(product.ProductTypes[document.querySelector(
-				'.detail-4'
-			).id].Stocks.quantity),
-		}
+			const selection = {
+				name: product.name,
+				prodImageHome: product.img_home.secure_url,
+				prodType:
+					product.ProductTypes[document.querySelector('.detail-4').id].name,
+				stockId:
+					product.ProductTypes[document.querySelector('.detail-4').id].Stocks
+						.id,
+				price:
+					product.ProductTypes[document.querySelector('.detail-4').id].Stocks
+						.price,
+				quantity: parseInt(document.querySelector('#quantity').value),
+				stockQuantity: parseInt(
+					product.ProductTypes[document.querySelector('.detail-4').id].Stocks
+						.quantity
+				),
+			};
 
-		const stock=product.ProductTypes[document.querySelector(
-			'.detail-4'
-		).id].Stocks.quantity
-		console.log(cart)
+			const stock =
+				product.ProductTypes[document.querySelector('.detail-4').id].Stocks
+					.quantity;
+			console.log(cart);
 
-		const alreadySelected= cart.find(e => e.stockId === selection.stockId) 
+			const alreadySelected = cart.find(e => e.stockId === selection.stockId);
 
-		if(alreadySelected) {
-			if((alreadySelected.quantity+selection.quantity) > stock) {
-				// alert(`Stock available is only  ${stock} units`)
-				setquantityAvailable(true);
+			if (alreadySelected) {
+				if ((alreadySelected.quantity + selection.quantity) > stock) {
+					// alert(`Stock available is only  ${stock} units`)
+					setquantityAvailable(true);
+				} else {
+					setOpen(true);
+				}
+				alreadySelected.quantity =
+					(alreadySelected.quantity + selection.quantity) > stock
+						? stock
+						: (alreadySelected.quantity + selection.quantity);
 			} else {
+				setCart([...cart, selection]);
 				setOpen(true);
 			}
-			alreadySelected.quantity= (alreadySelected.quantity+selection.quantity) > stock ? stock :  (alreadySelected.quantity+selection.quantity)
 		} else {
-			setCart([...cart, selection]);	
-			setOpen(true);
-
+			setquantityNull(true);
 		}
-
-	} else {
-		setquantityNull(true);
-
-	}
 	};
 
 	const handleClose = (event, reason) => {
@@ -127,11 +127,11 @@ function Detail() {
 			document.querySelector(
 				'.detail-7'
 			).value = `${product.ProductTypes[0].Stocks.quantity}`;
+			document.querySelector('.detail-4').id = 0;
 			document.querySelector(
-				'.detail-4'
-			).id = 0;
-			document.querySelector("#quantity").max = `${product.ProductTypes[0].Stocks.quantity}`;
-			document.querySelector("#quantity").value = 0;
+				'#quantity'
+			).max = `${product.ProductTypes[0].Stocks.quantity}`;
+			document.querySelector('#quantity').value = 0;
 		} else {
 			document.querySelector('.dt4-1').className = 'dt4-1';
 			document.querySelector('.dt4-2').className = 'dt4-2 selected';
@@ -144,27 +144,43 @@ function Detail() {
 			document.querySelector(
 				'.detail-7'
 			).value = `${product.ProductTypes[1].Stocks.quantity}`;
+			document.querySelector('.detail-4').id = 1;
 			document.querySelector(
-				'.detail-4'
-			).id = 1;
-			document.querySelector("#quantity").max = `${product.ProductTypes[1].Stocks.quantity}`;
-			document.querySelector("#quantity").value = 0;
-
+				'#quantity'
+			).max = `${product.ProductTypes[1].Stocks.quantity}`;
+			document.querySelector('#quantity').value = 0;
 		}
 
 		// document.getElementsByClassName(miClassDiv).classList.toggle('selected');
 	};
 
 	return (
-		<div className='detail-wrapper'>
+		<div
+			className='w-screen min-h-screen select-none -z-10
+			bg-gradient-to-b from-black to-neutral-300  text-white flex flex-col items-center'
+		>
 			<div className='detail-content'>
 				{/* LEFT COLUMN */}
 				<div className='detail-content-left'>
+					{/* Bootstrap Carousel */}
 					<div
-						id='carouselControls'
+						id='carouselExampleIndicators'
 						className='carousel slide'
-						data-bs-ride='carousel'
+						data-bs-ride='true'
 					>
+						<div className='carousel-indicators'>
+							{product.img_detail.map((im, i) => (
+								<button
+									key={i}
+									type='button'
+									data-bs-target='#carouselExampleIndicators'
+									data-bs-slide-to={i}
+									className={`${i === 0 ? 'active' : ''}`}
+									aria-current={`${i === 0 ? 'true' : ''}`}
+									aria-label={`Slide ${i + 1}`}
+								></button>
+							))}
+						</div>
 						<div className='carousel-inner'>
 							{product.img_detail.map((im, i) => (
 								<div
@@ -184,7 +200,7 @@ function Detail() {
 						<button
 							className='carousel-control-prev'
 							type='button'
-							data-bs-target='#carouselControls'
+							data-bs-target='#carouselExampleIndicators'
 							data-bs-slide='prev'
 						>
 							<span
@@ -196,7 +212,7 @@ function Detail() {
 						<button
 							className='carousel-control-next'
 							type='button'
-							data-bs-target='#carouselControls'
+							data-bs-target='#carouselExampleIndicators'
 							data-bs-slide='next'
 						>
 							<span
@@ -264,13 +280,21 @@ function Detail() {
 					<div className='detail-5'>
 						{`Stock: ${product.ProductTypes[0].Stocks.quantity} un`}
 					</div>
-					<div className='detail-7'>
-						<span>Select quantity:</span>
-						<div className='detail-7'>
-						<input type="number" id="quantity" max={product.ProductTypes[0].Stocks.quantity} placeholder="0" min="0">
-							</input>	
-						</div>
-						</div>	
+					<div className='mt-4 w-full flex'>
+						<span>
+							Select quantity:
+						</span>
+							<div className='detail-7'>
+							<input
+								className='text-white ml-4 bg-transparent'
+								type='number'
+								id='quantity'
+								max={product.ProductTypes[0].Stocks.quantity}
+								placeholder='0'
+								min='0'
+							/>
+					</div>						
+					</div>
 					<div className='detail-6'>
 						<div onClick={addToCart} className='dt6-1'>
 							Add to bag

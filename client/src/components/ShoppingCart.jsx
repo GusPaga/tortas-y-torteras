@@ -5,7 +5,7 @@ import './ShoppingCart.css';
 import axios from "axios"
 import { useDispatch, useSelector } from 'react-redux';
 import { loggin } from '../redux/actions';
-
+import { payMercadoPago } from '../helpers/payMercadoPago.js';
 const ShoppingCart = () => {
 	const userId="2" // from token information
 	const login = useSelector((state) => state.login)     
@@ -202,6 +202,7 @@ const ShoppingCart = () => {
 	} catch (error) {
 		alert(error.request.response)
 	}
+
 	setCart([])
 	alert("successful purchase")
 	setPay(false)
@@ -313,6 +314,7 @@ const ShoppingCart = () => {
 			}
 			{pay && <button onClick={handlePay}>Pay</button>
 			}
+			<button id="page-content" className="page-content" onClick={payMercadoPago}>pagar</button>
 		</div>
 	);
 };

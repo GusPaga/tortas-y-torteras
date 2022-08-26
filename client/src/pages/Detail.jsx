@@ -125,7 +125,7 @@ function Detail() {
 				'.detail-5'
 			).innerHTML = `Stock: ${product.ProductTypes[0].Stocks.quantity} un`;
 			document.querySelector(
-				'.detail-7'
+				'.text-white ml-4 bg-transparent'
 			).value = `${product.ProductTypes[0].Stocks.quantity}`;
 			document.querySelector('.detail-4').id = 0;
 			document.querySelector(
@@ -142,7 +142,7 @@ function Detail() {
 				'.detail-5'
 			).innerHTML = `Stock: ${product.ProductTypes[1].Stocks.quantity} un`;
 			document.querySelector(
-				'.detail-7'
+				'.text-white ml-4 bg-transparent'
 			).value = `${product.ProductTypes[1].Stocks.quantity}`;
 			document.querySelector('.detail-4').id = 1;
 			document.querySelector(

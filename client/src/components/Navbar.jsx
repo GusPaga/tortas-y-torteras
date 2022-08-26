@@ -17,7 +17,10 @@ export default function Navbar() {
 	};
 
 	return (
-		<nav className='sticky top-0 mx-auto p-4 bg-black select-none lg:h-32 text-white'>
+		<nav
+			className='sticky top-0 mx-auto p-4 bg-black select-none  text-white drop-shadow-2xl
+		lg:h-32'
+		>
 			<div className='container mx-auto flex items-center justify-between'>
 				<a
 					href='/home'
@@ -28,7 +31,7 @@ export default function Navbar() {
 					<i
 						className={`
 					fa-solid fa-palette
-					text-3xl
+					text-2xl
 					${location.pathname === '/home' ? 'text-blue-500' : 'text-myPurple-100'}
 					mr-4
 					`}
@@ -36,7 +39,7 @@ export default function Navbar() {
 					<span className='text-2xl'>
 						Cakes
 						<span
-							className={`text-3xl font-bold
+							className={`text-2xl font-bold
 					${location.pathname === '/home' ? 'text-blue-500' : 'text-myPurple-100'}
 						`}
 						>

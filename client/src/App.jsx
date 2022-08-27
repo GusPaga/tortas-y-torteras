@@ -16,7 +16,7 @@ import Detail from './pages/Detail';
 import Bases from './pages/Bases';
 import Landing from './pages/Landing';
 import { login } from './redux/actions';
-import DashBoard from './Administrator';
+import DashBoard from './components/Administrator';
 
 function App() {
 	const dispatch = useDispatch();

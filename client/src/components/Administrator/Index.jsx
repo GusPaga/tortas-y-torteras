@@ -1,6 +1,6 @@
 import { Admin, Resource } from 'react-admin';
-import { Users } from './components/Users';
-import { dataProvider } from './DataProvider';
+import { Users } from './Users';
+import { dataProvider } from '../Administrator/DataProvider';
 
 export default function DashBoard() {
 	return (

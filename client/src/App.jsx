@@ -5,7 +5,7 @@ import { SignIn } from './components/auth/SignIn';
 import { SignUp } from './components/auth/SignUp';
 // import { EditUserProfile } from './components/dashboardClient/formsUsers/EditUserProfile';
 // import { ChangePassword } from './components/dashboardClient/formsUsers/ChangePassword';
-import { Menu } from './components/dashboardClient/Menu'
+import { Menu } from './components/dashboardClient/Menu';
 import Navbar from './components/Navbar';
 import Page404 from './components/Pag404';
 import ProductForm from './components/ProductForm';
@@ -16,6 +16,7 @@ import Detail from './pages/Detail';
 import Bases from './pages/Bases';
 import Landing from './pages/Landing';
 import { login } from './redux/actions';
+import DashBoard from './components/Administrator';
 
 function App() {
 	const dispatch = useDispatch();
@@ -39,6 +40,7 @@ function App() {
 			<Switch>
 				<Route exact path='/' component={Landing} />
 				<Route exact path='/home' component={Bases} />
+				<Route exact path='/admin' component={DashBoard} />
 				<Route exact path='/addproduct' component={ProductForm} />
 				<Route exact path='/shop/shoppingCart' component={ShoppingCart} />
 				<Route exact path='/bases/try' component={Try} />

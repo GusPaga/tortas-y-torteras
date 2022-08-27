@@ -8,3 +8,7 @@ export const GET_COLORS = 'GET_COLORS';
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const SIGNUP = 'SIGNUP';
+
+// USER
+export const GET_USERS = 'GET_USERS';
+export const GET_USER = 'GET_USER';

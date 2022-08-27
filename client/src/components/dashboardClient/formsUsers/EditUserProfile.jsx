@@ -202,4 +202,4 @@ export const EditUserProfile = () => {
       </div>
     </div>
   )
-}
+};

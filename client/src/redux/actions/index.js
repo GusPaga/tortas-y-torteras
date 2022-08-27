@@ -11,6 +11,8 @@ import {
 	LOGOUT,
 	SET_LOADING,
 	SET_PAGE,
+	GET_USER,
+	GET_USERS,
 } from './types';
 
 export const setLoading = payload => ({ type: SET_LOADING, payload });
@@ -88,5 +90,27 @@ export const signOut = () => {
 	return async dispatch => {
 		await auth.signOut();
 		dispatch(logout());
+	};
+};
+
+// USERS
+export const getUsers = () => {
+	return async dispatch => {
+		const json = await axios.get('http://localhost:3001/users');
+		return dispatch({
+			type: GET_USERS,
+			payload: json.data,
+		});
+	};
+};
+
+// USER_ID
+export const getUser = id => {
+	return async dispatch => {
+		const json = await axios.get(`http://localhost:3001/users/${id}`);
+		return dispatch({
+			type: GET_USER,
+			payload: json.data,
+		});
 	};
 };

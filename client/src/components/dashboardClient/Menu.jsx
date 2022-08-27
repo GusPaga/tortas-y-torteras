@@ -57,7 +57,6 @@ export const Menu = () => {
     dispatch(getUsers());
   }, [dispatch]);
 
-
   return (
     <>
       <div className='container mx auto flex justify-center'>
@@ -78,6 +77,7 @@ export const Menu = () => {
             </button>
           </li>
           <li>
+
             <button id='address' className='flex justify-center px-6 py-6 my-8 border-solid border-1' onClick={handleOnClickAddress}>
               Address Book
             </button>

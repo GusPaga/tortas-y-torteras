@@ -283,6 +283,8 @@ function Detail() {
 					<div className='mt-4 w-full flex'>
 						<span>
 							Select quantity:
+						</span>
+							<div className='detail-7'>
 							<input
 								className='text-white ml-4 bg-transparent'
 								type='number'
@@ -291,7 +293,7 @@ function Detail() {
 								placeholder='0'
 								min='0'
 							/>
-						</span>
+					</div>						
 					</div>
 					<div className='detail-6'>
 						<div onClick={addToCart} className='dt6-1'>

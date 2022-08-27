@@ -1,201 +1,79 @@
-import { ErrorMessage, Field, Form, Formik } from 'formik';
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { validateUser } from '../../validations/editProfileValidate';
+import { Link, useHistory } from 'react-router-dom';
+import { updateUser } from '../../firebase/firebase';
+import { AuthProvider } from '../auth/AuthProvider';
+import { FormUserProfile } from '../auth/forms/FormUserProfile';
 
 export const EditUserProfile = () => {
-  const [spinner, setSpinner] = useState(true);
-  return (
-    <div className='container mx auto'>
-      <div className='flex justify-center px-6 my-12'>
-      <Formik
-        initialValues={{
-          firstName: '',
-          lastName: '',
-          gender:'',
-          identityCard: '',
-          birthDate: '',
-        }}
-        validationSchema={validateUser}
-        onSubmit={(values, { resetForm }) => {
-          console.log(values)
-          resetForm();
-          setSpinner(!spinner);
-        }}
-      >
-        {({ errors }) => (
-          <Form className='px-8 pt-6 pb-6 mb-4 bg-gray-100 rounded'>
-            {/* /<div className='mb-4 md:flex md:justify-between'> */}
-              <div className='mb-4 md:mr-2 md:mb-0'>
-                <label
-                  className='block mb-2 text-sm font-bold text-gray-700'
-                  htmlFor='firstName'
-                >
-                  First Name
-                </label>
-                <Field
-                  className='w-full px-3 py-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline'
-                  id='firstName'
-                  name='firstName'
-                  type='text'
-                  placeholder='First Name'
-                />
-                <ErrorMessage
-                  name='firstName'
-                  component={() => (
-                    <p className='text-xs italic mt-3 text-red-500'>
-                      {errors.firstName}
-                    </p>
-                  )}
-                />
-              </div>
-              <div className='mb-4 md:mr-2 md:mb-0'>
-                <label
-                  className='block mb-2 text-sm font-bold text-gray-700'
-                  htmlFor='lastName'
-                >
-                  Last Name
-                </label>
-                <Field
-                  className='w-full px-3 py-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline'
-                  id='lastName'
-                  name='lastName'
-                  type='text'
-                  placeholder='Last Name'
-                />
-                <ErrorMessage
-                  name='lastName'
-                  component={() => (
-                    <p className='text-xs italic mt-3 text-red-500'>
-                      {errors.lastName}
-                    </p>
-                  )}
-                />
-              </div>
-              <div className='mb-4 md:mr-2 md:mb-0'>
-                <label
-                  className='block mb-2 text-sm font-bold text-gray-700'
-                  htmlFor='gender'
-                >
-                  Gender
-                </label>
-                {/* <Field
-                  className='w-full px-3 py-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline'
-                  id='gender'
-                  name='gender'
-                  type='text'
-                  placeholder='Gender'
-                /> */}
-                <Field
-                  as="select"
-                  id='gender'
-                  name="gender"
-                  className='w-full px-3 py-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline bg-white'
-                  placeholder='Gender'
-                >
-                  <option></option>
-                  <option value="female">Female</option>
-                  <option value="male">Male</option>
-                  <option value="other">Other</option>
-                </Field>
-                <ErrorMessage
-                  name='gender'
-                  component={() => (
-                    <p className='text-xs italic mt-3 text-red-500'>
-                      {errors.gender}
-                    </p>
-                  )}
-                />
-              </div>
-              <div className='md:flex md:justify-between'>
-                <div className='mb-4 md:mr-2 md:mb-0'>
-                  <label
-                    className='block mb-2 text-sm font-bold text-gray-700'
-                    htmlFor='identityCard'
-                  >
-                    Identity Card
-                  </label>
-                  <Field
-                    className='w-full px-3 py-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline'
-                    id='identityCard'
-                    name='identityCard'
-                    type='text'
-                    placeholder='Identity Card'
-                  />
-                  <ErrorMessage
-                    name='identityCard'
-                    component={() => (
-                      <p className='text-xs italic mt-3 text-red-500'>
-                        {errors.identityCard}
-                      </p>
-                    )}
-                  />
-                </div>
-                <div className='mb-4 md:mr-2 md:mb-0'>
-                  <Field
-                    as="select"
-                    id='typeId'
-                    name="typeId"
-                    className='w-full mt-4 px-3 py-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline bg-white'
-                  >
-                    <option></option>
-                    <option value="cc">CC</option>
-                    <option value="ce">CE</option>
-                    <option value="passport">Passport</option>
-                  </Field>
-                  <ErrorMessage
-                    name='typeId'
-                    component={() => (
-                      <p className='text-xs italic mt-3 text-red-500'>
-                        {errors.typeId}
-                      </p>
-                    )}
-                  />
-                </div>
-              </div>
-              <div className='mb-4 md:mr-2 md:mb-0'>
-                  <label
-                    className='block mb-2 text-sm font-bold text-gray-700'
-                    htmlFor='birthDate'
-                  >
-                    Birthdate
-                  </label>
-                  <Field
-                    className='w-full px-3 py-3 text-sm leading-tight text-gray-700 border rounded shadow appearance-none focus:outline-none focus:shadow-outline'
-                    id='birthDate'
-                    name='birthDate'
-                    type='date'
-                  />
-                  <ErrorMessage
-                    name='birthDate'
-                    component={() => (
-                      <p className='text-xs italic mt-3 text-red-500'>
-                        {errors.birthDate}
-                      </p>
-                    )}
-                  />
-                </div>
-            {/* </div> */}
-            <div className='mb-6 text-center w-full px-3 py-3'>
-              <button
-                className='w-full px-4 py-2 font-bold text-white rounded-full bg-violet-400 hover:bg-violet-500 focus:outline-none focus:shadow-outline'
-                type='submit'
-              >
-                Save
-              </button>
-            </div>
-            <div className='text-center'>
-              <Link
-                className='inline-block text-sm text-blue-500 align-baseline hover:text-blue-800'
-                to='/user/changepassword'
-              >
-                Change Password?
-              </Link>
-            </div>
-          </Form>
-        )}
-        </Formik>
+	const navigate = useHistory();
+	const [stateCurrent, setCurrentState] = useState(0);
+	const [currentUser, setCurrentUser] = useState(null);
+	// eslint-disable-next-line no-unused-vars
+	const [username, setUsername] = useState('');
+	const handleUserLoggedIn = user => {
+		navigate.push('/home');
+	};
+
+	const handleUserNotLoggedIn = () => {
+		navigate.push('/login');
+	};
+
+	const handleUserNotRegister = user => {
+		setCurrentUser(user);
+		setCurrentState(3);
+	};
+
+	// const handleInputUsername = (e) => {
+	//   setUsername(e.target.value);
+	// };
+
+	const handleContinue = async values => {
+		currentUser.displayName = values.firstName + ' ' + values.lastName;
+		const tmp = { ...currentUser, ...values };
+		tmp.username = username;
+		tmp.processCompleted = true;
+		await updateUser(tmp);
+		setCurrentState(6);
+	};
+
+	if (stateCurrent === 3 || stateCurrent === 5)
+		return (
+			<div className='bg-gray-100 w-2/4 mx-auto'>
+				<h1 className='text-center text-2xl mt-2'>
+					Bienvenido {currentUser.displayName}
+				</h1>
+				<p className='text-center my-3'>
+					Para terminar el proceso elige un nombre de usuario
+				</p>
+
+				<FormUserProfile
+					currentUser={currentUser}
+					handleContinue={handleContinue}
+				/>
+				{/* <div>
+        <input type="text" onInput={handleInputUsername} />
       </div>
-    </div>
-  )
-}
+      <div>
+        <button onClick={handleContinue}>Continue</button>
+      </div> */}
+			</div>
+		);
+
+	if (stateCurrent === 6)
+		return (
+			<div>
+				<h1>Felicidades ya puedes ir al dashboard a crear tus links</h1>
+				<Link to='/home'>Continuar</Link>
+			</div>
+		);
+
+	return (
+		<AuthProvider
+			onUserLoggedIn={handleUserLoggedIn}
+			onUserNotRegister={handleUserNotRegister}
+			onUserNotLoggedIn={handleUserNotLoggedIn}
+		>
+			<div>Loading...</div>
+		</AuthProvider>
+	);
+};

@@ -33,6 +33,7 @@ export const AuthProvider = ({
 				await registerNewUser({
 					uid: user.uid,
 					displayName: user.displayName,
+					email: user.email,
 					profilePicture: '',
 					username: '',
 					processCompleted: false,

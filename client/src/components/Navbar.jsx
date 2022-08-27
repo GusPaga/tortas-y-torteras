@@ -3,7 +3,8 @@ import { useLocation } from 'react-router-dom';
 import { ShoppingCartContext } from '../context/ShoppingCartContext';
 // import TemporaryDrawer from '../components/Drawer';
 
-export default function Navbar() {
+// eslint-disable-next-line react/prop-types
+export default function Navbar({ userLoggedComplete }) {
 	const [cart, setCart] = useContext(ShoppingCartContext); // eslint-disable-line no-unused-vars
 	const location = useLocation();
 

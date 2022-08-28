@@ -156,73 +156,123 @@ const ShoppingCart = () => {
 		}));
 	}
 
-	async function handleOrder(e) {
+	// async function handleOrder(e) {
+	// 	e.preventDefault();
+	// 	let orderId = '';
+	// 	try {
+	// 		// find cart order
+	// 		orderId = (await axios.get(`/purchases/cart?userId=${userId}`)).data;
+	// 		// if it already exists, update contact information (If it has previous orders it brings previous information )
+	// 		if (orderId.length > 0) {
+	// 			orderId = orderId[0].id;
+	// 			await axios.put(`/purchases/user/${orderId}`, {
+	// 				...orderData,
+	// 				shipmentFee: totalShipping,
+	// 				tax: (totalPrice + totalShipping) * 0.2,
+	// 			});
+	// 		} else {
+	// 			// if it doesn't exist, I create the purchase order
+	// 			const orderId = (
+	// 				await axios.post(`/purchases/${userId}`, {
+	// 					...orderData,
+	// 					shipmentFee: totalShipping,
+	// 					tax: (totalPrice + totalShipping) * 0.2,
+	// 				})
+	// 			).data.id;
+	// 			console.log(orderId);
+	// 		}
+	// 	} catch (error) {
+	// 		alert(error.request.response);
+	// 	}
+	// 	setCheckout(false);
+	// 	setPay(true);
+	// }
+	async function handleOrder (e) {	
 		e.preventDefault();
-		let orderId = '';
+		let items = cart.map(e=>{
+			return{
+				title: e.name,
+				unit_price: e.price , 
+				quantity: e.quantity
+			}
+		})
+		items=[...items, {title:"shipment",unit_price:totalShipping, quantity:1},{title:"tax",unit_price:(totalPrice + totalShipping) * 0.2, quantity:1}]
+		payMercadoPago(items)
+		setPay(true)
+		let orderId=""		
 		try {
 			// find cart order
-			orderId = (await axios.get(`/purchases/cart?userId=${userId}`)).data;
+			orderId=(await axios.get(`/purchases/cart?userId=${userId}`)).data
 			// if it already exists, update contact information (If it has previous orders it brings previous information )
-			if (orderId.length > 0) {
-				orderId = orderId[0].id;
-				await axios.put(`/purchases/user/${orderId}`, {
+			if(orderId.length>0) {
+				orderId=orderId[0].id
+				await axios.put(`/purchases/user/${orderId}`,{
 					...orderData,
 					shipmentFee: totalShipping,
-					tax: (totalPrice + totalShipping) * 0.2,
-				});
+					tax:(totalPrice + totalShipping) * 0.2
+				})
 			} else {
-				// if it doesn't exist, I create the purchase order
-				const orderId = (
-					await axios.post(`/purchases/${userId}`, {
-						...orderData,
-						shipmentFee: totalShipping,
-						tax: (totalPrice + totalShipping) * 0.2,
-					})
-				).data.id;
-				console.log(orderId);
+			// if it doesn't exist, I create the purchase order
+			const orderId= (await axios.post(`/purchases/${userId}`,{
+				...orderData,
+				shipmentFee: totalShipping,
+				tax:(totalPrice + totalShipping) * 0.2
+			})).data.id
+			console.log(orderId)
 			}
-		} catch (error) {
-			alert(error.request.response);
+			await axios.delete(`/order-items/PurchaseId/${orderId}`)
+	// set order items and decrement stock  
+	console.log("creo los nuevos") 
+	await Promise.all (cart.map(el=>axios.post("/order-items",{
+			stockId:el.stockId,
+			quantity: el.quantity,
+			purchaseId: orderId,
+			price: el.price,
+			confirmed: false
+		})))
+		console.log("cree los nuevos")
+		}catch(error) {
+			alert(error.request.response)
 		}
-		setCheckout(false);
-		setPay(true);
+		setCheckout(false)
+		// setPay(true)
 	}
 
-	async function handlePay(e) {
-		try {
-			// change order status, order setted in handleOrder
-			console.log('cambio estado a reservado');
-			const orderId = (await axios.get(`/purchases/cart?userId=${userId}`))
-				.data;
-			console.log(orderId[0].id);
-			await axios.put(`/purchases/user/${orderId[0].id}`, {
-				status: 'Reserved',
-			});
-			// if line items, delete to update (if there are not, doesn´t throw error)
-			console.log('elimino los existentes si hay');
-			await axios.delete(`/order-items/PurchaseId/${orderId[0].id}`);
-			// set order items and decrement stock
-			console.log('creo los nuevos');
-			await Promise.all(
-				cart.map(el =>
-					axios.post('/order-items/confirmed', {
-						stockId: el.stockId,
-						quantity: el.quantity,
-						purchaseId: orderId[0].id,
-						price: el.price,
-						confirmed: true,
-					})
-				)
-			);
-			console.log('cree los nuevos');
-		} catch (error) {
-			alert(error.request.response);
-		}
+	// async function handlePay(e) {
+	// 	try {
+	// 		// change order status, order setted in handleOrder
+	// 		console.log('cambio estado a reservado');
+	// 		const orderId = (await axios.get(`/purchases/cart?userId=${userId}`))
+	// 			.data;
+	// 		console.log(orderId[0].id);
+	// 		await axios.put(`/purchases/user/${orderId[0].id}`, {
+	// 			status: 'Reserved',
+	// 		});
+	// 		// if line items, delete to update (if there are not, doesn´t throw error)
+	// 		console.log('elimino los existentes si hay');
+	// 		await axios.delete(`/order-items/PurchaseId/${orderId[0].id}`);
+	// 		// set order items and decrement stock
+	// 		console.log('creo los nuevos');
+	// 		await Promise.all(
+	// 			cart.map(el =>
+	// 				axios.post('/order-items/confirmed', {
+	// 					stockId: el.stockId,
+	// 					quantity: el.quantity,
+	// 					purchaseId: orderId[0].id,
+	// 					price: el.price,
+	// 					confirmed: true,
+	// 				})
+	// 			)
+	// 		);
+	// 		console.log('cree los nuevos');
+	// 	} catch (error) {
+	// 		alert(error.request.response);
+	// 	}
 
-		setCart([]);
-		alert('successful purchase');
-		setPay(false);
-	}
+	// 	setCart([]);
+	// 	alert('successful purchase');
+	// 	setPay(false);
+	// }
 
 	// pending
 	// succesfull payment=> post.status "Paid"
@@ -312,6 +362,7 @@ const ShoppingCart = () => {
 					</div>
 				</div>
 			</div>
+			{pay && <button id="page-content" className="page-content" ></button>}
 			<button
 				className='btn btn-red hover:btn-red mx-auto my-5'
 				onClick={() => history.push('/home')}
@@ -383,14 +434,7 @@ const ShoppingCart = () => {
 					</form>
 				</div>
 			)}
-			{pay && <button onClick={handlePay}>Pay</button>}
-			<button
-				id='page-content'
-				className='page-content'
-				onClick={payMercadoPago}
-			>
-				pagar
-			</button>
+			
 		</div>
 	);
 };

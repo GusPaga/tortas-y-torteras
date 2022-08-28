@@ -16,6 +16,8 @@ import Home from './pages/Home';
 import Landing from './pages/Landing';
 import { login } from './redux/actions';
 import DashBoard from './components/Administrator';
+import PaySuccess from "./components/PaySuccess";
+import PayFailure from './components/PayFailure';
 
 function App() {
 	const dispatch = useDispatch();
@@ -45,6 +47,8 @@ function App() {
 				<Route exact path='/bases/try' component={Try} />
 				<Route exact path='/signup' component={SignUp} />
 				<Route exact path='/user/main' component={Menu} />
+				<Route exact path='/paysuccess' component={PaySuccess}/>
+				<Route exact path='/payfailure' component={PayFailure}/>
 				{/* <Route exact path='/user/edit' component={EditUserProfile} />
 				<Route exact path='/user/changepassword' component={ChangePassword} /> */}
 				<Route

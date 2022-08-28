@@ -25,7 +25,7 @@ export const dataProvider = {
 
 	getOne: (resource, params) =>
 		httpClient(`${apiUrl}/${resource}/${params.id}`).then(({ json }) => ({
-			data: json,
+			data: { ...json, id: json._id },
 		})),
 
 	getMany: (resource, params) => {

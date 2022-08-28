@@ -7,13 +7,13 @@ import { SignUp } from './components/auth/SignUp';
 import { EditUserProfile } from './components/dashboardClient/formsUsers/EditUserProfile';
 import { Menu } from './components/dashboardClient/Menu';
 import Navbar from './components/Navbar';
-import Page404 from './components/Pag404';
 import ProductForm from './components/ProductForm';
 import ShoppingCart from './components/ShoppingCart';
 import Try from './components/Try';
 import { auth, getUserInfo, userExists } from './firebase/firebase';
-import Bases from './pages/Bases';
 import Detail from './pages/Detail';
+import Home from './pages/Home';
+
 import Landing from './pages/Landing';
 
 function App() {
@@ -38,7 +38,7 @@ function App() {
 			<Navbar userLoggedComplete={userLoggedComplete} />
 			<Switch>
 				<Route exact path='/' component={Landing} />
-				<Route exact path='/home' component={Bases} />
+				<Route exact path='/home' component={Home} />
 				<Route exact path='/admin' component={DashBoard} />
 				<Route exact path='/addproduct' component={ProductForm} />
 				<Route exact path='/shop/shoppingCart' component={ShoppingCart} />
@@ -49,7 +49,6 @@ function App() {
 				<Route exact path='/signin' component={SignIn} />
 				<Route exact path='/user/main' component={Menu} />
 				<Route exact path='/:id' component={Detail} />
-				<Route path='/' component={Page404} />
 			</Switch>
 			{/* <Footer /> */}
 		</>

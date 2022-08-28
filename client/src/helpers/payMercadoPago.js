@@ -1,16 +1,15 @@
-export async function payMercadoPago() {
+export async function payMercadoPago(items) {
+	console.log('estoy aca', items);
 	try {
-		console.log('hola');
 		const preference = await (
 			await fetch('http://localhost:3001/Pay', {
 				method: 'post',
-				body: JSON.stringify({ msj: 'hola' }),
+				body: JSON.stringify(items),
 				headers: {
 					'Content-Type': 'application/json',
 				},
 			})
 		).json();
-		console.log('hola');
 		const script = document.createElement('script');
 
 		// The source domain must be completed according to the site for which you are integrating.

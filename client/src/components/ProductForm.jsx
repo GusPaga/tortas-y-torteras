@@ -246,11 +246,11 @@ const ProductForm = () => {
 				<label className='uppercase tracking-wide text-black text-xs font-bold mb-2'>
 					Description
 				</label>
-				{error.description && (
+				{/* {error.description && (
 					<span className='text-red-500 text-xs italic'>
 						{error.description}
 					</span>
-				)}
+				)} */}
 				<input
 					type='text'
 					className='w-full bg-gray-100 text-black border border-gray-200 rounded-md py-1 px-4 mb-3'

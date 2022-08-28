@@ -5,6 +5,7 @@ import login from './login';
 import redData from './data';
 import redLoading from './loading';
 import redPage from './paginate';
+import redUser from './user';
 
 const reducer = combineReducers({
 	redLoading,
@@ -13,6 +14,7 @@ const reducer = combineReducers({
 	redColors,
 	login,
 	authFirebase,
+	redUser,
 });
 
 export default reducer;

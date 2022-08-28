@@ -3,8 +3,9 @@ import { useDispatch } from 'react-redux';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { SignIn } from './components/auth/SignIn';
 import { SignUp } from './components/auth/SignUp';
-import { EditUserProfile } from './components/formsUsers/EditUserProfile';
-import { ChangePassword } from './components/formsUsers/ChangePassword';
+// import { EditUserProfile } from './components/dashboardClient/formsUsers/EditUserProfile';
+// import { ChangePassword } from './components/dashboardClient/formsUsers/ChangePassword';
+import { Menu } from './components/dashboardClient/Menu';
 import Navbar from './components/Navbar';
 import ProductForm from './components/ProductForm';
 import ShoppingCart from './components/ShoppingCart';
@@ -14,6 +15,7 @@ import Detail from './pages/Detail';
 import Home from './pages/Home';
 import Landing from './pages/Landing';
 import { login } from './redux/actions';
+import DashBoard from './components/Administrator';
 
 function App() {
 	const dispatch = useDispatch();
@@ -37,12 +39,14 @@ function App() {
 			<Switch>
 				<Route exact path='/' component={Landing} />
 				<Route exact path='/home' component={Home} />
+				<Route exact path='/admin' component={DashBoard} />
 				<Route exact path='/addproduct' component={ProductForm} />
 				<Route exact path='/shop/shoppingCart' component={ShoppingCart} />
 				<Route exact path='/bases/try' component={Try} />
 				<Route exact path='/signup' component={SignUp} />
-				<Route exact path='/user/edit' component={EditUserProfile} />
-				<Route exact path='/user/changepassword' component={ChangePassword} />
+				<Route exact path='/user/main' component={Menu} />
+				{/* <Route exact path='/user/edit' component={EditUserProfile} />
+				<Route exact path='/user/changepassword' component={ChangePassword} /> */}
 				<Route
 					exact
 					path='/signin'

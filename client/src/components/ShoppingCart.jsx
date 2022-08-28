@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loggin } from '../redux/actions';
 import { payMercadoPago } from '../helpers/payMercadoPago.js';
 const ShoppingCart = () => {
-	const userId = '2'; // from token information
+	const userId = '58ba8def-27f7-4844-b842-f5549957306a'; // from token information
 	const login = useSelector(state => state.login);
 	const dispatch = useDispatch();
 
@@ -319,45 +319,69 @@ const ShoppingCart = () => {
 				back
 			</button>
 			{checkout && (
-				<form onSubmit={handleOrder}>
-					<h2>
-						Enter or update your shipping information: -needs a new component,
-						simulation-
-					</h2>
-					<label htmlFor='phoneNumber'>Phone Number: </label>
-					<input
-						type='text'
-						onChange={handleOrderData}
-						name='phoneNumber'
-						value={orderData.phoneNumber}
-					></input>
-					<br />
-					<label htmlFor='postalCode'>Postal Code: </label>
-					<input
-						type='text'
-						onChange={handleOrderData}
-						name='postalCode'
-						value={orderData.postalCode}
-					></input>
-					<br />
-					<label htmlFor='shippingAddressStreet'>Street Adress: </label>
-					<input
-						type='text'
-						onChange={handleOrderData}
-						name='shippingAddressStreet'
-						value={orderData.shippingAddressStreet}
-					></input>
-					<br />
-					<label htmlFor='shippingAddressNumber'>House Number: </label>
-					<input
-						type='text'
-						onChange={handleOrderData}
-						name='shippingAddressNumber'
-						value={orderData.shippingAddressNumber}
-					></input>
-					<br />
-					<input type='submit' value='CONFIRM'></input>
-				</form>
+				<div className='absolute top-0 w-screen h-[900px] flex items-center justify-center'>
+					<form
+						onSubmit={handleOrder}
+						className='bg-blue-200 p-14 rounded-lg w-[800px] h-[460px]'
+					>
+						<h2 className='text-center text-lg'>
+							Update your shipping information:
+						</h2>
+						<div className='grid grid-cols-2 mt-6'>
+							<div className='flex flex-col h-[260px]'>
+								<label htmlFor='phoneNumber'>Phone Number: </label>
+								<label className='mt-[15px]' htmlFor='postalCode'>
+									Postal Code:{' '}
+								</label>
+								<label className='mt-[15px]' htmlFor='shippingAddressStreet'>
+									Street Adress:{' '}
+								</label>
+								<label className='mt-[15px]' htmlFor='shippingAddressNumber'>
+									House Number:{' '}
+								</label>
+							</div>
+							<div className='flex flex-col'>
+								<input
+									className='border rounded-md text-[14px] p-1'
+									type='text'
+									onChange={handleOrderData}
+									name='phoneNumber'
+									value={orderData.phoneNumber}
+								></input>
+								<input
+									className='border rounded-md mt-2 text-[14px] p-1'
+									type='text'
+									onChange={handleOrderData}
+									name='postalCode'
+									value={orderData.postalCode}
+								></input>
+								<input
+									className='border rounded-md mt-2 text-[14px] p-1'
+									type='text'
+									onChange={handleOrderData}
+									name='shippingAddressStreet'
+									value={orderData.shippingAddressStreet}
+								></input>
+								<input
+									className='border rounded-md mt-2 text-[14px] p-1'
+									type='text'
+									onChange={handleOrderData}
+									name='shippingAddressNumber'
+									value={orderData.shippingAddressNumber}
+								></input>
+							</div>
+						</div>
+						<div className='relative flex justify-center'>
+							<button
+								className='btn btn-red hover:btn-red '
+								type='submit'
+								value='CONFIRM'
+							>
+								Confirm
+							</button>
+						</div>
+					</form>
+				</div>
 			)}
 			{pay && <button onClick={handlePay}>Pay</button>}
 			<button

@@ -18,7 +18,7 @@ export default function Navbar() {
 
 	return (
 		<nav
-			className='sticky top-0 mx-auto p-4 bg-black select-none  text-white drop-shadow-2xl
+			className='sticky top-0 mx-auto p-4 bg-black select-none  text-white drop-shadow-2xl	z-50
 		lg:h-32'
 		>
 			<div className='container mx-auto flex items-center justify-between'>
@@ -76,10 +76,10 @@ export default function Navbar() {
 					id='menubar'
 					className='
 					hidden
+					z-20
 					flex-col
 					gap-4
 					absolute
-					z-40
 					right-0
 					left-0
 					top-16
@@ -133,7 +133,7 @@ export default function Navbar() {
 						</svg>
 						Home
 					</Link>
-					<Link
+					<a
 						role='menuitem'
 						className='
 						flex
@@ -165,9 +165,9 @@ export default function Navbar() {
 							/>
 						</svg>
 						Other
-					</Link>
+					</a>
 
-					<Link
+					<a
 						role='menuitem'
 						className='
  flex
@@ -203,8 +203,8 @@ export default function Navbar() {
 							></span>
 						</div>
 						In the bag
-					</Link>
-					<Link
+					</a>
+					<a
 						role='menuitem'
 						className={`
 						py-2
@@ -218,7 +218,7 @@ export default function Navbar() {
 					>
 						<i className='text-2xl mr-3 fa-solid fa-circle-user'></i>
 						Sign In
-					</Link>
+					</a>
 				</div>
 			</div>
 		</nav>

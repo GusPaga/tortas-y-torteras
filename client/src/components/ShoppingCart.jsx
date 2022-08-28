@@ -229,7 +229,7 @@ const ShoppingCart = () => {
 	// error payment => delete order and items (decrement stock)
 
 	return (
-		<div className='shopping-wrapper'>
+		<div className='shopping-wrapper bg-white h-screen'>
 			<button onClick={handleLoggin}>
 				{login.login ? 'Logout(SignedIn)' : 'Loggin (SignedOut)'}
 			</button>

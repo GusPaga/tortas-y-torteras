@@ -8,54 +8,69 @@ const Landing = () => {
 				className='w-screen select-none
 			bg-gradient-to-b from-black to-purple-700'
 			>
-				<div className='h-full flex justify-center  '>
-					{/* 					
+				<div
+					className='h-full flex flex-col justify-center items-center
+				
 										sm:bg-blue-500
 										md:bg-yellow-500
-										lg:bg-red-500
+										lg:bg-red-500 lg:flex-row
 										xl:bg-green-500
-										2xl:bg-gray-500 */}
+										2xl:bg-gray-500
+				'
+				>
 					{/* IMAGE */}
 					<div
-						className='
+						className='w-3/4 h-1/2 
+						lg:w-full lg:h-full
 							'
 					>
 						<img
 							src='https://i.ibb.co/5xRfKDy/img3.png'
-							alt=''
-							className='w-full h-full object-contain ml-32'
+							className='w-full h-full object-contain
+							lg:ml-16
+							2xl:ml-32
+							'
 						/>
 					</div>
 					{/* PARAGRAPH */}
 					<div
-						className='neon flex flex-col items-center p-20 text-white bg-neutral-900 rounded-xl drop-shadow-2xl my-auto -ml-32 mr-32 w-1/3
-						'
+						className='w-3/4 h-1/2
+					lg:h-fit lg:w-full
+					'
 					>
-						<span className='text-sm'>Unique Art Pieces</span>
-						<span
-							className='mt-4 text-3xl 
-								2xl:text-4xl'
+						<div
+							className='neon flex flex-col items-center p-10 text-white bg-neutral-900 rounded-xl drop-shadow-2xl 
+						lg:w-3/4 lg:-ml-16
+						2xl:-ml-32
+						'
 						>
-							Cakes
+							{/*  -ml-32 mr-32 w-1/3 */}
+							<span className='sm'>Unique Art Pieces</span>
 							<span
-								className='text-4xl text-myPurple-100
-								2xl:text-5xl'
+								className='mt-4 text-3xl 
+								2xl:text-4xl'
 							>
-								&
+								Cakes
+								<span
+									className='text-4xl text-myPurple-100
+								2xl:text-5xl'
+								>
+									&
+								</span>
+								Bases
 							</span>
-							Bases
-						</span>
-						<p
-							className='mt-4 text-center max-w-xl text-sm
+							<p
+								className='mt-4 text-center max-w-xl text-sm
 								lg:max-w-md lg:text-[12px]
 								xl:max-w-2xl  xl:text-[14px]
 								2xl:text-[20px]
 								'
-						>
-							Functional Art in your Table. Original pieces created with love
-							creativity. Wood, painting, colors, and advanced techniques are
-							collected togheter to achieve this unique art pieces.
-						</p>
+							>
+								Functional Art in your Table. Original pieces created with love
+								creativity. Wood, painting, colors, and advanced techniques are
+								collected togheter to achieve this unique art pieces.
+							</p>
+						</div>
 					</div>
 				</div>
 			</section>

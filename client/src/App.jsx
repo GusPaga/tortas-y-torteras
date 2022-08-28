@@ -13,14 +13,7 @@ import Try from './components/Try';
 import { auth, getUserInfo, userExists } from './firebase/firebase';
 import Detail from './pages/Detail';
 import Home from './pages/Home';
-
 import Landing from './pages/Landing';
-
-import { login } from './redux/actions';
-import DashBoard from './components/Administrator';
-import PaySuccess from "./components/PaySuccess";
-import PayFailure from './components/PayFailure';
-
 
 function App() {
 	const [userLoggedComplete, setUserLoggedComplete] = useState(false);
@@ -54,17 +47,6 @@ function App() {
 				{/* <Route exact path='/user/changepassword' component={ChangePassword} /> */}
 				<Route exact path='/signin' component={SignIn} />
 				<Route exact path='/user/main' component={Menu} />
-
-				<Route exact path='/paysuccess' component={PaySuccess}/>
-				<Route exact path='/payfailure' component={PayFailure}/>
-				{/* <Route exact path='/user/edit' component={EditUserProfile} />
-				<Route exact path='/user/changepassword' component={ChangePassword} /> */}
-				<Route
-					exact
-					path='/signin'
-					render={() => (isLoggedIn ? <Redirect to='/' /> : <SignIn />)}
-				/>
-
 				<Route exact path='/:id' component={Detail} />
 			</Switch>
 			{/* <Footer /> */}

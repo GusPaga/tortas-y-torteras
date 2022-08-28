@@ -6,13 +6,12 @@ import { SignUp } from './components/auth/SignUp';
 import { EditUserProfile } from './components/formsUsers/EditUserProfile';
 import { ChangePassword } from './components/formsUsers/ChangePassword';
 import Navbar from './components/Navbar';
-import Page404 from './components/Pag404';
 import ProductForm from './components/ProductForm';
 import ShoppingCart from './components/ShoppingCart';
 import Try from './components/Try';
 import { auth } from './firebase/firebase-config';
 import Detail from './pages/Detail';
-import Bases from './pages/Bases';
+import Home from './pages/Home';
 import Landing from './pages/Landing';
 import { login } from './redux/actions';
 
@@ -37,7 +36,7 @@ function App() {
 			<Navbar />
 			<Switch>
 				<Route exact path='/' component={Landing} />
-				<Route exact path='/home' component={Bases} />
+				<Route exact path='/home' component={Home} />
 				<Route exact path='/addproduct' component={ProductForm} />
 				<Route exact path='/shop/shoppingCart' component={ShoppingCart} />
 				<Route exact path='/bases/try' component={Try} />
@@ -50,7 +49,6 @@ function App() {
 					render={() => (isLoggedIn ? <Redirect to='/' /> : <SignIn />)}
 				/>
 				<Route exact path='/:id' component={Detail} />
-				<Route path='/' component={Page404} />
 			</Switch>
 			{/* <Footer /> */}
 		</>

@@ -1,73 +1,80 @@
-import './Home.css';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import Card from '../components/Card';
-import { getData, setPage } from '../redux/actions';
-import Pagination from '@mui/material/Pagination';
-import TemporaryDrawer from '../components/Drawer';
-import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
+import { Link } from 'react-router-dom';
+import Sidebar from '../components/Sidebar';
+import { getData, getFilteredData } from '../redux/actions';
 
-export default function Home() {
+const Home = () => {
 	const dispatch = useDispatch();
-	const { redData, redPage } = useSelector(state => state);
-
-	// Pages:
-	const cardsPerPage = 6;
-	const indexLastCard = redPage * cardsPerPage;
-	const indexFirstCard = indexLastCard - cardsPerPage;
-	let totalCards = 0;
-	let cardsPage = [];
-	if (redData) {
-		totalCards = redData.length;
-		cardsPage = redData.slice(indexFirstCard, indexLastCard);
-	}
-	const pages = Math.ceil(totalCards / cardsPerPage);
+	const { redData } = useSelector(state => state);
 
 	useEffect(() => {
-		dispatch(getData());
+		if (localStorage.getItem('Filter')) {
+			dispatch(getFilteredData(JSON.parse(localStorage.getItem('Query'))));
+		} else dispatch(getData());
 	}, [dispatch]); //
 
-	const handleChange = (e, value) => dispatch(setPage(value));
-
 	return (
-		<div className='home-wrapper'>
-			<div className='tools-container'>
-				<div>
-					<button
-						style={{ position: 'right' }}
-						className='filter-text'
-						onClick={() => dispatch(getData())}
-					>
-						Clear Filter <FilterAltOffIcon fontSize='large' />
-					</button>
-				</div>
-				<div className='pag-wrapper'>
-					<Pagination
-						size='large'
-						count={pages}
-						color='secondary'
-						onChange={handleChange}
-					/>
-				</div>
-
-				<TemporaryDrawer />
-			</div>
-
-			<div className='wrapper'>
-				{cardsPage.map(prod => (
-					<div key={prod.id}>
-						<Card
-							imgHome={prod.img_home.secure_url}
-							id={prod.id}
-							name={prod.name}
-							color1={prod.Colors[0].hex}
-							color2={prod.Colors[1].hex}
-							color3={prod.Colors[2].hex}
-							collection={prod.collection}
+		<div
+			className='w-screen min-h-screen select-none -z-10
+		bg-gradient-to-b from-black to-blue-500 flex
+		'
+		>
+			<Sidebar />
+			<div className=' container grid grid-cols-3 gap-x-1 mt-20'>
+				{redData?.map((prod, i) => (
+					<div key={i} className='relative max-w-lg max-h-[520px] mt-1'>
+						<Link to={`/${prod.id}`}>
+							<div className='absolute inset-0 z-10 flex transition duration-700 ease-in hover:opacity-0'>
+								<div className='absolute inset-0 bg-black opacity-70'></div>
+								<div className='border w-full flex flex-col  text-white z-10 p-3 justify-between'>
+									<div className=' flex justify-between'>
+										<span className='w-fit p-1 text-lg'>{prod.name}</span>
+										<span>
+											<i className='bi bi-bookmark-heart text-3xl'></i>
+										</span>
+									</div>
+									<div className='flex justify-between'>
+										<span className='text-sm w-fit rounded-md p-1'>
+											{prod.collection}
+										</span>
+										<div className='flex gap-[2px] rounded-md p-1'>
+											<div
+												className={'rounded-full w-3 h-3'}
+												style={{
+													backgroundColor: `${prod.Colors[0].hex}`,
+													border: ` ${prod.Colors[0].hex}`,
+												}}
+											></div>
+											<div
+												className={'rounded-full w-3 h-3'}
+												style={{
+													backgroundColor: `${prod.Colors[1].hex}`,
+													border: ` ${prod.Colors[1].hex}`,
+												}}
+											></div>
+											<div
+												className={'rounded-full w-3 h-3'}
+												style={{
+													backgroundColor: `${prod.Colors[2].hex}`,
+													border: ` ${prod.Colors[2].hex}`,
+												}}
+											></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</Link>
+						<img
+							src={prod.img_home.secure_url}
+							className='w-full h-full object-cover
+							'
 						/>
 					</div>
 				))}
 			</div>
 		</div>
 	);
-}
+};
+
+export default Home;

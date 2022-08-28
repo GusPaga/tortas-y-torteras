@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loggin } from '../redux/actions';
 import { payMercadoPago } from '../helpers/payMercadoPago.js';
 const ShoppingCart = () => {
-	const userId = '2'; // from token information
+	const userId = '58ba8def-27f7-4844-b842-f5549957306a'; // from token information
 	const login = useSelector(state => state.login);
 	const dispatch = useDispatch();
 

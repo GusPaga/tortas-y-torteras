@@ -1,3 +1,4 @@
+import moment from 'moment';
 import * as yup from 'yup';
 
 const regexName = /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü]+$/;
@@ -16,17 +17,25 @@ export const validateUser = yup.object({
 		.matches(regexName, 'Please, enter a valid last name')
 		.min(3, 'Please min 3 characters')
 		.max(20, 'Please max 20 characters'),
-	gender: yup.mixed().oneOf(['male', 'female', 'other']).defined(),
+	gender: yup.mixed().oneOf(['Male', 'Female', 'Other']).defined(),
 	identityCard: yup
-		.number()
-		.typeError('you must specify a number')
-		.min(5, 'Must be at least 5 digits'),
-	typeId: yup.mixed().oneOf(['cc', 'ce', 'passport']).defined(),
+		.string()
+		.required('Please enter your identity card')
+		.matches(/^[0-9]+$/, 'Must be only digits')
+		.min(8, 'Must be exactly 8 digits')
+		.max(10, 'Must be exactly 10 digits'),
+	// typeId: yup.mixed().oneOf(['cc', 'ce', 'passport']).defined(),
+	// birthDate: yup
+	// 	.date()
+	// 	.nullable()
+	// 	.min(new Date(1900, 1, 1))
+	// 	.required('Please, select your birthdate'),
 	birthDate: yup
-		.date()
-		.nullable()
-		.min(new Date(1900, 0, 1))
-		.required('Please, select your birthdate'),
+		.string()
+		.required('Please enter your birth date')
+		.test('Message', 'Must be an adult', value => {
+			return moment().diff(moment(value), 'years') >= 18;
+		}),
 });
 
 export const validateChangePassword = yup.object({

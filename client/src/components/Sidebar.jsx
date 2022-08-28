@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getColors, getData, getFilteredData } from '../redux/actions';
 
@@ -7,13 +7,24 @@ const Sidebar = () => {
 	const { redColors } = useSelector(state => state);
 	const [queryColors, setQueryColors] = useState([]);
 	const [filter, setFilter] = useState({
-		usedFilter: false,
 		onStock: true,
 		coll1: true,
 		coll2: true,
 		coll3: true,
 		coll4: true,
 	});
+
+	useEffect(() => {
+		if (localStorage.getItem('Filter')) {
+			setFilter(JSON.parse(localStorage.getItem('Filter')));
+			const sidebar = document.querySelector('#sidebar');
+			sidebar.classList[0] === 'hidden' && toogleSidebar();
+		}
+		if (localStorage.getItem('Color'))
+			setFilter(JSON.parse(localStorage.getItem('Color')));
+	}, []);
+	const toogleSidebar = () =>
+		document.querySelector('#sidebar').classList.toggle('hidden');
 
 	const handleGetColors = () => {
 		!redColors.length && dispatch(getColors());
@@ -51,29 +62,35 @@ const Sidebar = () => {
 			e.checked = false;
 			e.parentNode.style.backgroundColor = '';
 		});
+		localStorage.removeItem('Filter');
+		localStorage.removeItem('Colors');
+		toogleSidebar();
 	};
 
+	const queryString = () =>
+		`?
+	${queryColors[0] ? `color1=${queryColors[0]}&` : ''}
+	${queryColors[1] ? `color2=${queryColors[1]}&` : ''}
+	${queryColors[2] ? `color3=${queryColors[2]}&` : ''}
+	${filter.coll1 ? `collection1=Abstract&` : ''}
+	${filter.coll2 ? `collection2=Flowers&` : ''}
+	${filter.coll3 ? `collection3=Butterflies&` : ''}
+	${filter.coll4 ? `collection4=Other&` : ''}
+	stock=${filter.onStock}
+	`.replace(/\s/g, '');
+
 	const makeQuery = () => {
-		const queryString = `?
-		${queryColors[0] ? `color1=${queryColors[0]}&` : ''}
-		${queryColors[1] ? `color2=${queryColors[1]}&` : ''}
-		${queryColors[2] ? `color3=${queryColors[2]}&` : ''}
-		${filter.coll1 ? `collection1=Abstract&` : ''}
-		${filter.coll2 ? `collection2=Flowers&` : ''}
-		${filter.coll3 ? `collection3=Butterflies&` : ''}
-		${filter.coll4 ? `collection4=Other&` : ''}
-		stock=${filter.onStock}
-		`.replace(/\s/g, '');
-		console.log(queryString);
-		dispatch(getFilteredData(queryString));
-		setFilter({ ...filter, usedFilter: true });
+		dispatch(getFilteredData(queryString()));
+		localStorage.setItem('Filter', JSON.stringify(filter));
+		localStorage.setItem('Colors', JSON.stringify(queryColors));
+		localStorage.setItem('Query', JSON.stringify(queryString()));
 	};
 
 	return (
 		<div>
 			<div
 				id='sidebar'
-				className='hidden fixed top-0 bottom-0 p-2 w-[300px] overflow-y-auto text-center bg-[rgba(0,0,0,0.9)]
+				className='hidden z-50 fixed top-0 bottom-0 p-2 w-[300px] overflow-y-auto text-center bg-[rgba(0,0,0,0.9)] 
 				'
 			>
 				{/* FILTER HEADER */}
@@ -96,12 +113,7 @@ const Sidebar = () => {
 					<div className='flex justify-between w-full items-center'>
 						<h1 className='ml-4 text-gray-200'>Filter</h1>
 						<span>
-							<i
-								className='bi bi-x cursor-pointer'
-								onClick={() =>
-									document.querySelector('#sidebar').classList.toggle('hidden')
-								}
-							></i>
+							<i className='bi bi-x cursor-pointer' onClick={toogleSidebar}></i>
 						</span>
 					</div>
 				</div>
@@ -116,14 +128,14 @@ const Sidebar = () => {
 				{/* CLEAR FILTER */}
 				<button
 					className={`p-2.5 mt-3 w-full rounded-md px-4 duration-300 cursor-pointer bg-myRed text-white
-					${!filter.usedFilter && 'hidden'}
+					${!localStorage.getItem('Filter') && 'hidden'}
 					`}
 					onClick={clearAll}
 				>
 					Clear Filter
 				</button>
 
-				{/* On Stock */}
+				{/* ON STOCK */}
 				<div
 					className='p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white'
 					onClick={() => {
@@ -162,7 +174,7 @@ const Sidebar = () => {
 					</div>
 				</div>
 
-				{/* Collection */}
+				{/* COLLECTION */}
 				<div
 					className='p-2.5 mt-3 flex items-center rounded-md px-4 duration-300 cursor-pointer hover:bg-blue-600 text-white'
 					onClick={() => {
@@ -189,8 +201,9 @@ const Sidebar = () => {
 							type='checkbox'
 							role='switch'
 							name='coll1'
+							checked={filter.coll1}
 							onClick={handleonClickFilter}
-							defaultChecked={filter.coll1}
+							onChange={() => {}}
 						/>
 						<label
 							className='form-check-label inline-block text-white'
@@ -205,8 +218,9 @@ const Sidebar = () => {
 							type='checkbox'
 							role='switch'
 							name='coll2'
+							checked={filter.coll2}
 							onClick={handleonClickFilter}
-							defaultChecked={filter.coll2}
+							onChange={() => {}}
 						/>
 						<label
 							className='form-check-label inline-block text-white'
@@ -221,8 +235,9 @@ const Sidebar = () => {
 							type='checkbox'
 							role='switch'
 							name='coll3'
+							checked={filter.coll3}
 							onClick={handleonClickFilter}
-							defaultChecked={filter.coll3}
+							onChange={() => {}}
 						/>
 						<label
 							className='form-check-label inline-block text-white'
@@ -236,8 +251,9 @@ const Sidebar = () => {
 							className='form-check-input appearance-none rounded-full   bg-gray-300 cursor-pointer'
 							type='checkbox'
 							name='coll4'
+							checked={filter.coll4}
 							onClick={handleonClickFilter}
-							defaultChecked={filter.coll4}
+							onChange={() => {}}
 						/>
 						<label
 							className='form-check-label inline-block text-white'

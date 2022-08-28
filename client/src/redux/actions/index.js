@@ -4,6 +4,8 @@ import {
 	GET_COLORS,
 	GET_DATA,
 	GET_FILTERED_DATA,
+	GET_USER,
+	GET_USERS,
 	SET_LOADING,
 	SET_LOGIN,
 	SET_PAGE,
@@ -54,5 +56,38 @@ export const getColors = () => {
 		const response = await axios.get('/colors');
 		dispatch({ type: GET_COLORS, payload: response.data });
 		dispatch(setLoading(false));
+	};
+};
+
+// USERS
+export const addUser = async user => {
+	const res = await axios.post('http://localhost:3001/users/signup', user);
+	return res.data;
+};
+
+export const updateUserP = async user => {
+	const id = user.id;
+	const res = await axios.put('http://localhost:3001/users/user/' + id, user);
+	return res.data;
+};
+
+export const getUsers = () => {
+	return async dispatch => {
+		const json = await axios.get('http://localhost:3001/users');
+		return dispatch({
+			type: GET_USERS,
+			payload: json.data,
+		});
+	};
+};
+
+// USER_ID
+export const getUser = id => {
+	return async dispatch => {
+		const json = await axios.get(`http://localhost:3001/users/${id}`);
+		return dispatch({
+			type: GET_USER,
+			payload: json.data,
+		});
 	};
 };

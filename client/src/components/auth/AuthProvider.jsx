@@ -31,7 +31,7 @@ export const AuthProvider = ({
 			} else {
 				// TODO: redirigir a choose username
 				await registerNewUser({
-					uid: user.uid,
+					id: user.uid,
 					displayName: user.displayName,
 					email: user.email,
 					profilePicture: '',

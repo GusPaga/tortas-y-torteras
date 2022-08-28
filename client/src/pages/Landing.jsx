@@ -1,22 +1,12 @@
+import './Landing.css';
+
 const Landing = () => {
 	/*
-
-		const dispatch = useDispatch();
-	const { redData } = useSelector(state => state);
-
-	useEffect(() => {
-		dispatch(getData());
-	}, [dispatch]); //
 
 	const arrayImg = [];
 	for (const product of redData) arrayImg.push(product.img_home.secure_url);
 	const randomImg = Math.floor(Math.random() * 20);
 
-	sm:bg-yellow-500
-	md:bg-blue-500
-	lg:bg-red-500
-	xl:bg-green-500
-	2xl:bg-pink-500
 	*/
 	return (
 		<>
@@ -45,28 +35,31 @@ const Landing = () => {
 						}}
 					>
 						<div
-							className='absolute flex flex-col items-center p-7 text-white bg-neutral-900 rounded-xl drop-shadow-2xl h-auto border-myPurple-100 border-solid border-2
+							className='neon absolute flex flex-col items-center p-7 text-white bg-neutral-900 rounded-xl drop-shadow-2xl h-auto border-white border-solid border-2
 							top-[100%]
-							lg:items-start lg:top-1/2 lg:left-3/4 lg:h-[50%] lg:mt-[-20%] lg:w-[500px] 
+							lg:lg:top-1/2 lg:left-3/4 lg:h-[50%] lg:mt-[-20%] lg:w-[500px] 
 							xl:p-10 xl:w-[600px] xl:h-[40%]
 						'
 						>
 							<span className='text-sm'>Unique Art Pieces</span>
 							<span
-								className='mt-4 text-4xl 
-								2xl:text-6xl'
+								className='mt-4 text-3xl 
+								2xl:text-4xl'
 							>
 								Cakes
-								<span className='text-5xl 2xl:text-7xl text-myPurple-100'>
+								<span
+									className='text-4xl text-myPurple-100
+								2xl:text-5xl'
+								>
 									&
 								</span>
 								Bases
 							</span>
 							<p
 								className='mt-4 text-center max-w-xl text-sm
-								lg:max-w-md lg:text-left lg:text-[12px]
+								lg:max-w-md lg:text-[12px]
 								xl:max-w-2xl  xl:text-[14px]
-								2xl:text-lg
+								2xl:text-[20px]
 								'
 							>
 								Functional Art in your Table. Original pieces created with love
@@ -77,6 +70,11 @@ const Landing = () => {
 					</div>
 				</div>
 			</section>
+			<section
+				style={{ height: 'calc(100vh - 8rem)' }}
+				className='w-screen select-none -z-10
+			bg-gradient-to-b from-purple-700 to-purple-700 flex items-center justify-center'
+			></section>
 		</>
 	);
 };

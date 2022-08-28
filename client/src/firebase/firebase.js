@@ -11,6 +11,7 @@ import {
 	setDoc,
 	where,
 } from 'firebase/firestore';
+import { addUser, updateUserP } from '../redux/actions';
 // import { getStorage } from 'firebase/storage';
 
 const {
@@ -39,8 +40,8 @@ export const auth = getAuth(app);
 const db = getFirestore(app);
 // const storage = getStorage(app);
 
-export const userExists = async uid => {
-	const docRef = doc(db, 'users', uid);
+export const userExists = async id => {
+	const docRef = doc(db, 'users', id);
 	const res = await getDoc(docRef);
 	console.log(res);
 	return res.exists();
@@ -52,28 +53,30 @@ export const existsUsername = async username => {
 	const q = query(docsRef, where('username', '==', username));
 	const querySnapshot = await getDocs(q);
 	querySnapshot.forEach(doc => users.push(doc.data()));
-	return users.length > 0 ? users[0].uid : null;
+	return users.length > 0 ? users[0].id : null;
 };
 
 export const registerNewUser = async user => {
 	try {
 		const collectionRef = collection(db, 'users');
-		const docRef = doc(collectionRef, user.uid);
+		const docRef = doc(collectionRef, user.id);
 		await setDoc(docRef, user);
+		await addUser(user);
 	} catch (err) {}
 };
 
 export const updateUser = async user => {
 	try {
 		const collectionRef = collection(db, 'users');
-		const docRef = doc(collectionRef, user.uid);
+		const docRef = doc(collectionRef, user.id);
 		await setDoc(docRef, user);
+		await updateUserP(user);
 	} catch (err) {}
 };
 
-export const getUserInfo = async uid => {
+export const getUserInfo = async id => {
 	try {
-		const docRef = doc(db, 'users', uid);
+		const docRef = doc(db, 'users', id);
 		const document = await getDoc(docRef);
 		return document.data();
 	} catch (err) {}

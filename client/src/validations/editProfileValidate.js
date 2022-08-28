@@ -17,7 +17,7 @@ export const validateUser = yup.object({
 		.matches(regexName, 'Please, enter a valid last name')
 		.min(3, 'Please min 3 characters')
 		.max(20, 'Please max 20 characters'),
-	gender: yup.mixed().oneOf(['male', 'female', 'other']).defined(),
+	gender: yup.mixed().oneOf(['Male', 'Female', 'Other']).defined(),
 	identityCard: yup
 		.string()
 		.required('Please enter your identity card')

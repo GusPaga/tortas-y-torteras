@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import { updateUser } from '../../firebase/firebase';
-import { AuthProvider } from '../auth/AuthProvider';
-import { FormUserProfile } from '../auth/forms/FormUserProfile';
+import { useHistory } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { updateUser } from '../../../firebase/firebase';
+import { AuthProvider } from '../../auth/AuthProvider';
+import { FormUserProfile } from '../../auth/forms/FormUserProfile';
 
 export const EditUserProfile = () => {
 	const navigate = useHistory();
@@ -50,20 +51,23 @@ export const EditUserProfile = () => {
 					currentUser={currentUser}
 					handleContinue={handleContinue}
 				/>
-				{/* <div>
-        <input type="text" onInput={handleInputUsername} />
-      </div>
-      <div>
-        <button onClick={handleContinue}>Continue</button>
-      </div> */}
 			</div>
 		);
 
 	if (stateCurrent === 6)
 		return (
 			<div>
-				<h1>Felicidades ya puedes ir al dashboard a crear tus links</h1>
-				<Link to='/home'>Continuar</Link>
+				{/* <h1>Felicidades ya puedes ir al dashboard a crear tus links</h1> */}
+				{Swal.fire({
+					position: 'top-center',
+					icon: 'success',
+					title: 'Good Job!',
+					text: 'Your acount has been created successfully',
+					showConfirmButton: false,
+					timer: 1500,
+				})}
+				{navigate.push('/home')}
+				{/* <Link to='/home'>Continuar</Link> */}
 			</div>
 		);
 

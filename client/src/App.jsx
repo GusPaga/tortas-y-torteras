@@ -1,41 +1,41 @@
+import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+import DashBoard from './components/Administrator';
 import { SignIn } from './components/auth/SignIn';
 import { SignUp } from './components/auth/SignUp';
-// import { EditUserProfile } from './components/dashboardClient/formsUsers/EditUserProfile';
-// import { ChangePassword } from './components/dashboardClient/formsUsers/ChangePassword';
+import { EditUserProfile } from './components/dashboardClient/formsUsers/EditUserProfile';
 import { Menu } from './components/dashboardClient/Menu';
 import Navbar from './components/Navbar';
 import ProductForm from './components/ProductForm';
 import ShoppingCart from './components/ShoppingCart';
 import Try from './components/Try';
-import { auth } from './firebase/firebase-config';
+import { auth, getUserInfo, userExists } from './firebase/firebase';
 import Detail from './pages/Detail';
 import Home from './pages/Home';
+
 import Landing from './pages/Landing';
-import { login } from './redux/actions';
-import DashBoard from './components/Administrator';
 
 function App() {
-	const dispatch = useDispatch();
-	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	const [checking, setChecking] = useState(true);
-
+	const [userLoggedComplete, setUserLoggedComplete] = useState(false);
 	useEffect(() => {
-		auth.onAuthStateChanged(user => {
-			if (user?.uid) {
-				dispatch(login(user.uid, user.displayName));
-				setIsLoggedIn(true);
-			} else {
-				setIsLoggedIn(false);
+		onAuthStateChanged(auth, handleUserStateChanged);
+	}, []);
+	async function handleUserStateChanged(user) {
+		if (user) {
+			const isRegister = await userExists(user.uid);
+			if (isRegister) {
+				// TODO: redirigir a Dashboard
+				const userInfo = await getUserInfo(user.uid);
+				if (userInfo.processCompleted) {
+					setUserLoggedComplete(true);
+				}
 			}
-			setChecking(false);
-		});
-	}, [dispatch, isLoggedIn, checking]);
+		}
+	}
 	return (
 		<>
-			<Navbar />
+			<Navbar userLoggedComplete={userLoggedComplete} />
 			<Switch>
 				<Route exact path='/' component={Landing} />
 				<Route exact path='/home' component={Home} />
@@ -44,14 +44,10 @@ function App() {
 				<Route exact path='/shop/shoppingCart' component={ShoppingCart} />
 				<Route exact path='/bases/try' component={Try} />
 				<Route exact path='/signup' component={SignUp} />
+				<Route exact path='/user/edit' component={EditUserProfile} />
+				{/* <Route exact path='/user/changepassword' component={ChangePassword} /> */}
+				<Route exact path='/signin' component={SignIn} />
 				<Route exact path='/user/main' component={Menu} />
-				{/* <Route exact path='/user/edit' component={EditUserProfile} />
-				<Route exact path='/user/changepassword' component={ChangePassword} /> */}
-				<Route
-					exact
-					path='/signin'
-					render={() => (isLoggedIn ? <Redirect to='/' /> : <SignIn />)}
-				/>
 				<Route exact path='/:id' component={Detail} />
 			</Switch>
 			{/* <Footer /> */}

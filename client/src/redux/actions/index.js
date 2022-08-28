@@ -1,18 +1,14 @@
 import axios from 'axios';
-import { signInWithPopup } from 'firebase/auth';
-import { auth, googleProvider } from '../../firebase/firebase-config';
 
 import {
 	GET_COLORS,
 	GET_DATA,
 	GET_FILTERED_DATA,
-	SET_LOGIN,
-	LOGIN,
-	LOGOUT,
-	SET_LOADING,
-	SET_PAGE,
 	GET_USER,
 	GET_USERS,
+	SET_LOADING,
+	SET_LOGIN,
+	SET_PAGE,
 } from './types';
 
 export const setLoading = payload => ({ type: SET_LOADING, payload });
@@ -63,37 +59,18 @@ export const getColors = () => {
 	};
 };
 
-// AUTH
-export const login = (uid, displayName) => ({
-	type: LOGIN,
-	payload: { uid, displayName },
-});
-export const signIn = (uid, displayName) => {
-	return async dispatch => {};
-};
-
-export const logout = () => ({ type: LOGOUT });
-
-export const signInGoogle = () => {
-	return async dispatch => {
-		try {
-			const res = await signInWithPopup(auth, googleProvider);
-			console.log(res);
-			dispatch(login(res.user.uid, res.user.displayName));
-		} catch (err) {
-			console.log(err);
-		}
-	};
-};
-
-export const signOut = () => {
-	return async dispatch => {
-		await auth.signOut();
-		dispatch(logout());
-	};
-};
-
 // USERS
+export const addUser = async user => {
+	const res = await axios.post('http://localhost:3001/users/signup', user);
+	return res.data;
+};
+
+export const updateUserP = async user => {
+	const id = user.id;
+	const res = await axios.put('http://localhost:3001/users/user/' + id, user);
+	return res.data;
+};
+
 export const getUsers = () => {
 	return async dispatch => {
 		const json = await axios.get('http://localhost:3001/users');

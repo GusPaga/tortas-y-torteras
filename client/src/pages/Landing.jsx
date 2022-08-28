@@ -8,11 +8,7 @@ const Landing = () => {
 				className='w-screen select-none flex items-center justify-center
 			bg-gradient-to-b from-black to-purple-700'
 			>
-				<div
-					className='flex flex-wrap border
-
-										'
-				>
+				<div className='flex flex-wrap border'>
 					{/* 					
 										sm:bg-blue-500
 										md:bg-yellow-500

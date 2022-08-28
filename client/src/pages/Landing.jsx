@@ -5,10 +5,10 @@ const Landing = () => {
 		<>
 			<section
 				style={{ height: 'calc(100vh - 8rem)' }}
-				className='w-screen select-none flex items-center justify-center
+				className='w-screen select-none
 			bg-gradient-to-b from-black to-purple-700'
 			>
-				<div className='flex flex-wrap border'>
+				<div className='h-full flex justify-center  '>
 					{/* 					
 										sm:bg-blue-500
 										md:bg-yellow-500
@@ -23,12 +23,12 @@ const Landing = () => {
 						<img
 							src='https://i.ibb.co/5xRfKDy/img3.png'
 							alt=''
-							className='w-full h-full'
+							className='w-full h-full object-contain ml-32'
 						/>
 					</div>
 					{/* PARAGRAPH */}
 					<div
-						className='neon h-1/2 flex flex-col items-center p-7 text-white bg-neutral-900 rounded-xl drop-shadow-2xl my-auto
+						className='neon flex flex-col items-center p-20 text-white bg-neutral-900 rounded-xl drop-shadow-2xl my-auto -ml-32 mr-32 w-1/3
 						'
 					>
 						<span className='text-sm'>Unique Art Pieces</span>

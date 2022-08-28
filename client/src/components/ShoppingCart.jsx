@@ -7,22 +7,23 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loggin } from '../redux/actions';
 import { payMercadoPago } from '../helpers/payMercadoPago.js';
 const ShoppingCart = () => {
-	const userId="2" // from token information
+	const userId="2" 
 	const login = useSelector((state) => state.login)     
 	const dispatch = useDispatch()
 
-	const [cart, setCart] = useContext(ShoppingCartContext);
+	const [cart, setCart] = useContext(ShoppingCartContext);  
+	console.log(cart)
 	const history = useHistory();
-	const totalPrice = cart?.reduce(
+	const totalPrice = cart?.reduce(  
 		(acc, curr) => acc + curr.price*curr.quantity,
 		0
 	);
-	const totalShipping = cart?.reduce(
+	const totalShipping = cart?.reduce(    
 		(acc, curr) => acc + curr.quantity*5,
 		0
 	);
-	const [checkout, setCheckout] = useState(false)
-	const [orderData, setOrderData] = useState({
+	const [checkout, setCheckout] = useState(false)  
+	const [orderData, setOrderData] = useState({   
 		phoneNumber:"",
 		postalCode:"",
 		shippingAddressStreet:"",
@@ -30,22 +31,23 @@ const ShoppingCart = () => {
 		shipmentFee:0,
 		tax:0,
 	})
-	const [pay, setPay] = useState(false)
+	const [pay, setPay] = useState(false)  
 
+	// incrementa la cantidad que quiero comprar para cada tabla
 	function handleIncrement (e){
 		const cart2=[...cart]
         const item=cart2.find(el=>el.stockId===parseInt(e.target.id))
         item.quantity=item.quantity<item.stockQuantity? item.quantity+1:  item.quantity
         setCart(cart2)
 	}
-
+    // decrementa la cantidad que quiero comprar para cada tabla
 	function handleDecrement (e){
 		const cart2=[...cart]
         const item=cart2.find(el=>el.stockId===parseInt(e.target.id))
         item.quantity=item.quantity>0? item.quantity-1:  item.quantity
         setCart(cart2)
 	}
-
+    // loggin 
 	async function handleLoggin (e) {
 		// logout: save in DB in order status cart, order items confirmed false (if order exists replace if not create)
 		// search order status cart where userId. if it exists delete line items and create new ones, if not, create order and add line items.
@@ -53,7 +55,7 @@ const ShoppingCart = () => {
 			let orderId=""
 			try {
 				// I look for the id of the order in the cart if it already exists
-				orderId=(await axios.get(`/purchases/cart?userId=${userId}`)).data
+				orderId=(await axios.get(`/purchases/cart?userId=${userId}`)).data 
 				// if it already exists, I delete the items, to leave only the current ones loaded
 				if(orderId.length>0) {
 					orderId=orderId[0].id
@@ -62,15 +64,15 @@ const ShoppingCart = () => {
 				// if it doesn't exist, I create the purchase order
 				orderId= (await axios.post(`/purchases/${userId}`,{})).data.id
 				}
-				// in both cases I create the items of the cart without confirming and clean the state when leaving
-				await Promise.all (cart.map(el=>axios.post("/order-items",{
+				// in both cases I create the items of the cart without confirming and clean the state when leaving  // ????
+				await Promise.all (cart.map(el=>axios.post("/order-items",{ 
 					stockId:el.stockId,
 					quantity: el.quantity,
 					purchaseId: orderId,
 					price: el.price,
 					confirmed: false
 				})))
-				setCart([])
+				setCart([]) 
 			} catch(error) {
 				alert(error.request.response)
 			}				
@@ -116,7 +118,7 @@ const ShoppingCart = () => {
 		dispatch(loggin())
 	}
 	
-	// look up the contact information of the last order and preload it
+	// look up the contact information of the last order and preload it 
 	async function handleCheckOut() {
 		!login.login && history.push('/signin')
 		try {
@@ -144,9 +146,19 @@ const ShoppingCart = () => {
 		})
 		)
 	}
-
+	// cambia el stado checkout a false y pay a true
 	async function handleOrder (e) {	
-		e.preventDefault()
+		e.preventDefault();
+		let items = cart.map(e=>{
+			return{
+				title: e.name,
+				unit_price: e.price , 
+				quantity: e.quantity,
+				currency_id:"ARS",
+			}
+		})
+		items=[...items, {title:"shipment",unit_price:totalShipping, quantity:1},{title:"tax",unit_price:(totalPrice + totalShipping) * 0.2, quantity:1}]
+		payMercadoPago(items)
 		let orderId=""		
 		try {
 			// find cart order
@@ -168,6 +180,17 @@ const ShoppingCart = () => {
 			})).data.id
 			console.log(orderId)
 			}
+			await axios.delete(`/order-items/PurchaseId/${orderId}`)
+	// set order items and decrement stock  
+	console.log("creo los nuevos") 
+	await Promise.all (cart.map(el=>axios.post("/order-items",{
+			stockId:el.stockId,
+			quantity: el.quantity,
+			purchaseId: orderId,
+			price: el.price,
+			confirmed: false
+		})))
+		console.log("cree los nuevos")
 		}catch(error) {
 			alert(error.request.response)
 		}
@@ -175,44 +198,6 @@ const ShoppingCart = () => {
 		setPay(true)
 	}
 	
-	
-	async function handlePay (e) {
-	try {
-	// change order status, order setted in handleOrder 
-	console.log("cambio estado a reservado")
-	const orderId=(await axios.get(`/purchases/cart?userId=${userId}`)).data
-	console.log(orderId[0].id)
-	await axios.put(`/purchases/user/${orderId[0].id}`,{
-			status: "Reserved",
-		})
-	// if line items, delete to update (if there are not, doesn´t throw error)
-	console.log("elimino los existentes si hay")
-	await axios.delete(`/order-items/PurchaseId/${orderId[0].id}`)
-	// set order items and decrement stock
-	console.log("creo los nuevos") 
-	await Promise.all (cart.map(el=>axios.post("/order-items/confirmed",{
-			stockId:el.stockId,
-			quantity: el.quantity,
-			purchaseId: orderId[0].id,
-			price: el.price,
-			confirmed: true
-		})))
-		console.log("cree los nuevos")
-
-	} catch (error) {
-		alert(error.request.response)
-	}
-
-	setCart([])
-	alert("successful purchase")
-	setPay(false)
-	}
-	
-	// pending
-	// succesfull payment=> post.status "Paid"
-	// error payment => delete order and items (decrement stock) 
-
-
 	return (
 		<div className='shopping-wrapper'>
 			<button onClick={handleLoggin}>{login.login? "Logout(SignedIn)": "Loggin (SignedOut)"  }</button>
@@ -284,7 +269,7 @@ const ShoppingCart = () => {
 								<h3>U$ {(totalPrice + totalShipping) * 1.2}</h3>
 							</div>
 						</div>
-						<button className='shp-chkout' onClick={handleCheckOut}>Checkout</button>
+						<button className='shp-chkout' onClick={handleCheckOut}>Checkout</button> 
 					</div>
 				</div>
 			</div>
@@ -309,12 +294,12 @@ const ShoppingCart = () => {
                     <label  htmlFor="shippingAddressNumber">House Number: </label>
                     <input type="text" onChange={handleOrderData} name="shippingAddressNumber" value={orderData.shippingAddressNumber} ></input>
                     <br/>
-                    <input type="submit" value="CONFIRM"></input>
+                    <input type="submit" value="CONFIRM" ></input>
                 </form>            
 			}
-			{pay && <button onClick={handlePay}>Pay</button>
+			{pay && <button id="page-content" className="page-content" ></button>
 			}
-			<button id="page-content" className="page-content" onClick={payMercadoPago}>pagar</button>
+		
 		</div>
 	);
 };

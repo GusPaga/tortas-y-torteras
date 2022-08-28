@@ -28,6 +28,8 @@ const ShoppingCart = () => {
 		tax: 0,
 	});
 	const [pay, setPay] = useState(false);
+	const [errorOrder, setErrorOrder] = useState(false);
+	const [deleteItem, setDeleteItem] = useState(false);
 
 	function handleIncrement(e) {
 		const cart2 = [...cart];
@@ -159,33 +161,43 @@ const ShoppingCart = () => {
 	async function handleOrder(e) {
 		e.preventDefault();
 		let orderId = '';
-		try {
-			// find cart order
-			orderId = (await axios.get(`/purchases/cart?userId=${userId}`)).data;
-			// if it already exists, update contact information (If it has previous orders it brings previous information )
-			if (orderId.length > 0) {
-				orderId = orderId[0].id;
-				await axios.put(`/purchases/user/${orderId}`, {
-					...orderData,
-					shipmentFee: totalShipping,
-					tax: (totalPrice + totalShipping) * 0.2,
-				});
-			} else {
-				// if it doesn't exist, I create the purchase order
-				const orderId = (
-					await axios.post(`/purchases/${userId}`, {
+		if (
+			!orderData.phoneNumber ||
+			!orderData.postalCode ||
+			!orderData.shippingAddressNumber ||
+			!orderData.shippingAddressStreet
+		) {
+			setErrorOrder(true);
+		} else {
+			setErrorOrder(false);
+			try {
+				// find cart order
+				orderId = (await axios.get(`/purchases/cart?userId=${userId}`)).data;
+				// if it already exists, update contact information (If it has previous orders it brings previous information )
+				if (orderId.length > 0) {
+					orderId = orderId[0].id;
+					await axios.put(`/purchases/user/${orderId}`, {
 						...orderData,
 						shipmentFee: totalShipping,
 						tax: (totalPrice + totalShipping) * 0.2,
-					})
-				).data.id;
-				console.log(orderId);
+					});
+				} else {
+					// if it doesn't exist, I create the purchase order
+					const orderId = (
+						await axios.post(`/purchases/${userId}`, {
+							...orderData,
+							shipmentFee: totalShipping,
+							tax: (totalPrice + totalShipping) * 0.2,
+						})
+					).data.id;
+					console.log(orderId);
+				}
+			} catch (error) {
+				alert(error.request.response);
 			}
-		} catch (error) {
-			alert(error.request.response);
+			setCheckout(false);
+			setPay(true);
 		}
-		setCheckout(false);
-		setPay(true);
 	}
 
 	async function handlePay(e) {
@@ -265,7 +277,8 @@ const ShoppingCart = () => {
 												<span
 													className='text-myRed ml-4 text-xl'
 													onClick={() =>
-														setCart(cart.filter(i => i.stockId !== e.stockId))
+														// setCart(cart.filter(i => i.stockId !== e.stockId))
+														setDeleteItem(e.stockId)
 													}
 												>
 													<i className='fa-solid fa-trash-can'></i>
@@ -371,6 +384,11 @@ const ShoppingCart = () => {
 								></input>
 							</div>
 						</div>
+						{errorOrder && (
+							<div className=' p-1 text-center '>
+								Please complete all the information fields
+							</div>
+						)}
 						<div className='relative flex justify-center'>
 							<button
 								className='btn btn-red hover:btn-red '
@@ -381,6 +399,32 @@ const ShoppingCart = () => {
 							</button>
 						</div>
 					</form>
+				</div>
+			)}
+			{deleteItem && (
+				<div className='absolute top-0 w-screen h-[800px] flex items-center justify-center'>
+					<div className='bg-blue-200 p-14 rounded-lg w-[600px] h-[260px] text-center'>
+						Are you sure you want to delete the item?
+						<div className='p-5'>
+							<button
+								onClick={() => {
+									setCart(cart.filter(i => i.stockId !== deleteItem));
+									setDeleteItem(false);
+								}}
+								className='m-3 btn btn-red hover:btn-red '
+								type='submit'
+							>
+								Confirm
+							</button>
+							<button
+								onClick={() => setDeleteItem(false)}
+								className='m-3 btn btn-red hover:btn-red '
+								type='submit'
+							>
+								Cancel
+							</button>
+						</div>
+					</div>
 				</div>
 			)}
 			{pay && <button onClick={handlePay}>Pay</button>}
